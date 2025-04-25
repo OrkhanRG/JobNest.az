@@ -15,7 +15,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset("assets/images/favicon.png") }}" />
 
     <!-- PAGE TITLE HERE -->
-    <title>Jobzilla Template | Home Page Style 1</title>
+    <title>@yield("title") | JobURL</title>
 
     <!-- MOBILE SPECIFIC -->
     <meta name="viewport" content="width=device-width, initial-scale=1">

@@ -1,4 +1,5 @@
 @extends("layouts.front")
+@section("title", "Əsas")
 
 @push("css")
 
