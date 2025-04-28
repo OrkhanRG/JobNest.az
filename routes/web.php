@@ -40,4 +40,19 @@ Route::name("front.")->group(function(){
     Route::get("/blogs", [BlogController::class, "index"])->name("blogs");
     Route::get("/blog/{slug}", [BlogController::class, "getBySlug"])->name("blog");
 
+    Route::prefix("management")->group(function(){
+        //Candidate Management
+        Route::prefix("candidate")->name("candidate.")->group(function(){
+            Route::get("/dashboard", [CandidateController::class, "dashboard"])->name("dashboard");
+            Route::get("/profile", [CandidateController::class, "profile"])->name("profile");
+            Route::get("/applied-jobs", [CandidateController::class, "appliedJobs"])->name("applied-jobs");
+            Route::get("/my-resume", [CandidateController::class, "myResume"])->name("my-resume");
+            Route::get("/saved-jobs", [CandidateController::class, "savedJobs"])->name("saved-jobs");
+            Route::get("/cv-manager", [CandidateController::class, "cvManager"])->name("cv-manager");
+            Route::get("/job-alerts", [CandidateController::class, "jobAlerts"])->name("job-alerts");
+            Route::get("/change-password", [CandidateController::class, "changePassword"])->name("change-password");
+            Route::get("/chat", [CandidateController::class, "chat"])->name("chat");
+        });
+    });
+
 });
