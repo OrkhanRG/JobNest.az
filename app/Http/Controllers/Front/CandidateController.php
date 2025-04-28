@@ -10,4 +10,8 @@ class CandidateController extends Controller
     public function index(){
         return view("front.candidate.list");
     }
+
+    public function getBySlug(){
+        return view("front.candidate.detail");
+    }
 }

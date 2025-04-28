@@ -10,4 +10,8 @@ class CompanyController extends Controller
     public function index(){
         return view("front.company.list");
     }
+
+    public function getBySlug(string $slug){
+        return view("front.company.detail");
+    }
 }

@@ -65,11 +65,11 @@
                                          <img src="{{ asset("assets/images/jobs-company/pic1.jpg") }}" alt="#">
                                      </div>
                                      <div class="twm-mid-content">
-                                         <a href="employer-detail.html" class="twm-job-title">
+                                         <a href="{{ route("front.company", "test") }}" class="twm-job-title">
                                              <h4>Herbal Ltd</h4>
                                          </a>
                                          <p class="twm-job-address">1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
-                                         <a href="employer-detail.html" class="twm-job-websites site-text-primary">Accountancy</a>
+                                         <a href="{{ route("front.company", "test") }}" class="twm-job-websites site-text-primary">Accountancy</a>
                                      </div>
                                      <div class="twm-right-content">
                                          <div class="twm-jobs-vacancies"><span>25</span>Vacancies</div>

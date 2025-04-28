@@ -8,7 +8,6 @@ use App\Http\Controllers\Front\ContactUsController;
 use App\Http\Controllers\Front\FaqController;
 use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\VacancyController;
-use Faker\Provider\ar_EG\Company;
 use Illuminate\Support\Facades\Route;
 
 

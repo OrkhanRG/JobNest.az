@@ -266,7 +266,7 @@
                                          <div class="twm-candidates-tag"><span>Featured</span></div>
                                      </div>
                                      <div class="twm-mid-content">
-                                         <a href="candidate-detail.html" class="twm-job-title">
+                                         <a href="{{ route("front.candidate", "test") }}" class="twm-job-title">
                                              <h4>Wanda Montgomery </h4>
                                          </a>
                                          <p>Charted Accountant</p>
@@ -277,7 +277,7 @@
                                                 <div class="twm-jobs-vacancies">$20<span>/ Day</span></div>
                                              </div>
                                              <div class="twm-right-btn">
-                                                 <a href="candidate-detail.html" class="twm-view-prifile site-text-primary">View Profile</a>
+                                                 <a href="{{ route("front.candidate", "test") }}" class="twm-view-prifile site-text-primary">View Profile</a>
                                              </div>
                                         </div>
                                      </div>
