@@ -4,8 +4,8 @@
             <form>
 
                 <div class="modal-header">
-                    <h2 class="modal-title" id="sign_up_popupLabel">Sign Up</h2>
-                    <p>Sign Up and get access to all the features of Jobzilla</p>
+                    <h2 class="modal-title" id="sign_up_popupLabel">Qeydiyyat</h2>
+                    <p>Qeydiyyatdan keçin və JobNest-in bütün xüsusiyyətlərinə giriş əldə edin</p>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
@@ -15,11 +15,11 @@
 
                         <!--Signup Candidate-->
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#sign-candidate" type="button"><i class="fas fa-user-tie"></i>Candidate</button>
+                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#sign-candidate" type="button"><i class="fas fa-user-tie"></i>Namizəd</button>
                         </li>
                         <!--Signup Employer-->
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#sign-Employer" type="button"><i class="fas fa-building"></i>Employer</button>
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#sign-company" type="button"><i class="fas fa-building"></i>Şirkət</button>
                         </li>
 
                         </ul>
@@ -28,9 +28,14 @@
                         <div class="tab-pane fade show active" id="sign-candidate">
                             <div class="row">
 
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <div class="form-group mb-3">
-                                        <input name="username" type="text" required="" class="form-control" placeholder="Usearname*">
+                                        <input name="name" type="text" required="" class="form-control" placeholder="Usearname*">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group mb-3">
+                                        <input name="surname" type="text" required="" class="form-control" placeholder="Usearname*">
                                     </div>
                                 </div>
 
@@ -69,8 +74,9 @@
 
                             </div>
                         </div>
+
                         <!--Signup Employer Content-->
-                        <div class="tab-pane fade" id="sign-Employer">
+                        <div class="tab-pane fade" id="sign-company">
                             <div class="row">
 
                                 <div class="col-lg-12">
