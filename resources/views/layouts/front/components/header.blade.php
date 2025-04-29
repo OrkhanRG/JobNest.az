@@ -7,7 +7,7 @@
 
                 <div class="logo-header">
                     <div class="logo-header-inner logo-header-one">
-                        <a href="index.html">
+                        <a href="{{ route("front.index") }}">
                         <img src="{{ asset("assets/images/logo-dark.png") }}" alt="">
                         </a>
                     </div>
@@ -67,18 +67,26 @@
                     <div class="extra-cell">
                         <div class="header-nav-btn-section">
                             @guest
-                            <div class="twm-nav-btn-left">
-                                <a class="twm-nav-sign-up" data-bs-toggle="modal" href="#sign_up_popup2" role="button">
-                                    <i class="feather-log-in"></i> Login
-                                </a>
-                            </div>
+                                <div class="twm-nav-btn-left">
+                                    <a class="twm-nav-sign-up" data-bs-toggle="modal" href="#sign_up_popup2" role="button">
+                                        <i class="feather-log-in"></i> Login
+                                    </a>
+                                </div>
                             @endguest
                             @auth
-                            <div class="twm-nav-btn-right">
-                                <a href="dash-post-job.html" class="twm-nav-post-a-job">
-                                    <i class="feather-briefcase"></i> Post a job
-                                </a>
-                            </div>
+                                @if(auth()->user()->hasRole("company"))
+                                    <div class="twm-nav-btn-right">
+                                        <a href="{{ route("front.company.dashboard") }}" class="twm-nav-post-a-job">
+                                            <i class="feather-briefcase"></i> Post a job
+                                        </a>
+                                    </div>
+                                @else
+                                    <div class="twm-nav-btn-right">
+                                        <a href="{{ route("front.candidate.dashboard") }}" class="twm-nav-post-a-job">
+                                            <i class="feather-briefcase"></i> Post a job
+                                        </a>
+                                    </div>
+                                @endif
                             @endauth
                         </div>
                     </div>
