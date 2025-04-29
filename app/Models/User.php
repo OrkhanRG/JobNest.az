@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -44,5 +45,40 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function roles(): BelongsToMany
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function hasRole(string|array $roles): bool
+    {
+        if (is_array($roles)) {
+            return $this->roles()->whereIn("name", $roles)->exists();
+        }
+        return $this->roles()->where("name", $roles)->exists();
+    }
+
+    public function isSuperAdmin(): bool
+    {
+        return $this->roles()->whereIn("name", config("roles.super_admins", []))->exists();
+    }
+
+    public function hasPermission(string $permission): bool
+    {
+        if ($this->isSuperAdmin()) {
+            return true;
+        }
+
+        return $this->roles()
+            ->whereHas("permissions", fn($query) => $query->where("name", $permission))
+            ->exists();
+    }
+
+    public function assignRole(string $roleName): void
+    {
+        $role = Role::query()->where("name", $roleName)->firstOrFail();
+        $this->roles()->syncWithoutDetaching([$role->id]);
     }
 }
