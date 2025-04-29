@@ -53,6 +53,17 @@ Route::name("front.")->group(function(){
             Route::get("/change-password", [CandidateController::class, "changePassword"])->name("change-password");
             Route::get("/chat", [CandidateController::class, "chat"])->name("chat");
         });
+
+        //Company Management
+        Route::prefix("company")->name("company.")->group(function(){
+            Route::get("dashboard", [CompanyController::class, "dashboard"])->name("dashboard");
+            Route::get("profile", [CompanyController::class, "profile"])->name("profile");
+            Route::get("resume", [CompanyController::class, "resume"])->name("resume");
+            Route::get("manage-jobs", [CompanyController::class, "manageJobs"])->name("manage-jobs");
+            Route::get("post-job", [CompanyController::class, "postJob"])->name("post-job");
+            Route::get("transaction", [CompanyController::class, "transaction"])->name("transaction");
+            Route::get("change-password", [CompanyController::class, "changePassword"])->name("change-password");
+        });
     });
 
 });

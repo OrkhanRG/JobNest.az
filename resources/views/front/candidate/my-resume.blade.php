@@ -11,7 +11,7 @@
         <div class="container">
             <div class="row">
 
-                @include("layouts.front.components.sections.management-sidebar")
+                @include("layouts.front.components.sections.sidebar-candidate-management")
 
                 <div class="col-xl-9 col-lg-8 col-md-12 m-b30">
                     <div class="twm-right-section-panel site-bg-gray">
