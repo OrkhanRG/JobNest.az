@@ -154,6 +154,23 @@
 <script  src={{ asset("assets/js/swiper-bundle.min.js") }}></script><!-- Swiper JS -->
 <script  src={{ asset("assets/js/custom.js") }}></script><!-- CUSTOM FUCTIONS  -->
 <script  src={{ asset("assets/js/switcher.js") }}></script><!-- SHORTCODE FUCTIONS  -->
+
+<script>
+    let registerRoute = "{{ route("register") }}";
+    $(function () {
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $(`meta[name="csrf-token"]`).attr("content")
+            }
+        })
+    })
+</script>
+
+<script  src="{{ asset("assets/custom/js/helper.js") }}"></script>
+<script  src="{{ asset("assets/custom/js/app.js") }}"></script>
+<script  src="{{ asset("assets/custom/js/login.js") }}"></script>
+<script  src="{{ asset("assets/custom/js/register.js") }}"></script>
+
 @stack("js")
 
 </body>

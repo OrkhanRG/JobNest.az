@@ -9,6 +9,7 @@
     <meta name="author" content="" />
     <meta name="robots" content="" />
     <meta name="description" content="" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <!-- FAVICONS ICON -->
     <link rel="icon" href="{{ asset("assets/images/favicon.ico") }}" type="image/x-icon" />

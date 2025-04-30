@@ -5,19 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
-class Candidate extends Model
+class Company extends Model
 {
     protected $fillable = [
         "user_id",
-        "slug",
+        "name",
         "phone",
         "website",
-        "position",
-        "job_category_id",
-        "current_salary",
-        "expected_salary",
-        "birth_date",
-        "description"
+        "city_id",
+        "address",
+        "location",
+        "description",
+        "logo",
+        "background_image"
     ];
 
     public function socialLinks(): MorphMany

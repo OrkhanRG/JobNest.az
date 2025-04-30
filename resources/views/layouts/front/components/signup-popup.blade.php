@@ -1,7 +1,7 @@
 <div class="modal fade twm-sign-up" id="sign_up_popup" aria-hidden="true" aria-labelledby="sign_up_popupLabel" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
-            <form>
+            <div>
 
                 <div class="modal-header">
                     <h2 class="modal-title" id="sign_up_popupLabel">Qeydiyyat</h2>
@@ -30,30 +30,33 @@
 
                                 <div class="col-lg-6">
                                     <div class="form-group mb-3">
-                                        <input name="name" type="text" required="" class="form-control" placeholder="Usearname*">
+                                        <input name="name" data-role="name" type="text" required="" class="form-control" placeholder="Ad*">
+                                        <div class="invalid-feedback">
+                                            Lütfen geçerli bir email girin.
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group mb-3">
-                                        <input name="surname" type="text" required="" class="form-control" placeholder="Usearname*">
+                                        <input name="surname" data-role="surname" type="text" required="" class="form-control" placeholder="Soyad*">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-12">
                                     <div class="form-group mb-3">
-                                        <input name="email" type="text" class="form-control" required="" placeholder="Password*">
+                                        <input name="email" data-role="email" type="email" class="form-control" required="" placeholder="Email*">
                                     </div>
                                 </div>
 
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <div class="form-group mb-3">
-                                        <input name="phone" type="text" class="form-control" required="" placeholder="Email*">
+                                        <input type="password" name="password" data-role="password" class="form-control" required="" placeholder="Şifrə*">
                                     </div>
                                 </div>
 
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <div class="form-group mb-3">
-                                        <input name="phone" type="text" class="form-control" required="" placeholder="Phone*">
+                                        <input type="password" name="password_confirmation" data-role="password_confirmation" class="form-control" required="" placeholder="Şifrə təkrar*">
                                     </div>
                                 </div>
 
@@ -61,15 +64,15 @@
                                     <div class="form-group mb-3">
                                         <div class=" form-check">
                                             <input type="checkbox" class="form-check-input" id="agree1">
-                                            <label class="form-check-label" for="agree1">I agree to the <a href="javascript:;">Terms and conditions</a></label>
-                                            <p>Already registered?
-                                                <button class="twm-backto-login" data-bs-target="#sign_up_popup2" data-bs-toggle="modal" data-bs-dismiss="modal">Log in here</button>
+                                            <label class="form-check-label" for="agree1"><a href="javascript:;">Qaydalar və şərtlərlə</a> razıyam</label>
+                                            <p>Mövcud hesabınız var?
+                                                <button class="twm-backto-login" data-bs-target="#sign_up_popup2" data-bs-toggle="modal" data-bs-dismiss="modal">Bura daxil olun</button>
                                             </p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <button type="submit" class="site-button">Sign Up</button>
+                                    <button type="submit" data-user-type="" data-role="register-candidate" class="site-button">Qeydiyyatdan keçin</button>
                                 </div>
 
                             </div>
@@ -79,43 +82,48 @@
                         <div class="tab-pane fade" id="sign-company">
                             <div class="row">
 
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <div class="form-group mb-3">
-                                        <input name="username" type="text" required="" class="form-control" placeholder="Usearname*">
+                                        <input name="name" data-role="name" type="text" required="" class="form-control" placeholder="Ad*">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group mb-3">
+                                        <input name="surname" data-role="surname" type="text" required="" class="form-control" placeholder="Soyad*">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-12">
                                     <div class="form-group mb-3">
-                                        <input name="email" type="text" class="form-control" required="" placeholder="Password*">
+                                        <input name="email" data-role="email" type="email" class="form-control" required="" placeholder="Email*">
                                     </div>
                                 </div>
 
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <div class="form-group mb-3">
-                                        <input name="phone" type="text" class="form-control" required="" placeholder="Email*">
+                                        <input name="password" data-role="password" type="text" class="form-control" required="" placeholder="Şifrə*">
                                     </div>
                                 </div>
 
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <div class="form-group mb-3">
-                                        <input name="phone" type="text" class="form-control" required="" placeholder="Phone*">
+                                        <input name="password_confirmation" data-role="password_confirmation" type="text" class="form-control" required="" placeholder="Şifrə təkrar*">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-12">
                                     <div class="form-group mb-3">
                                         <div class=" form-check">
-                                            <input type="checkbox" class="form-check-input" id="agree2">
-                                            <label class="form-check-label" for="agree2">I agree to the <a href="javascript:;">Terms and conditions</a></label>
-                                            <p>Already registered?
-                                                <button class="twm-backto-login" data-bs-target="#sign_up_popup2" data-bs-toggle="modal" data-bs-dismiss="modal">Log in here</button>
+                                            <input type="checkbox" class="form-check-input" id="agree1">
+                                            <label class="form-check-label" for="agree1"><a href="javascript:;">Qaydalar və şərtlərlə</a> razıyam</label>
+                                            <p>Mövcud hesabınız var?
+                                                <button class="twm-backto-login" data-bs-target="#sign_up_popup2" data-bs-toggle="modal" data-bs-dismiss="modal">Bura daxil olun</button>
                                             </p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <button type="submit" class="site-button">Sign Up</button>
+                                    <button type="submit" data-role="register-company" class="site-button">Qeydiyyatdan keçin</button>
                                 </div>
 
                             </div>
@@ -135,7 +143,7 @@
                     </ul>
                 </div>
 
-            </form>
+            </div>
         </div>
     </div>
 

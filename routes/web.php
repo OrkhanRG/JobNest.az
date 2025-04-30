@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Front\BlogController;
 use App\Http\Controllers\Front\AboutUsController;
 use App\Http\Controllers\Front\CandidateController;
@@ -65,5 +66,7 @@ Route::name("front.")->group(function(){
             Route::get("change-password", [CompanyController::class, "changePassword"])->name("change-password");
         });
     });
-
 });
+
+//Register
+Route::post("register", [RegisterController::class, "index"])->name("register");
