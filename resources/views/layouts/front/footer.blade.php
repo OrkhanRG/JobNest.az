@@ -134,6 +134,7 @@
 <script  src={{ asset("assets/js/jquery-3.6.0.min.js") }}></script><!-- JQUERY.MIN JS -->
 <script  src={{ asset("assets/js/popper.min.js") }}></script><!-- POPPER.MIN JS -->
 <script  src={{ asset("assets/js/bootstrap.min.js") }}></script><!-- BOOTSTRAP.MIN JS -->
+<script  src={{ asset("assets/js/sweetalert2.js") }}></script><!-- BOOTSTRAP.MIN JS -->
 <script  src={{ asset("assets/js/magnific-popup.min.js") }}></script><!-- MAGNIFIC-POPUP JS -->
 <script  src={{ asset("assets/js/waypoints.min.js") }}></script><!-- WAYPOINTS JS -->
 <script  src={{ asset("assets/js/counterup.min.js") }}></script><!-- COUNTERUP JS -->
@@ -154,6 +155,7 @@
 <script  src={{ asset("assets/js/swiper-bundle.min.js") }}></script><!-- Swiper JS -->
 <script  src={{ asset("assets/js/custom.js") }}></script><!-- CUSTOM FUCTIONS  -->
 <script  src={{ asset("assets/js/switcher.js") }}></script><!-- SHORTCODE FUCTIONS  -->
+@include('sweetalert::alert')
 
 <script>
     let registerRoute = "{{ route("register") }}";

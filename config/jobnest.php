@@ -1,5 +1,10 @@
 <?php
 
 return [
-  "default_user_type" =>  "candidate",
+    "default_user_type" =>  "candidate",
+
+    "user_types" => [
+        "candidate",
+        "company"
+    ]
 ];

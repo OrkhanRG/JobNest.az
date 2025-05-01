@@ -11,6 +11,7 @@ class Candidate extends Model
         "user_id",
         "slug",
         "phone",
+        "status",
         "website",
         "position",
         "job_category_id",

@@ -70,3 +70,4 @@ Route::name("front.")->group(function(){
 
 //Register
 Route::post("register", [RegisterController::class, "index"])->name("register");
+Route::get("user-verify/{token}", [RegisterController::class, "verify"])->name("user-verify");

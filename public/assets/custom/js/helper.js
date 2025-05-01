@@ -27,11 +27,13 @@ const validateByRequest = (parent, errors) => {
     }
 }
 
-const validateInput = (parent, fields) => {
+const validateInput = (parent, requiredFields, optionalFields = []) => {
     let isValid = true,
         data = {};
 
-    fields.forEach(field => {
+    const allFields = [...requiredFields, ...optionalFields];
+
+    allFields.forEach(field => {
         let input = parent.find(`[data-role="${field}"]`),
             value = input.val()?.trim();
 
@@ -39,7 +41,7 @@ const validateInput = (parent, fields) => {
         input.removeClass("is-invalid");
         input.siblings(".invalid-feedback").remove();
 
-        if (!value) {
+        if (requiredFields.includes(field) && !value) {
             isValid = false;
             input.addClass("is-invalid");
             input.after(validationComponent());

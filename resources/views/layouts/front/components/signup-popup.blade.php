@@ -30,33 +30,35 @@
 
                                 <div class="col-lg-6">
                                     <div class="form-group mb-3">
-                                        <input name="name" data-role="name" type="text" required="" class="form-control" placeholder="Ad*">
-                                        <div class="invalid-feedback">
-                                            Lütfen geçerli bir email girin.
-                                        </div>
+                                        <label for="name">Ad</label><small class="text-danger">*</small>
+                                        <input name="name" id="name" data-role="name" type="text" required="" class="form-control" placeholder="Ad*">
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group mb-3">
-                                        <input name="surname" data-role="surname" type="text" required="" class="form-control" placeholder="Soyad*">
+                                        <label for="surname">Soyad</label><small class="text-danger">*</small>
+                                        <input name="surname" id="surname" data-role="surname" type="text" required="" class="form-control" placeholder="Soyad*">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-12">
                                     <div class="form-group mb-3">
-                                        <input name="email" data-role="email" type="email" class="form-control" required="" placeholder="Email*">
+                                        <label for="email">Email</label><small class="text-danger">*</small>
+                                        <input name="email" id="email" data-role="email" type="email" class="form-control" required="" placeholder="Email*">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6">
                                     <div class="form-group mb-3">
-                                        <input type="password" name="password" data-role="password" class="form-control" required="" placeholder="Şifrə*">
+                                        <label for="name">Şifrə</label><small class="text-danger">*</small>
+                                        <input type="password" id="password" name="password" data-role="password" class="form-control" required="" placeholder="Şifrə*">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6">
                                     <div class="form-group mb-3">
-                                        <input type="password" name="password_confirmation" data-role="password_confirmation" class="form-control" required="" placeholder="Şifrə təkrar*">
+                                        <label for="name">Şifrə Təkrar</label><small class="text-danger">*</small>
+                                        <input type="password" id="password_confirmation" name="password_confirmation" data-role="password_confirmation" class="form-control" required="" placeholder="Şifrə təkrar*">
                                     </div>
                                 </div>
 
@@ -72,7 +74,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <button type="submit" data-user-type="" data-role="register-candidate" class="site-button">Qeydiyyatdan keçin</button>
+                                    <button type="submit" data-user-type="candidate" data-role="register-candidate" class="site-button">Qeydiyyatdan keçin</button>
                                 </div>
 
                             </div>
@@ -82,32 +84,38 @@
                         <div class="tab-pane fade" id="sign-company">
                             <div class="row">
 
-                                <div class="col-lg-6">
+                                <div class="col-lg-12">
                                     <div class="form-group mb-3">
-                                        <input name="name" data-role="name" type="text" required="" class="form-control" placeholder="Ad*">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="form-group mb-3">
-                                        <input name="surname" data-role="surname" type="text" required="" class="form-control" placeholder="Soyad*">
+                                        <label for="name">Şirkət Adı</label><small class="text-danger">*</small>
+                                        <input name="name" id="name" data-role="name" type="text" required="" class="form-control" placeholder="Şirkət Adı">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-12">
                                     <div class="form-group mb-3">
-                                        <input name="email" data-role="email" type="email" class="form-control" required="" placeholder="Email*">
+                                        <label for="email">Email</label><small class="text-danger">*</small>
+                                        <input name="email" id="email" data-role="email" type="email" class="form-control" required="" placeholder="XXXX@XXX.XX">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="form-group mb-3">
+                                        <label for="phone">Telefon</label>
+                                        <input name="phone" id="phone" data-role="phone" type="text" class="form-control" placeholder="+994-(XX)-XXX-XX-XX">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6">
                                     <div class="form-group mb-3">
-                                        <input name="password" data-role="password" type="text" class="form-control" required="" placeholder="Şifrə*">
+                                        <label for="password">Şifrə</label><small class="text-danger">*</small>
+                                        <input name="password" id="password" data-role="password" type="password" class="form-control" required="" placeholder="********">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-6">
                                     <div class="form-group mb-3">
-                                        <input name="password_confirmation" data-role="password_confirmation" type="text" class="form-control" required="" placeholder="Şifrə təkrar*">
+                                        <label for="password_confirmation">Şifrə Təkrar</label><small class="text-danger">*</small>
+                                        <input name="password_confirmation" id="password_confirmation" data-role="password_confirmation" type="password" class="form-control" required="" placeholder="********">
                                     </div>
                                 </div>
 
@@ -123,7 +131,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-12">
-                                    <button type="submit" data-role="register-company" class="site-button">Qeydiyyatdan keçin</button>
+                                    <button type="submit" data-role="register-company" data-user-type="company" class="site-button">Qeydiyyatdan keçin</button>
                                 </div>
 
                             </div>
