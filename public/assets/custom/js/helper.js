@@ -11,6 +11,11 @@ const removeErrors = (parent) => {
     });
 }
 
+const emptyInput = (parent) => {
+    parent.find("input, textarea, select").val("").removeClass("is-invalid");
+    parent.find(".invalid-feedback").remove();
+}
+
 const validateByRequest = (parent, errors) => {
     removeErrors(parent);
 
@@ -77,4 +82,16 @@ const validateInput = (parent, requiredFields, optionalFields = []) => {
     if (!isValid) return;
 
     return data;
+}
+
+const notify = (title, text = null, icon = "success", btn_confirm_text = "Ok", show_close_btn = false, show_cancel_btn = false, focus_confirm_btn = false) => {
+    return Swal.fire({
+        title: title,
+        text: text ?? "",
+        icon: icon,
+        confirmButtonText: btn_confirm_text ?? "OK",
+        showCloseButton: show_close_btn,
+        showCancelButton: show_cancel_btn,
+        focusConfirm: focus_confirm_btn,
+    });
 }

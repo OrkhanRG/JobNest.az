@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('candidates', function (Blueprint $table) {
-            $table->enum("status", [0, 1, 2])->default(2)->comment("0=Inactive, 1=Active, 2=Pending")->after("slug");
+        Schema::table('users', function (Blueprint $table) {
+            $table->enum("status", [0, 1, 2])->default(2)->comment("0=Inactive, 1=Active, 2=Pending")->after("surname");
         });
     }
 
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('candidates', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             //
         });
     }

@@ -158,7 +158,9 @@
 @include('sweetalert::alert')
 
 <script>
-    let registerRoute = "{{ route("register") }}";
+    let registerRoute = "{{ route("register") }}",
+        loginRoute = "{{ route("login") }}";
+
     $(function () {
         $.ajaxSetup({
             headers: {
@@ -167,11 +169,11 @@
         })
     })
 </script>
-
-<script  src="{{ asset("assets/custom/js/helper.js") }}"></script>
-<script  src="{{ asset("assets/custom/js/app.js") }}"></script>
-<script  src="{{ asset("assets/custom/js/login.js") }}"></script>
-<script  src="{{ asset("assets/custom/js/register.js") }}"></script>
+        <script  src="{{ asset("assets/custom/library/btn-loader.js") }}"></script>
+        <script  src="{{ asset("assets/custom/js/helper.js") }}"></script>
+        <script  src="{{ asset("assets/custom/js/app.js") }}"></script>
+        <script  src="{{ asset("assets/custom/js/login.js") }}"></script>
+        <script  src="{{ asset("assets/custom/js/register.js") }}"></script>
 
 @stack("js")
 

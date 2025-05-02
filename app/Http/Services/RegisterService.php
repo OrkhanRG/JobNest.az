@@ -3,6 +3,7 @@
 namespace App\Http\Services;
 
 use App\Constants\Status;
+use App\Enums\EmailVerificationStatus;
 use App\Events\UserRegistered;
 use App\Models\Candidate;
 use App\Models\Company;
@@ -10,6 +11,7 @@ use App\Models\User;
 use App\Models\UserVerify;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class RegisterService
 {
@@ -51,25 +53,54 @@ class RegisterService
         }
     }
 
-    public function verifyEmail(string $token): bool
+    public function verifyEmail(string $token): EmailVerificationStatus
     {
-        $check_expire =  UserVerify::query()->where("token", $token)->first();
+        $verification = UserVerify::query()->where('token', $token)->first();
 
-        if (!$check_expire) {
-            return false;
+        if (!$verification) {
+            return EmailVerificationStatus::InvalidToken;
         }
 
-        if ($check_expire->expired_at < now()) {
-            $check_expire->delete();
-            return false;
+        $user = User::query()->find($verification->user_id);
+
+        if (!$user) {
+            return EmailVerificationStatus::UserNotFound;
         }
 
-        $user = User::query()->where("id",  $check_expire->user_id)->first();
-
-        if ($user && !$user->hasVerifiedEmail()){
-            $user->markEmailAsVerified();
-            Auth::login($user);
+        if ($user->hasVerifiedEmail()) {
+            return EmailVerificationStatus::AlreadyVerified;
         }
+
+        if ($verification->expired_at < now()) {
+            Session::put("expired_token", $verification->token);
+            return EmailVerificationStatus::TokenExpired;
+        }
+
+        $user->markEmailAsVerified();
+        $user->update([
+            'status' => Status::ACTIVE,
+        ]);
+
+        Session::forget("expired_token");
+
+        $verification->delete();
+        Auth::login($user);
+
+        return EmailVerificationStatus::Success;
+    }
+
+    public function resendVerify(): bool
+    {
+        $token = Session::get('expired_token');
+        if (!$token) return false;
+
+        $verification = UserVerify::query()->where('token', $token)->first();
+        $user = $verification?->user;
+
+        if (!$user) return false;
+
+        event(new UserRegistered($user));
+        $verification->delete();
 
         return true;
     }
@@ -92,5 +123,10 @@ class RegisterService
             ->exists();
 
         return !$check;
+    }
+
+    public function logout()
+    {
+        Auth::logout();
     }
 }

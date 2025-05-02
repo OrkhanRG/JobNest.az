@@ -31,6 +31,7 @@
                 <li class="{{ Route::is("front.candidate.job-alerts") ? "active" : "" }}"><a href="{{ route("front.candidate.job-alerts") }}"><i class="fa fa-bell"></i> Job Alerts</a></li>
                 <li class="{{ Route::is("front.candidate.change-password") ? "active" : "" }}"><a href="{{ route("front.candidate.change-password") }}"><i class="fa fa-fingerprint"></i> Change Passeord</a></li>
                 <li class="{{ Route::is("front.candidate.chat") ? "active" : "" }}"><a href="{{ route("front.candidate.chat") }}"><i class="fa fa-comments"></i>Chat</a></li>
+                <li><a data-role="logout" href="{{ route("logout") }}"><i class="fa fa-share-square"></i> Çıxış</a></li>
             </ul>
         </div>
 

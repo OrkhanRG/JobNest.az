@@ -30,7 +30,7 @@
                 <li class="{{ Route::is("front.company.post-job") ? "active" : "" }}"><a href="{{ route("front.company.post-job") }}"><i class="fa fa-book-reader"></i> Post A Jobs</a></li>
                 <li class="{{ Route::is("front.company.transaction") ? "active" : "" }}"><a href="{{ route("front.company.transaction") }}"><i class="fa fa-credit-card"></i>Transaction</a></li>
                 <li class="{{ Route::is("front.company.change-password") ? "active" : "" }}"><a href="{{ route("front.company.change-password") }}"><i class="fa fa-fingerprint"></i> Change Passeord</a></li>
-                <li><a href="javascript:void(0)"><i class="fa fa-share-square"></i> Logout</a></li>
+                <li><a href="{{ route("logout") }}"><i class="fa fa-share-square"></i> Çıxış</a></li>
             </ul>
         </div>
 

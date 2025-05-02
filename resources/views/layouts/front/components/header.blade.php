@@ -77,13 +77,13 @@
                                 @if(auth()->user()->hasRole("company"))
                                     <div class="twm-nav-btn-right">
                                         <a href="{{ route("front.company.dashboard") }}" class="twm-nav-post-a-job">
-                                            <i class="feather-briefcase"></i> Post a job
+                                            <i class="feather-briefcase"></i> Yeni vakansiya
                                         </a>
                                     </div>
                                 @else
                                     <div class="twm-nav-btn-right">
                                         <a href="{{ route("front.candidate.dashboard") }}" class="twm-nav-post-a-job">
-                                            <i class="feather-briefcase"></i> Post a job
+                                            <i class="feather-briefcase"></i> Dashboard
                                         </a>
                                     </div>
                                 @endif

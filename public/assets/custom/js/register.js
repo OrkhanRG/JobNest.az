@@ -1,5 +1,7 @@
 $(function () {
 
+    const modal_id = "#sign_up_popup"
+
     $(document).on("click", `[data-role="register-candidate"]`, function (e) {
         let parent = $(this).closest(".row");
         let requiredFields = ["name", "surname", "email", "password", "password_confirmation"];
@@ -11,12 +13,20 @@ $(function () {
             url: registerRoute,
             data,
             success: function (d) {
-                Swal.fire({
-                    title: d.code === 200 ? "Uğurlu!" : "Xəta!",
-                    text: d.message,
-                    icon: d.code === 200 ? "success" : "error",
-                    confirmButtonText: 'Ok'
-                })
+
+                if (d.code === 200){
+
+                    notify("Uğurlu!", d.message, "success").then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    })
+                    emptyInput(parent)
+                    $(`${modal_id}`).modal('toggle');
+                } else {
+                    notify("Xəta!", d.message, "error")
+                }
+
             },
             error: function (err) {
                 err = err.responseJSON;
@@ -52,18 +62,20 @@ $(function () {
             url: registerRoute,
             data,
             success: function (d) {
-                Swal.fire({
-                    title: d.code === 200 ? "Uğurlu!" : "Xəta!",
-                    text: d.message,
-                    icon: d.code === 200 ? "success" : "error",
-                    confirmButtonText: 'Ok'
-                })
+                if (d.code === 200){
+                    notify("Uğurlu!", d.message, "success");
+                    emptyInput(parent)
+                    $(`${modal_id}`).modal('toggle');
+                } else {
+                    notify("Xəta!", d.message, "error");
+                }
             },
             error: function (err) {
                 err = err.responseJSON;
                 if (err.status === 422) {
                     let errors = err.errors;
                     validateByRequest(parent, errors);
+                    stopBtnLoading(this, "error");
                 }
 
                 if (err?.code === 500) {
@@ -76,7 +88,6 @@ $(function () {
                 }
             },
             complete: function () {
-                //
             }
         });
     });

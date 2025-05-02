@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Front\BlogController;
 use App\Http\Controllers\Front\AboutUsController;
@@ -43,7 +44,7 @@ Route::name("front.")->group(function(){
 
     Route::prefix("management")->group(function(){
         //Candidate Management
-        Route::prefix("candidate")->name("candidate.")->group(function(){
+        Route::prefix("candidate")->name("candidate.")->middleware("role:candidate")->group(function(){
             Route::get("/dashboard", [CandidateController::class, "dashboard"])->name("dashboard");
             Route::get("/profile", [CandidateController::class, "profile"])->name("profile");
             Route::get("/applied-jobs", [CandidateController::class, "appliedJobs"])->name("applied-jobs");
@@ -56,7 +57,7 @@ Route::name("front.")->group(function(){
         });
 
         //Company Management
-        Route::prefix("company")->name("company.")->group(function(){
+        Route::prefix("company")->name("company.")->middleware("role:company")->group(function(){
             Route::get("dashboard", [CompanyController::class, "dashboard"])->name("dashboard");
             Route::get("profile", [CompanyController::class, "profile"])->name("profile");
             Route::get("resume", [CompanyController::class, "resume"])->name("resume");
@@ -68,6 +69,11 @@ Route::name("front.")->group(function(){
     });
 });
 
+//Login
+Route::post("login", [LoginController::class, "index"])->name("login");
+
 //Register
 Route::post("register", [RegisterController::class, "index"])->name("register");
+Route::get("logout", [RegisterController::class, "logout"])->name("logout");
 Route::get("user-verify/{token}", [RegisterController::class, "verify"])->name("user-verify");
+Route::get("resend/user-verify", [RegisterController::class, "resendVerify"])->name("resend.user-verify");

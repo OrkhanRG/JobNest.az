@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\EmailVerificationStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Services\RegisterService;
+use App\Models\UserVerify;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class RegisterController extends Controller
 {
@@ -36,26 +41,57 @@ class RegisterController extends Controller
         }
     }
 
-    public function verify(string $token)
+    public function verify(string $token): RedirectResponse
     {
         try {
-            $is_verify = $this->registerService->verifyEmail($token);
+            $status = $this->registerService->verifyEmail($token);
 
+            match ($status) {
+                EmailVerificationStatus::Success =>
+                alert()->success(__('text.user_verify_success_text')),
 
-            alert()->html(__("text.user_verify_token_expire_text"),
-                            "Yeni doğrulama email'i üçün <b> <a href='//github.com'>bura</a></b> keçid edin",
-                            'info')->persistent();
-            return redirect()->route("front.index");
-            if (!$is_verify) {
-//                return json_response(__("text.user_verify_token_expire_text"), 403);
-            }
+                EmailVerificationStatus::AlreadyVerified =>
+                alert()->info(__('text.user_verify_already_verified_text')),
 
-//            return json_response(__("text.user_verify_success_text"), 200);
+                EmailVerificationStatus::TokenExpired =>
+                alert()->html(
+                    __('text.user_verify_token_expire_text'),
+                    __("text.user_resend_verify_token_text", ["route" => route('resend.user-verify')]),
+                    'info'
+                )->persistent(),
+
+                EmailVerificationStatus::InvalidToken,
+                EmailVerificationStatus::UserNotFound =>
+                alert()->error(__('text.user_verify_invalid_token_text')),
+            };
+
+            return redirect()->route('front.index');
+
         } catch (\Throwable $th) {
-            logger()->error('User Email Verify Error', ['error' => $th->getMessage()]);
-
-            $message = config('app.debug') ? $th->getMessage() : __("text.unexpected_error_text");
-            return json_response($message, 500);
+            logger()->error('Email Verify Error', ['error' => $th->getMessage()]);
+            alert(config('app.debug') ? $th->getMessage() : __('text.unexpected_error_text'));
+            return redirect()->route("front.index");
         }
+    }
+
+    public function resendVerify(): RedirectResponse
+    {
+        $status = $this->registerService->resendVerify();
+
+        if (!$status) {
+            alert()->error(__('text.user_resend_verify_failed_text'));
+        } else {
+            alert()->success(__('text.user_resend_verify_success_text'));
+        }
+
+        return redirect()->intended(route("front.index"));
+    }
+
+    public function logout(): RedirectResponse
+    {
+        $this->registerService->logout();
+
+        alert()->success(__('text.user_logout_success_text'));
+        return redirect()->route("front.index");
     }
 }
