@@ -148,8 +148,8 @@
                 <div class="modal-footer">
                     <span class="modal-f-title">Bir kliklə Daxil Ol & Qeydiyyatdan Keç</span>
                     <ul class="twm-modal-social">
-                        <li><a href="javascript.html" class="google-clr"><i class="fab fa-google"></i></a></li>
-                        <li><a href="javascript.html" class="github-clr"><i class="fab fa-github"></i></a></li>
+                        <li><a href="{{ route("oauth.redirect", "google") }}" class="google-clr"><i class="fab fa-google"></i></a></li>
+                        <li><a href="{{ route("oauth.redirect", "github") }}" class="github-clr"><i class="fab fa-github"></i></a></li>
                     </ul>
                 </div>
 

@@ -71,9 +71,11 @@ Route::name("front.")->group(function(){
 
 //Login
 Route::post("login", [LoginController::class, "index"])->name("login");
-
 //Register
 Route::post("register", [RegisterController::class, "index"])->name("register");
 Route::get("logout", [RegisterController::class, "logout"])->name("logout");
 Route::get("user-verify/{token}", [RegisterController::class, "verify"])->name("user-verify");
 Route::get("resend/user-verify", [RegisterController::class, "resendVerify"])->name("resend.user-verify");
+//OAuth2
+Route::get("auth/{driver}/redirect",[LoginController::class, "redirect"])->name("oauth.redirect");
+Route::get("auth/{driver}/callback",[LoginController::class, "callback"])->name("oauth.callback");
