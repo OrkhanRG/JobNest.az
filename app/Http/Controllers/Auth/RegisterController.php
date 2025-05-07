@@ -9,6 +9,7 @@ use App\Http\Services\RegisterService;
 use App\Models\UserVerify;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -56,7 +57,7 @@ class RegisterController extends Controller
                 EmailVerificationStatus::TokenExpired =>
                 alert()->html(
                     __('text.user_verify_token_expire_text'),
-                    __("text.user_resend_verify_token_text", ["route" => route('resend.user-verify')]),
+                    __("text.user_resend_verify_token_text", ["route" => route('resend.user-verify', ["token" => $token])]),
                     'info'
                 )->persistent(),
 
@@ -74,15 +75,29 @@ class RegisterController extends Controller
         }
     }
 
-    public function resendVerify(): RedirectResponse
+    public function resendVerify(Request $request): RedirectResponse
     {
-        $status = $this->registerService->resendVerify();
+        $params = $request->only("email", "token");
 
-        if (!$status) {
-            alert()->error(__('text.user_resend_verify_failed_text'));
+        if (array_key_exists("email", $params) && $params["email"]) {
+            $status = $this->registerService->resendVerifyByEmail($params["email"]);
+
+            match ($status) {
+                EmailVerificationStatus::Success => alert()->success(__('text.user_resend_verify_success_text')),
+                EmailVerificationStatus::AlreadyVerified =>  alert()->info(__('text.user_verify_already_verified_text')),
+                EmailVerificationStatus::UserNotFound =>  alert()->error(__('text.user_not_found_text')),
+            };
         } else {
-            alert()->success(__('text.user_resend_verify_success_text'));
+            $status = $this->registerService->resendVerify($params["token"]);
+
+            if (!$status) {
+                alert()->error(__('text.user_resend_verify_failed_text'));
+            } else {
+                alert()->success(__('text.user_resend_verify_success_text'));
+            }
         }
+
+
 
         return redirect()->intended(route("front.index"));
     }

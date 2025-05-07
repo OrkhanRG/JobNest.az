@@ -10,8 +10,8 @@ use App\Models\Company;
 use App\Models\User;
 use App\Models\UserVerify;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Session;
 
 class RegisterService
 {
@@ -72,7 +72,7 @@ class RegisterService
         }
 
         if ($verification->expired_at < now()) {
-            Session::put("expired_token", $verification->token);
+            Cache::put("expired_token", $verification->token, now()->addHour());
             return EmailVerificationStatus::TokenExpired;
         }
 
@@ -81,7 +81,7 @@ class RegisterService
             'status' => Status::ACTIVE,
         ]);
 
-        Session::forget("expired_token");
+        Cache::forget("expired_token");
 
         $verification->delete();
         Auth::login($user);
@@ -89,9 +89,8 @@ class RegisterService
         return EmailVerificationStatus::Success;
     }
 
-    public function resendVerify(): bool
+    public function resendVerify(string $token): bool
     {
-        $token = Session::get('expired_token');
         if (!$token) return false;
 
         $verification = UserVerify::query()->where('token', $token)->first();
@@ -103,6 +102,24 @@ class RegisterService
         $verification->delete();
 
         return true;
+    }
+
+    public function resendVerifyByEmail(string $email): EmailVerificationStatus
+    {
+        $user = User::query()->where('email', $email)->first();
+
+        if (!$user) {
+            return EmailVerificationStatus::UserNotFound;
+        }
+
+        if ($user->hasVerifiedEmail()) {
+            return EmailVerificationStatus::AlreadyVerified;
+        }
+
+        UserVerify::query()->where("user_id", $user->id)->delete();
+        event(new UserRegistered($user));
+
+        return EmailVerificationStatus::Success;
     }
 
     public function sendEmail(User $user): void

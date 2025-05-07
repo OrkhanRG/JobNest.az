@@ -36,6 +36,7 @@
     <link rel="stylesheet" type="text/css" href={{ asset("assets/css/flaticon.css") }}> <!-- Flaticon -->
     <link rel="stylesheet" type="text/css" href={{ asset("assets/css/swiper-bundle.min.css") }}><!-- Swiper Slider -->
     <link rel="stylesheet" type="text/css" href={{ asset("assets/css/style.css") }}><!-- MAIN STYLE SHEET -->
+    <link rel="stylesheet" type="text/css" href={{ asset("assets/css/toastr.min.css") }}><!-- DASHBOARD select bootstrap  STYLE SHEET  -->
     @stack("css")
 
 </head>
@@ -49,5 +50,5 @@
 	<div class="page-wraper">
 
         <!-- HEADER START -->
-        @include("layouts.front.components.header")
+        @include("layouts.front.components.navbar")
         <!-- HEADER END -->

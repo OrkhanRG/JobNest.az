@@ -14,7 +14,7 @@ if (!function_exists("json_response")) {
             $response["data"] = $data;
         }
 
-        return response()->json($response, $code);
+        return response()->json($response);
     }
 }
 

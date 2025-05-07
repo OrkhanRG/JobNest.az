@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
 
-            <form>
+            <div>
                 <div class="modal-header">
                     <h2 class="modal-title" id="sign_up_popupLabel2">Daxil Ol</h2>
                     <p>Daxil olun və JobNest-in bütün xüsusiyyətlərinə giriş əldə edin</p>
@@ -52,7 +52,7 @@
                         <li><a href="javascript.html" class="github-clr"><i class="fab fa-github"></i></a></li>
                     </ul>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>

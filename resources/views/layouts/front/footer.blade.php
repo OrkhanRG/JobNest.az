@@ -128,8 +128,6 @@
 
  	</div>
 
-
-
 <!-- JAVASCRIPT  FILES ========================================= -->
 <script  src={{ asset("assets/js/jquery-3.6.0.min.js") }}></script><!-- JQUERY.MIN JS -->
 <script  src={{ asset("assets/js/popper.min.js") }}></script><!-- POPPER.MIN JS -->
@@ -155,6 +153,7 @@
 <script  src={{ asset("assets/js/swiper-bundle.min.js") }}></script><!-- Swiper JS -->
 <script  src={{ asset("assets/js/custom.js") }}></script><!-- CUSTOM FUCTIONS  -->
 <script  src={{ asset("assets/js/switcher.js") }}></script><!-- SHORTCODE FUCTIONS  -->
+<script  src={{ asset("assets/js/toastr.min.js") }}></script><!-- SHORTCODE FUCTIONS  -->
 @include('sweetalert::alert')
 
 <script>
@@ -167,7 +166,37 @@
                 "X-CSRF-TOKEN": $(`meta[name="csrf-token"]`).attr("content")
             }
         })
+
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": true,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": true,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
+        @if(session("success"))
+            toastr.success("asd")
+        @elseif(session("warning"))
+            toastr.warning("{{ session('warning') }}")
+        @elseif(session("info"))
+        toastr.info("{{ session('info') }}")
+        @elseif(session("error"))
+            toastr.error("{{ session('error') }}")
+        @endif
     })
+
+
 </script>
         <script  src="{{ asset("assets/custom/library/btn-loader.js") }}"></script>
         <script  src="{{ asset("assets/custom/js/helper.js") }}"></script>

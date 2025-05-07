@@ -1,11 +1,16 @@
 $(function () {
 
     const modal_id = "#sign_up_popup2";
+    let last_entered_email = null;
 
     $(document).on("click", `[data-role="btn-login"]`, function (e) {
         let parent = $(this).closest(".row"),
             requiredFields = ["email", "password"],
             data = validateInput(parent, requiredFields);
+
+        data["remember_me"] = $(`[data-role="remember_me"]`).prop("checked") ? 1 : 0;
+
+        last_entered_email = data["email"];
 
         $.post({
             url: loginRoute,
@@ -21,8 +26,28 @@ $(function () {
                     })
                     emptyInput(parent)
                     $(`${modal_id}`).modal('toggle');
+                } else if (d.code === 403){
+                    Swal.fire({
+                        title: d.message,
+                        footer: "Yeni doğrulama email'i üçün email'inizi yazaraq <b style='color:red'>Yenidən göndər</b> düyməsinə basın.",
+                        input: "text",
+                        inputAttributes: {
+                            autocapitalize: "off"
+                        },
+                        inputValue: last_entered_email ?? "",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Yenidən göndər",
+                        didOpen: () => {
+                            // Input'a odaklanıyoruz
+                            const input = Swal.getInput();
+                            if (input) {
+                                input.focus();  // Input'a focus veriyoruz
+                            }
+                        },
+                    });
                 } else {
-                    notify("Xəta!", d.message, "error")
+                    notify("Diqqət!", d.message, "warning")
                 }
 
             },
