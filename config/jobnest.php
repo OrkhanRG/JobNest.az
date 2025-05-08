@@ -6,5 +6,7 @@ return [
     "user_types" => [
         "candidate",
         "company"
-    ]
+    ],
+
+    "default_user_name" =>  "User",
 ];

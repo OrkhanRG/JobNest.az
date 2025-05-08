@@ -72,7 +72,6 @@ class RegisterService
         }
 
         if ($verification->expired_at < now()) {
-            Cache::put("expired_token", $verification->token, now()->addHour());
             return EmailVerificationStatus::TokenExpired;
         }
 
@@ -80,8 +79,6 @@ class RegisterService
         $user->update([
             'status' => Status::ACTIVE,
         ]);
-
-        Cache::forget("expired_token");
 
         $verification->delete();
         Auth::login($user);

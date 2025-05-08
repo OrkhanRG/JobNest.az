@@ -69,12 +69,18 @@
                             @guest
                                 <div class="twm-nav-btn-left">
                                     <a class="twm-nav-sign-up" data-bs-toggle="modal" href="#sign_up_popup2" role="button">
-                                        <i class="feather-log-in"></i> Login
+                                        <i class="feather-log-in"></i> Daxil Ol
                                     </a>
                                 </div>
                             @endguest
                             @auth
-                                @if(auth()->user()->hasRole("company"))
+                                @if(auth()->user()->hasRole(["admin", "developer", "moderator"]))
+                                    <div class="twm-nav-btn-right">
+                                        <a href="#" class="twm-nav-post-a-job">
+                                            <i class="feather-settings"></i> Panel
+                                        </a>
+                                    </div>
+                                @elseif(auth()->user()->hasRole("company"))
                                     <div class="twm-nav-btn-right">
                                         <a href="{{ route("front.company.dashboard") }}" class="twm-nav-post-a-job">
                                             <i class="feather-briefcase"></i> Yeni vakansiya

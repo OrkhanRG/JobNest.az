@@ -15,9 +15,9 @@
         </div>
         <div class="twm-mid-content text-center">
             <a href="{{ route("front.candidate", "orxan-ismayilov") }}" class="twm-job-title">
-                <h4>Randall Henderson </h4>
+                <h4>{{ auth()->user()->name }} {{ auth()->user()->surname ?? "" }} </h4>
             </a>
-            <p>IT Contractor</p>
+            <p>Back-End Developer</p>
         </div>
 
         <div class="twm-nav-list-1">
