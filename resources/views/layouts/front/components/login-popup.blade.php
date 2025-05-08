@@ -30,7 +30,7 @@
                                 <div class="form-group mb-3">
                                     <div class=" form-check">
                                         <input type="checkbox" class="form-check-input" data-role="remember_me" id="remember_me" name="remember_me">
-                                        <label class="form-check-label rem-forgot" for="remember_me">Məni xatırla <a href="javascript:void(0);">Şifrəmi unutdum</a></label>
+                                        <label class="form-check-label rem-forgot" data-bs-target="#forgot_password_popup" data-bs-toggle="modal" data-bs-dismiss="modal" for="remember_me">Məni xatırla <a href="javascript:void(0);">Şifrəmi unutdum</a></label>
 
                                     </div>
                                 </div>

@@ -5,16 +5,16 @@ namespace App\Http\Controllers\Auth;
 use App\Enums\UserLoginStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Http\Requests\ForgotPasswordRequest;
 use App\Http\Services\LoginService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Log;
 use Laravel\Socialite\Facades\Socialite;
 
 class LoginController extends Controller
 {
-    public function __construct(public LoginService $loginService)
-    {
-    }
+    public function __construct(public LoginService $loginService){}
 
     public function index(LoginRequest $request): JsonResponse|RedirectResponse
     {
@@ -53,7 +53,7 @@ class LoginController extends Controller
                 alert()->error(__('text.unexpected_error_text'));
             }
         } catch (\Throwable $e) {
-            \Log::error($e->getMessage());
+            Log::error($e->getMessage());
             alert()->error(__('text.unexpected_error_text'));
         }
 

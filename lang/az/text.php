@@ -15,5 +15,6 @@ return [
     "user_logout_success_text" => "Hesabdan uğurla çıxış edildi!",
     "user_login_success_text" => "Təbriklər! Hesaba daxil oldunuz.",
     "user_login_error_text" => "Daxil etdiyin email və ya şifrə yanlışdır!",
-    "user_not_found_text" => "İstifadəçi tapılmadı!"
+    "user_not_found_text" => "İstifadəçi tapılmadı!",
+    "success_send_password_reset_email_text" => "Şifrə sıfırlama email'i göndərildi! Spam qutusunu yoxlamağı unutmayın.",
 ];

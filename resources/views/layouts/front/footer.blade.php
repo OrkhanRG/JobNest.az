@@ -158,6 +158,7 @@
 
 <script>
     let registerRoute = "{{ route("register") }}",
+        forgotPasswordRoute = "{{ route("forgot-password") }}",
         loginRoute = "{{ route("login") }}";
 
     $(function () {

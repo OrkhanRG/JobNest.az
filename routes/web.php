@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Front\BlogController;
@@ -71,11 +72,18 @@ Route::name("front.")->group(function(){
 
 //Login
 Route::post("login", [LoginController::class, "index"])->name("login");
+
 //Register
 Route::post("register", [RegisterController::class, "index"])->name("register");
 Route::get("logout", [RegisterController::class, "logout"])->name("logout");
 Route::get("user-verify/{token}", [RegisterController::class, "verify"])->name("user-verify");
 Route::get("resend/user-verify", [RegisterController::class, "resendVerify"])->name("resend.user-verify");
+
 //OAuth2
 Route::get("auth/{driver}/redirect",[LoginController::class, "redirect"])->name("oauth.redirect");
 Route::get("auth/{driver}/callback",[LoginController::class, "callback"])->name("oauth.callback");
+
+//Forgot Password
+Route::post("forgot-password", [ForgotPasswordController::class, "forgotPassword"])->name("forgot-password");
+Route::get("reset-password/{token}", [ForgotPasswordController::class, "resetPasswordForm"])->name("password-reset-form");
+Route::get("reset-password", [ForgotPasswordController::class, "resetPassword"])->name("password-reset");

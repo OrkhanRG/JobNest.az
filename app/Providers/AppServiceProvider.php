@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\PasswordReset;
 use App\Events\UserRegistered;
+use App\Listeners\SendPasswordResetEmail;
 use App\Listeners\SendVerifyEmail;
 use Illuminate\Routing\Events\RouteMatched;
 use Illuminate\Support\Facades\Event;
@@ -25,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Event::listen([
             UserRegistered::class => SendVerifyEmail::class,
+            PasswordReset::class => SendPasswordResetEmail::class
         ]);
     }
 }

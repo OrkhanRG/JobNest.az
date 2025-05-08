@@ -73,4 +73,48 @@ $(function () {
         });
     });
 
+    $(document).on("click", `[data-role="btn-forgot-password"]`, function (e) {
+        let parent = $(this).closest(".row"),
+            requiredFields = ["email"],
+            data = validateInput(parent, requiredFields);
+
+        $.post({
+            url: forgotPasswordRoute,
+            data,
+            success: function (d) {
+                if (d.code === 200){
+                    notify("Uğurlu!", d.message, "success").then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    })
+                    emptyInput(parent)
+                    $(`${modal_id}`).modal('toggle');
+                } else {
+                    notify("Diqqət!", d.message, "warning")
+                }
+
+            },
+            error: function (err) {
+                err = err.responseJSON;
+                if (err.status === 422) {
+                    let errors = err.errors;
+                    validateByRequest(parent, errors);
+                }
+
+                if (err?.code === 500) {
+                    Swal.fire({
+                        title: 'Xəta!',
+                        text: err.message,
+                        icon: "error",
+                        confirmButtonText: 'Ok'
+                    })
+                }
+            },
+            complete: function () {
+                //
+            }
+        });
+    })
+
 });
