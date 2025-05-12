@@ -10,7 +10,7 @@
     Hər vaxtınız xeyir <b>{{ $user->name . " ". $user->surname ?? "" }}</b>. Şifrənizi sıfırlamaq üçün aşağıdakı linkə keçid edin.
 </p>
 <p>
-    <a href="{{ route("password-reset-form", ["token" => $token]) }}">Sıfırla</a>
+    <a href="{{ route("password-reset", ["token" => $token]) }}">Sıfırla</a>
     <hr>
 </p>
 </body>

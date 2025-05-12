@@ -17,4 +17,7 @@ return [
     "user_login_error_text" => "Daxil etdiyin email və ya şifrə yanlışdır!",
     "user_not_found_text" => "İstifadəçi tapılmadı!",
     "success_send_password_reset_email_text" => "Şifrə sıfırlama email'i göndərildi! Spam qutusunu yoxlamağı unutmayın.",
+    "user_reset_password_failed_text" => "Daxil olduğunuz keçid müddəti bitmişdir! Zəhmət olmasa yenidən şifrəmi unutdum düyməsinə keçid edin.",
+    "user_success_password_reset_text" => "Təbriklər! Şifrəniz sıfırlandı.",
+    ""
 ];

@@ -1,6 +1,6 @@
         <footer class="footer-dark" style="background-image: url({{ asset("assets/images/f-bg.jpg") }});">
             <div class="container">
-
+                <input type="hidden" data-role="show-reset-password-modal" value="{{ $show_forgot_password ?? 0 }}">
                 <!-- NEWS LETTER SECTION START -->
                 <div class="ftr-nw-content">
                     <div class="row">
@@ -159,7 +159,8 @@
 <script>
     let registerRoute = "{{ route("register") }}",
         forgotPasswordRoute = "{{ route("forgot-password") }}",
-        loginRoute = "{{ route("login") }}";
+        loginRoute = "{{ route("login") }}",
+        passwordResetRoute = "{{ route("password-reset") }}";
 
     $(function () {
         $.ajaxSetup({

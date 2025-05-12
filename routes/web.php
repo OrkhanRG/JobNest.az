@@ -85,5 +85,5 @@ Route::get("auth/{driver}/callback",[LoginController::class, "callback"])->name(
 
 //Forgot Password
 Route::post("forgot-password", [ForgotPasswordController::class, "forgotPassword"])->name("forgot-password");
-Route::get("reset-password/{token}", [ForgotPasswordController::class, "resetPasswordForm"])->name("password-reset-form");
-Route::get("reset-password", [ForgotPasswordController::class, "resetPassword"])->name("password-reset");
+Route::get("reset-password", [ForgotPasswordController::class, "resetPasswordForm"])->name("password-reset");
+Route::post("reset-password", [ForgotPasswordController::class, "resetPassword"])->name("password-reset");

@@ -7,6 +7,11 @@ $(function () {
         let requiredFields = ["name", "surname", "email", "password", "password_confirmation"];
 
         let data = validateInput(parent, requiredFields);
+
+        if (!data) {
+            return;
+        }
+
         data["user_type"] = $(this).data("user-type");
 
         $.post({
@@ -56,6 +61,11 @@ $(function () {
             optionalField = ["phone"];
 
         let data = validateInput(parent, requiredFields, optionalField);
+
+        if (!data) {
+            return;
+        }
+
         data["user_type"] = $(this).data("user-type");
 
         $.post({

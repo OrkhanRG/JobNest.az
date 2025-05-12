@@ -15,6 +15,8 @@
             @include("layouts.front.components.login-popup")
             <!--Forgot password popup -->
             @include("layouts.front.components.forgot-password-popup")
+            <!--Reset password popup -->
+            @include("layouts.front.components.reset-password-popup")
 
         <!--Model Popup Section End-->
 

@@ -8,4 +8,5 @@ return [
     "terms_conditions" => "<a href=':url' target='_blank'>Qaydalar və şərtlərlə</a> razıyam",
     "candidate" => "Namizəd",
     "company" => "Şirkət",
+    "warning" => "Diqqət!",
 ];

@@ -95,3 +95,24 @@ const notify = (title, text = null, icon = "success", btn_confirm_text = "Ok", s
         focusConfirm: focus_confirm_btn,
     });
 }
+
+const show_modal = (modal_id) => {
+    let myModal = new bootstrap.Modal(document.getElementById(modal_id));
+    myModal.show();
+}
+
+const getUrlParameter = (sParam) => {
+    let sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+    }
+    return false;
+};
