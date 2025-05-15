@@ -39,7 +39,7 @@
                                     <div class="twm-cv-manager-list-style1">
                                         <div class="twm-media">
                                             <div class="twm-media-pic">
-                                                <img src="{{ asset("assets/images/candidates/pic1.jpg") }}" alt="#">
+                                                <img src="{{ asset("assets/front/images/candidates/pic1.jpg") }}" alt="#">
                                             </div>
                                         </div>
                                         <div class="twm-mid-content">
@@ -68,7 +68,7 @@
                                     <div class="twm-cv-manager-list-style1">
                                         <div class="twm-media">
                                             <div class="twm-media-pic">
-                                                <img src="{{ asset("assets/images/candidates/pic2.jpg") }}" alt="#">
+                                                <img src="{{ asset("assets/front/images/candidates/pic2.jpg") }}" alt="#">
                                             </div>
                                         </div>
                                         <div class="twm-mid-content">
@@ -97,7 +97,7 @@
                                     <div class="twm-cv-manager-list-style1">
                                         <div class="twm-media">
                                             <div class="twm-media-pic">
-                                                <img src="{{ asset("assets/images/candidates/pic3.jpg") }}" alt="#">
+                                                <img src="{{ asset("assets/front/images/candidates/pic3.jpg") }}" alt="#">
                                             </div>
                                         </div>
                                         <div class="twm-mid-content">
@@ -126,7 +126,7 @@
                                     <div class="twm-cv-manager-list-style1">
                                         <div class="twm-media">
                                             <div class="twm-media-pic">
-                                                <img src="{{ asset("assets/images/candidates/pic4.jpg") }}" alt="#">
+                                                <img src="{{ asset("assets/front/images/candidates/pic4.jpg") }}" alt="#">
                                             </div>
                                         </div>
                                         <div class="twm-mid-content">
@@ -155,7 +155,7 @@
                                     <div class="twm-cv-manager-list-style1">
                                         <div class="twm-media">
                                             <div class="twm-media-pic">
-                                                <img src="{{ asset("assets/images/candidates/pic5.jpg") }}" alt="#">
+                                                <img src="{{ asset("assets/front/images/candidates/pic5.jpg") }}" alt="#">
                                             </div>
                                         </div>
                                         <div class="twm-mid-content">

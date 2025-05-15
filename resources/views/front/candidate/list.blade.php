@@ -218,7 +218,7 @@
 
                     </div>
 
-                    <div class="twm-advertisment" style="background-image:url({{ asset("assets/images/add-bg.jpg") }});">
+                    <div class="twm-advertisment" style="background-image:url({{ asset("assets/front/images/add-bg.jpg") }});">
                        <div class="overlay"></div>
                        <h4 class="twm-title">Recruiting?</h4>
                        <p>Get Best Matched Jobs On your <br>
@@ -261,7 +261,7 @@
                                  <div class="twm-candidates-list-style1 mb-5">
                                      <div class="twm-media">
                                          <div class="twm-media-pic">
-                                            <img src="{{ asset("assets/images/candidates/pic1.jpg") }}" alt="#">
+                                            <img src="{{ asset("assets/front/images/candidates/pic1.jpg") }}" alt="#">
                                          </div>
                                          <div class="twm-candidates-tag"><span>Featured</span></div>
                                      </div>
@@ -289,7 +289,7 @@
                                 <div class="twm-candidates-list-style1 mb-5">
                                     <div class="twm-media">
                                         <div class="twm-media-pic">
-                                           <img src="{{ asset("assets/images/candidates/pic2.jpg") }}" alt="#">
+                                           <img src="{{ asset("assets/front/images/candidates/pic2.jpg") }}" alt="#">
                                         </div>
                                         <div class="twm-candidates-tag"><span>Featured</span></div>
                                     </div>
@@ -317,7 +317,7 @@
                                 <div class="twm-candidates-list-style1 mb-5">
                                     <div class="twm-media">
                                         <div class="twm-media-pic">
-                                           <img src="{{ asset("assets/images/candidates/pic3.jpg") }}" alt="#">
+                                           <img src="{{ asset("assets/front/images/candidates/pic3.jpg") }}" alt="#">
                                         </div>
                                         <div class="twm-candidates-tag"><span>Featured</span></div>
                                     </div>
@@ -345,7 +345,7 @@
                                 <div class="twm-candidates-list-style1 mb-5">
                                     <div class="twm-media">
                                         <div class="twm-media-pic">
-                                           <img src="{{ asset("assets/images/candidates/pic4.jpg") }}" alt="#">
+                                           <img src="{{ asset("assets/front/images/candidates/pic4.jpg") }}" alt="#">
                                         </div>
                                         <div class="twm-candidates-tag"><span>Featured</span></div>
                                     </div>
@@ -373,7 +373,7 @@
                                 <div class="twm-candidates-list-style1 mb-5">
                                     <div class="twm-media">
                                         <div class="twm-media-pic">
-                                           <img src="{{ asset("assets/images/candidates/pic5.jpg") }}" alt="#">
+                                           <img src="{{ asset("assets/front/images/candidates/pic5.jpg") }}" alt="#">
                                         </div>
                                         <div class="twm-candidates-tag"><span>Featured</span></div>
                                     </div>
@@ -401,7 +401,7 @@
                                 <div class="twm-candidates-list-style1 mb-5">
                                     <div class="twm-media">
                                         <div class="twm-media-pic">
-                                           <img src="{{ asset("assets/images/candidates/pic6.jpg") }}" alt="#">
+                                           <img src="{{ asset("assets/front/images/candidates/pic6.jpg") }}" alt="#">
                                         </div>
                                         <div class="twm-candidates-tag"><span>Featured</span></div>
                                     </div>
@@ -429,7 +429,7 @@
                                 <div class="twm-candidates-list-style1 mb-5">
                                     <div class="twm-media">
                                         <div class="twm-media-pic">
-                                           <img src="{{ asset("assets/images/candidates/pic7.jpg") }}" alt="#">
+                                           <img src="{{ asset("assets/front/images/candidates/pic7.jpg") }}" alt="#">
                                         </div>
                                         <div class="twm-candidates-tag"><span>Featured</span></div>
                                     </div>
@@ -457,7 +457,7 @@
                                 <div class="twm-candidates-list-style1 mb-5">
                                     <div class="twm-media">
                                         <div class="twm-media-pic">
-                                           <img src="{{ asset("assets/images/candidates/pic8.jpg") }}" alt="#">
+                                           <img src="{{ asset("assets/front/images/candidates/pic8.jpg") }}" alt="#">
                                         </div>
                                         <div class="twm-candidates-tag"><span>Featured</span></div>
                                     </div>
@@ -485,7 +485,7 @@
                                 <div class="twm-candidates-list-style1 mb-5">
                                     <div class="twm-media">
                                         <div class="twm-media-pic">
-                                           <img src="{{ asset("assets/images/candidates/pic9.jpg") }}" alt="#">
+                                           <img src="{{ asset("assets/front/images/candidates/pic9.jpg") }}" alt="#">
                                         </div>
                                         <div class="twm-candidates-tag"><span>Featured</span></div>
                                     </div>

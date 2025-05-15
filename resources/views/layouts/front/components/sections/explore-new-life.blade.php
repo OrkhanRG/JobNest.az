@@ -1,4 +1,4 @@
-<div class="section-full p-t120 p-b120 twm-explore-area bg-cover " style="background-image: url({{ asset("assets/images/background/bg-1.jpg") }});">
+<div class="section-full p-t120 p-b120 twm-explore-area bg-cover " style="background-image: url({{ asset("assets/front/images/background/bg-1.jpg") }});">
     <div class="container">
 
         <div class="section-content">
@@ -7,7 +7,7 @@
                 <div class="col-lg-4 col-md-12">
                     <div class="twm-explore-media-wrap">
                         <div class="twm-media">
-                            <img src="{{ asset("assets/images/gir-large.png") }}" alt="">
+                            <img src="{{ asset("assets/front/images/gir-large.png") }}" alt="">
                         </div>
                     </div>
                 </div>

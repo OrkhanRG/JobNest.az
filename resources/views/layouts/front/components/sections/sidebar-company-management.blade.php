@@ -4,7 +4,7 @@
 
         <div class="twm-candidate-profile-pic">
 
-            <img src="{{ asset("assets/images/jobs-company/pic1.jpg") }}" alt="">
+            <img src="{{ asset("assets/front/images/jobs-company/pic1.jpg") }}" alt="">
             <div class="upload-btn-wrapper">
 
                 <div id="upload-image-grid"></div>

@@ -1,4 +1,4 @@
-<div class="wt-bnr-inr overlay-wraper bg-center" style="background-image:url({{ asset("assets/images/banner/1.jpg") }});">
+<div class="wt-bnr-inr overlay-wraper bg-center" style="background-image:url({{ asset("assets/front/images/banner/1.jpg") }});">
     <div class="overlay-main site-bg-white opacity-01"></div>
     <div class="container">
         <div class="wt-bnr-inr-entry">

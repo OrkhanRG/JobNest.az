@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\CustomAuthenticate;
 use App\Http\Middleware\CheckPermission;
 use App\Http\Middleware\CheckRole;
 use Illuminate\Foundation\Application;
@@ -16,7 +17,8 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             "role" => CheckRole::class,
-            "permission" => CheckPermission::class
+            "permission" => CheckPermission::class,
+            "custom_auth" => CustomAuthenticate::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

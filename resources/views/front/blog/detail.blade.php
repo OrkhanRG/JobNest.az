@@ -37,7 +37,7 @@
                                 <div class="wt-post-info">
 
                                     <div class="wt-post-media m-b30">
-                                        <img src="{{ asset("assets/images/blog/blog-single/1.jpg") }}" alt="">
+                                        <img src="{{ asset("assets/front/images/blog/blog-single/1.jpg") }}" alt="">
                                     </div>
 
                                     <div class="wt-post-title ">
@@ -105,7 +105,7 @@ important not to make false claims as this could have serious legal consequences
 
                                     <div class="twm-posts-author">
                                         <div class="twm-post-author-pic">
-                                            <img src="{{ asset("assets/images/blog/post-author.jpg") }}" alt="#">
+                                            <img src="{{ asset("assets/front/images/blog/post-author.jpg") }}" alt="#">
                                         </div>
                                         <div class="twm-post-author-content">
                                             <span>435 Posts Since 2018</span>
@@ -174,7 +174,7 @@ important not to make false claims as this could have serious legal consequences
                                                 <div class="comment-body">
 
                                                     <div class="comment-author">
-                                                        <img class="avatar photo" src="{{ asset("assets/images/blog/comment/pic1.jpg") }}" alt="">
+                                                        <img class="avatar photo" src="{{ asset("assets/front/images/blog/comment/pic1.jpg") }}" alt="">
                                                         <div class="comment-meta">
                                                             <a href="javascript:void(0);">Apr 05, 2023</a>
                                                         </div>
@@ -196,7 +196,7 @@ important not to make false claims as this could have serious legal consequences
                                                 <div class="comment-body">
 
                                                     <div class="comment-author">
-                                                        <img class="avatar photo" src="{{ asset("assets/images/blog/comment/pic2.jpg") }}" alt="">
+                                                        <img class="avatar photo" src="{{ asset("assets/front/images/blog/comment/pic2.jpg") }}" alt="">
                                                         <div class="comment-meta">
                                                             <a href="javascript:void(0);">Apr 08, 2023</a>
                                                         </div>
@@ -294,7 +294,7 @@ important not to make false claims as this could have serious legal consequences
 
                                         <div class="widget-post clearfix">
                                             <div class="wt-post-media">
-                                                <img src="{{ asset("assets/>images/blog/recent-blog/pic1.jpg") }}" alt="">
+                                                <img src="{{ asset("assets/front/>images/blog/recent-blog/pic1.jpg") }}" alt="">
                                             </div>
                                             <div class="wt-post-info">
                                                 <div class="wt-post-header">
@@ -308,7 +308,7 @@ important not to make false claims as this could have serious legal consequences
 
                                         <div class="widget-post clearfix">
                                             <div class="wt-post-media">
-                                                <img src="{{ asset("assets/images/blog/recent-blog/pic2.jpg") }}" alt="">
+                                                <img src="{{ asset("assets/front/images/blog/recent-blog/pic2.jpg") }}" alt="">
                                             </div>
                                             <div class="wt-post-info">
                                                 <div class="wt-post-header">
@@ -322,7 +322,7 @@ important not to make false claims as this could have serious legal consequences
 
                                         <div class="widget-post clearfix">
                                             <div class="wt-post-media">
-                                                <img src="{{ asset("assets/images/blog/recent-blog/pic3.jpg") }}" alt="">
+                                                <img src="{{ asset("assets/front/images/blog/recent-blog/pic3.jpg") }}" alt="">
                                             </div>
                                             <div class="wt-post-info">
                                                 <div class="wt-post-header">
@@ -336,7 +336,7 @@ important not to make false claims as this could have serious legal consequences
 
                                         <div class="widget-post clearfix">
                                             <div class="wt-post-media">
-                                                <img src="{{ asset("assets/images/blog/recent-blog/pic4.jpg") }}" alt="">
+                                                <img src="{{ asset("assets/front/images/blog/recent-blog/pic4.jpg") }}" alt="">
                                             </div>
                                             <div class="wt-post-info">
                                                 <div class="wt-post-header">
@@ -350,7 +350,7 @@ important not to make false claims as this could have serious legal consequences
 
                                         <div class="widget-post clearfix">
                                             <div class="wt-post-media">
-                                                <img src="{{ asset("assets/images/blog/recent-blog/pic5.jpg") }}" alt="">
+                                                <img src="{{ asset("assets/front/images/blog/recent-blog/pic5.jpg") }}" alt="">
                                             </div>
                                             <div class="wt-post-info">
                                                 <div class="wt-post-header">

@@ -27,11 +27,11 @@
                     <div class="twm-testimonial-1">
                         <div class="twm-testimonial-1-content">
                             <div class="twm-testi-media">
-                                <img src="{{ asset("assets/images/testimonials/pic-1.png") }}" alt="#">
+                                <img src="{{ asset("assets/front/images/testimonials/pic-1.png") }}" alt="#">
                             </div>
                             <div class="twm-testi-content">
                                 <div class="twm-quote">
-                                    <img src="{{ asset("assets/images/quote-dark.png") }}" alt="">
+                                    <img src="{{ asset("assets/front/images/quote-dark.png") }}" alt="">
                                 </div>
                                 <div class="twm-testi-info">I just got a job that I applied for via careerfy! I used the site all the time during my job hunt.</div>
                                 <div class="twm-testi-detail">
@@ -49,11 +49,11 @@
                     <div class="twm-testimonial-1">
                         <div class="twm-testimonial-1-content">
                             <div class="twm-testi-media">
-                                <img src="{{ asset("assets/images/testimonials/pic-2.png") }}" alt="#">
+                                <img src="{{ asset("assets/front/images/testimonials/pic-2.png") }}" alt="#">
                             </div>
                             <div class="twm-testi-content">
                                 <div class="twm-quote">
-                                    <img src="{{ asset("assets/images/quote-dark.png") }}" alt="">
+                                    <img src="{{ asset("assets/front/images/quote-dark.png") }}" alt="">
                                 </div>
                                 <div class="twm-testi-info">I just got a job that I applied for via careerfy! I used the site all the time during my job hunt.</div>
                                 <div class="twm-testi-detail">
@@ -71,11 +71,11 @@
                     <div class="twm-testimonial-1">
                         <div class="twm-testimonial-1-content">
                             <div class="twm-testi-media">
-                                <img src="{{ asset("assets/images/testimonials/pic-3.png") }}" alt="#">
+                                <img src="{{ asset("assets/front/images/testimonials/pic-3.png") }}" alt="#">
                             </div>
                             <div class="twm-testi-content">
                                 <div class="twm-quote">
-                                    <img src="{{ asset("assets/images/quote-dark.png") }}" alt="">
+                                    <img src="{{ asset("assets/front/images/quote-dark.png") }}" alt="">
                                 </div>
                                 <div class="twm-testi-info">I just got a job that I applied for via careerfy! I used the site all the time during my job hunt.</div>
                                 <div class="twm-testi-detail">
@@ -93,11 +93,11 @@
                     <div class="twm-testimonial-1">
                         <div class="twm-testimonial-1-content">
                             <div class="twm-testi-media">
-                                <img src="{{ asset("assets/images/testimonials/pic-2.png") }}" alt="#">
+                                <img src="{{ asset("assets/front/images/testimonials/pic-2.png") }}" alt="#">
                             </div>
                             <div class="twm-testi-content">
                                 <div class="twm-quote">
-                                    <img src="{{ asset("assets/images/quote-dark.png") }}" alt="">
+                                    <img src="{{ asset("assets/front/images/quote-dark.png") }}" alt="">
                                 </div>
                                 <div class="twm-testi-info">I just got a job that I applied for via careerfy! I used the site all the time during my job hunt.</div>
                                 <div class="twm-testi-detail">
@@ -115,11 +115,11 @@
                     <div class="twm-testimonial-1">
                         <div class="twm-testimonial-1-content">
                             <div class="twm-testi-media">
-                                <img src="{{ asset("assets/images/testimonials/pic-1.png") }}" alt="#">
+                                <img src="{{ asset("assets/front/images/testimonials/pic-1.png") }}" alt="#">
                             </div>
                             <div class="twm-testi-content">
                                 <div class="twm-quote">
-                                    <img src="{{ asset("assets/images/quote-dark.png") }}" alt="">
+                                    <img src="{{ asset("assets/front/images/quote-dark.png") }}" alt="">
                                 </div>
                                 <div class="twm-testi-info">I just got a job that I applied for via careerfy! I used the site all the time during my job hunt.</div>
                                 <div class="twm-testi-detail">

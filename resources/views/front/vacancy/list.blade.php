@@ -221,7 +221,7 @@
 
                     </div>
 
-                    <div class="twm-advertisment" style="background-image:url({{ asset("assets/images/add-bg.jpg") }});">
+                    <div class="twm-advertisment" style="background-image:url({{ asset("assets/front/images/add-bg.jpg") }});">
                        <div class="overlay"></div>
                        <h4 class="twm-title">Recruiting?</h4>
                        <p>Get Best Matched Jobs On your <br>
@@ -263,7 +263,7 @@
                              <li>
                                  <div class="twm-jobs-list-style1 mb-5">
                                      <div class="twm-media">
-                                         <img src="{{ asset("assets/images/jobs-company/pic1.jpg") }}" alt="#">
+                                         <img src="{{ asset("assets/front/images/jobs-company/pic1.jpg") }}" alt="#">
                                      </div>
                                      <div class="twm-mid-content">
                                          <a href="{{ route("front.vacancy", "test") }}" class="twm-job-title">
@@ -283,7 +283,7 @@
                              <li>
                                  <div class="twm-jobs-list-style1 mb-5">
                                      <div class="twm-media">
-                                         <img src="{{ asset("assets/images/jobs-company/pic2.jpg") }}" alt="#">
+                                         <img src="{{ asset("assets/front/images/jobs-company/pic2.jpg") }}" alt="#">
                                      </div>
                                      <div class="twm-mid-content">
                                          <a href="job-detail.html" class="twm-job-title">
@@ -303,7 +303,7 @@
                              <li>
                                  <div class="twm-jobs-list-style1 mb-5">
                                      <div class="twm-media">
-                                         <img src="{{ asset("assets/images/jobs-company/pic3.jpg") }}" alt="#">
+                                         <img src="{{ asset("assets/front/images/jobs-company/pic3.jpg") }}" alt="#">
                                      </div>
                                      <div class="twm-mid-content">
                                          <a href="job-detail.html" class="twm-job-title">
@@ -323,7 +323,7 @@
                              <li>
                                  <div class="twm-jobs-list-style1 mb-5">
                                      <div class="twm-media">
-                                         <img src="{{ asset("assets/images/jobs-company/pic4.jpg") }}" alt="#">
+                                         <img src="{{ asset("assets/front/images/jobs-company/pic4.jpg") }}" alt="#">
                                      </div>
                                      <div class="twm-mid-content">
                                          <a href="job-detail.html" class="twm-job-title">
@@ -343,7 +343,7 @@
                              <li>
                                  <div class="twm-jobs-list-style1 mb-5">
                                      <div class="twm-media">
-                                         <img src="{{ asset("assets/images/jobs-company/pic5.jpg") }}" alt="#">
+                                         <img src="{{ asset("assets/front/images/jobs-company/pic5.jpg") }}" alt="#">
                                      </div>
                                      <div class="twm-mid-content">
                                          <a href="job-detail.html" class="twm-job-title">
@@ -363,7 +363,7 @@
                              <li>
                                 <div class="twm-jobs-list-style1 mb-5">
                                     <div class="twm-media">
-                                        <img src="{{ asset("assets/images/jobs-company/pic1.jpg") }}" alt="#">
+                                        <img src="{{ asset("assets/front/images/jobs-company/pic1.jpg") }}" alt="#">
                                     </div>
                                     <div class="twm-mid-content">
                                         <a href="job-detail.html" class="twm-job-title">
@@ -383,7 +383,7 @@
                              <li>
                                 <div class="twm-jobs-list-style1 mb-5">
                                     <div class="twm-media">
-                                        <img src="{{ asset("assets/images/jobs-company/pic2.jpg") }}" alt="#">
+                                        <img src="{{ asset("assets/front/images/jobs-company/pic2.jpg") }}" alt="#">
                                     </div>
                                     <div class="twm-mid-content">
                                         <a href="job-detail.html" class="twm-job-title">
@@ -403,7 +403,7 @@
                              <li>
                                 <div class="twm-jobs-list-style1 mb-5">
                                     <div class="twm-media">
-                                        <img src="{{ asset("assets/images/jobs-company/pic3.jpg") }}" alt="#">
+                                        <img src="{{ asset("assets/front/images/jobs-company/pic3.jpg") }}" alt="#">
                                     </div>
                                     <div class="twm-mid-content">
                                         <a href="job-detail.html" class="twm-job-title">
@@ -423,7 +423,7 @@
                              <li>
                                 <div class="twm-jobs-list-style1 mb-5">
                                     <div class="twm-media">
-                                        <img src="{{ asset("assets/images/jobs-company/pic4.jpg") }}" alt="#">
+                                        <img src="{{ asset("assets/front/images/jobs-company/pic4.jpg") }}" alt="#">
                                     </div>
                                     <div class="twm-mid-content">
                                         <a href="job-detail.html" class="twm-job-title">
@@ -443,7 +443,7 @@
                              <li>
                                 <div class="twm-jobs-list-style1 mb-5">
                                     <div class="twm-media">
-                                        <img src="{{ asset("assets/images/jobs-company/pic1.jpg") }}" alt="#">
+                                        <img src="{{ asset("assets/front/images/jobs-company/pic1.jpg") }}" alt="#">
                                     </div>
                                     <div class="twm-mid-content">
                                         <a href="job-detail.html" class="twm-job-title">
@@ -463,7 +463,7 @@
                             <li>
                                 <div class="twm-jobs-list-style1 mb-5">
                                     <div class="twm-media">
-                                        <img src="{{ asset("assets/images/jobs-company/pic2.jpg") }}" alt="#">
+                                        <img src="{{ asset("assets/front/images/jobs-company/pic2.jpg") }}" alt="#">
                                     </div>
                                     <div class="twm-mid-content">
                                         <a href="job-detail.html" class="twm-job-title">
@@ -483,7 +483,7 @@
                             <li>
                                 <div class="twm-jobs-list-style1 mb-5">
                                     <div class="twm-media">
-                                        <img src="{{ asset("assets/images/jobs-company/pic3.jpg") }}" alt="#">
+                                        <img src="{{ asset("assets/front/images/jobs-company/pic3.jpg") }}" alt="#">
                                     </div>
                                     <div class="twm-mid-content">
                                         <a href="job-detail.html" class="twm-job-title">
@@ -503,7 +503,7 @@
                             <li>
                                 <div class="twm-jobs-list-style1 mb-5">
                                     <div class="twm-media">
-                                        <img src="{{ asset("assets/images/jobs-company/pic4.jpg") }}" alt="#">
+                                        <img src="{{ asset("assets/front/images/jobs-company/pic4.jpg") }}" alt="#">
                                     </div>
                                     <div class="twm-mid-content">
                                         <a href="job-detail.html" class="twm-job-title">
@@ -523,7 +523,7 @@
                             <li>
                                 <div class="twm-jobs-list-style1 mb-5">
                                     <div class="twm-media">
-                                        <img src="{{ asset("assets/images/jobs-company/pic5.jpg") }}" alt="#">
+                                        <img src="{{ asset("assets/front/images/jobs-company/pic5.jpg") }}" alt="#">
                                     </div>
                                     <div class="twm-mid-content">
                                         <a href="job-detail.html" class="twm-job-title">
@@ -543,7 +543,7 @@
                             <li>
                                <div class="twm-jobs-list-style1 mb-5">
                                    <div class="twm-media">
-                                       <img src="{{ asset("assets/images/jobs-company/pic1.jpg") }}" alt="#">
+                                       <img src="{{ asset("assets/front/images/jobs-company/pic1.jpg") }}" alt="#">
                                    </div>
                                    <div class="twm-mid-content">
                                        <a href="job-detail.html" class="twm-job-title">
@@ -563,7 +563,7 @@
                             <li>
                                <div class="twm-jobs-list-style1 mb-5">
                                    <div class="twm-media">
-                                       <img src="{{ asset("assets/images/jobs-company/pic2.jpg") }}" alt="#">
+                                       <img src="{{ asset("assets/front/images/jobs-company/pic2.jpg") }}" alt="#">
                                    </div>
                                    <div class="twm-mid-content">
                                        <a href="job-detail.html" class="twm-job-title">
@@ -583,7 +583,7 @@
                             <li>
                                <div class="twm-jobs-list-style1 mb-5">
                                    <div class="twm-media">
-                                       <img src="{{ asset("assets/images/jobs-company/pic3.jpg") }}" alt="#">
+                                       <img src="{{ asset("assets/front/images/jobs-company/pic3.jpg") }}" alt="#">
                                    </div>
                                    <div class="twm-mid-content">
                                        <a href="job-detail.html" class="twm-job-title">
@@ -603,7 +603,7 @@
                             <li>
                                <div class="twm-jobs-list-style1 mb-5">
                                    <div class="twm-media">
-                                       <img src="{{ asset("assets/images/jobs-company/pic4.jpg") }}" alt="#">
+                                       <img src="{{ asset("assets/front/images/jobs-company/pic4.jpg") }}" alt="#">
                                    </div>
                                    <div class="twm-mid-content">
                                        <a href="job-detail.html" class="twm-job-title">

@@ -8,7 +8,7 @@
                 <div class="logo-header">
                     <div class="logo-header-inner logo-header-one">
                         <a href="{{ route("front.index") }}">
-                        <img src="{{ asset("assets/images/logo-dark.png") }}" alt="">
+                        <img src="{{ asset("assets/front/images/logo-dark.png") }}" alt="">
                         </a>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                             @auth
                                 @if(auth()->user()->hasRole(["admin", "developer", "moderator"]))
                                     <div class="twm-nav-btn-right">
-                                        <a href="#" class="twm-nav-post-a-job">
+                                        <a href="{{ route("admin.dashboard") }}" class="twm-nav-post-a-job">
                                             <i class="feather-settings"></i> Panel
                                         </a>
                                     </div>

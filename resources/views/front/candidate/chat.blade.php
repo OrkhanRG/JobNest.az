@@ -48,7 +48,7 @@
                                     <div class="wt-dashboard-msg-search-list-wrap">
                                         <a href="javascript:;" class="msg-user-info clearfix">
                                             <div class="msg-user-timing">Thu</div>
-                                            <div class="msg-user-info-pic"><img src="{{ asset("assets/images/user-avtar/pic4.jpg") }}" alt=""></div>
+                                            <div class="msg-user-info-pic"><img src="{{ asset("assets/front/images/user-avtar/pic4.jpg") }}" alt=""></div>
                                             <div class="msg-user-info-text">
                                                 <div class="msg-user-name">Randall Henderson</div>
                                                 <div class="msg-user-discription">All created by our Global</div>
@@ -59,7 +59,7 @@
                                     <div class="wt-dashboard-msg-search-list-wrap">
                                         <a href="javascript:;" class="msg-user-info clearfix">
                                             <div class="msg-user-timing">2 hours ago</div>
-                                            <div class="msg-user-info-pic"><img src="{{ asset("assets/images/user-avtar/pic1.jpg") }}" alt=""></div>
+                                            <div class="msg-user-info-pic"><img src="{{ asset("assets/front/images/user-avtar/pic1.jpg") }}" alt=""></div>
                                             <div class="msg-user-info-text">
                                                 <div class="msg-user-name">Rustin Duza</div>
                                                 <div class="msg-user-discription">All created by our Global</div>
@@ -70,7 +70,7 @@
                                     <div class="wt-dashboard-msg-search-list-wrap">
                                         <a href="javascript:;" class="msg-user-info clearfix">
                                             <div class="msg-user-timing">4 hours ago</div>
-                                            <div class="msg-user-info-pic"><img src="{{ asset("assets/images/user-avtar/pic2.jpg") }}" alt=""></div>
+                                            <div class="msg-user-info-pic"><img src="{{ asset("assets/front/images/user-avtar/pic2.jpg") }}" alt=""></div>
                                             <div class="msg-user-info-text">
                                                 <div class="msg-user-name">Peter Hawkins</div>
                                                 <div class="msg-user-discription">All created by our Global</div>
@@ -81,7 +81,7 @@
                                     <div class="wt-dashboard-msg-search-list-wrap">
                                         <a href="javascript:;" class="msg-user-info clearfix">
                                             <div class="msg-user-timing">Fri</div>
-                                            <div class="msg-user-info-pic"><img src="{{ asset("assets/images/user-avtar/pic3.jpg") }}" alt=""></div>
+                                            <div class="msg-user-info-pic"><img src="{{ asset("assets/front/images/user-avtar/pic3.jpg") }}" alt=""></div>
                                             <div class="msg-user-info-text">
                                                 <div class="msg-user-name">Ralph Johnson</div>
                                                 <div class="msg-user-discription">All created by our Global</div>
@@ -94,7 +94,7 @@
                                     <div class="wt-dashboard-msg-search-list-wrap">
                                         <a href="javascript:;" class="msg-user-info clearfix">
                                             <div class="msg-user-timing">16/07/2023</div>
-                                            <div class="msg-user-info-pic"><img src="{{ asset("assets/images/user-avtar/pic1.jpg") }}" alt=""></div>
+                                            <div class="msg-user-info-pic"><img src="{{ asset("assets/front/images/user-avtar/pic1.jpg") }}" alt=""></div>
                                             <div class="msg-user-info-text">
                                                 <div class="msg-user-name">Randall Warren</div>
                                                 <div class="msg-user-discription">All created by our Global</div>
@@ -105,7 +105,7 @@
                                     <div class="wt-dashboard-msg-search-list-wrap">
                                         <a href="javascript:;" class="msg-user-info clearfix">
                                             <div class="msg-user-timing">16/07/2023</div>
-                                            <div class="msg-user-info-pic"><img src="{{ asset("assets/images/user-avtar/pic2.jpg") }}" alt=""></div>
+                                            <div class="msg-user-info-pic"><img src="{{ asset("assets/front/images/user-avtar/pic2.jpg") }}" alt=""></div>
                                             <div class="msg-user-info-text">
                                                 <div class="msg-user-name">Christina Fischer </div>
                                                 <div class="msg-user-discription">All created by our Global</div>
@@ -116,7 +116,7 @@
                                     <div class="wt-dashboard-msg-search-list-wrap">
                                         <a href="javascript:;" class="msg-user-info clearfix">
                                             <div class="msg-user-timing">16/07/2023</div>
-                                            <div class="msg-user-info-pic"><img src="{{ asset("assets/images/user-avtar/pic3.jpg") }}" alt=""></div>
+                                            <div class="msg-user-info-pic"><img src="{{ asset("assets/front/images/user-avtar/pic3.jpg") }}" alt=""></div>
                                             <div class="msg-user-info-text">
                                                 <div class="msg-user-name">Wanda Willis</div>
                                                 <div class="msg-user-discription">All created by our Global</div>
@@ -127,7 +127,7 @@
                                     <div class="wt-dashboard-msg-search-list-wrap">
                                         <a href="javascript:;" class="msg-user-info clearfix">
                                             <div class="msg-user-timing">16/07/2023</div>
-                                            <div class="msg-user-info-pic"><img src="{{ asset("assets/images/user-avtar/pic4.jpg") }}" alt=""></div>
+                                            <div class="msg-user-info-pic"><img src="{{ asset("assets/front/images/user-avtar/pic4.jpg") }}" alt=""></div>
                                             <div class="msg-user-info-text">
                                                 <div class="msg-user-name">Peter Hawkins</div>
                                                 <div class="msg-user-discription">All created by our Global</div>
@@ -138,7 +138,7 @@
                                     <div class="wt-dashboard-msg-search-list-wrap">
                                         <a href="javascript:;" class="msg-user-info clearfix">
                                             <div class="msg-user-timing">16/07/2023</div>
-                                            <div class="msg-user-info-pic"><img src="{{ asset("assets/images/user-avtar/pic1.jpg") }}" alt=""></div>
+                                            <div class="msg-user-info-pic"><img src="{{ asset("assets/front/images/user-avtar/pic1.jpg") }}" alt=""></div>
                                             <div class="msg-user-info-text">
                                                 <div class="msg-user-name">Kathleen Moreno</div>
                                                 <div class="msg-user-discription">All created by our Global</div>
@@ -149,7 +149,7 @@
                                     <div class="wt-dashboard-msg-search-list-wrap">
                                         <a href="javascript:;" class="msg-user-info clearfix">
                                             <div class="msg-user-timing">16/07/2023</div>
-                                            <div class="msg-user-info-pic"><img src="{{ asset("assets/images/user-avtar/pic2.jpg") }}" alt=""></div>
+                                            <div class="msg-user-info-pic"><img src="{{ asset("assets/front/images/user-avtar/pic2.jpg") }}" alt=""></div>
                                             <div class="msg-user-info-text">
                                                 <div class="msg-user-name">Wanda Montgomery </div>
                                                 <div class="msg-user-discription">All created by our Global</div>
@@ -179,7 +179,7 @@
                                         <div class="row">
                                             <div class="col-xl-9 col-lg-12">
                                                 <div class="single-user-comment-block clearfix">
-                                                    <div class="single-user-com-pic"><img src="{{ asset("assets/images/user-avtar/pic4.jpg") }}" alt=""></div>
+                                                    <div class="single-user-com-pic"><img src="{{ asset("assets/front/images/user-avtar/pic4.jpg") }}" alt=""></div>
                                                     <div class="single-user-com-text">Breaking the endless cycle of meaningless text message conversations starts with only talking to someone who offers interesting topics opinions.</div>
                                                     <div class="single-user-msg-time">12:13 PM</div>
                                                 </div>
@@ -193,7 +193,7 @@
                                         <div class="row justify-content-end">
                                             <div class="col-xl-9 col-lg-12">
                                                 <div class="single-user-comment-block clearfix">
-                                                    <div class="single-user-com-pic"><img src="{{ asset("assets/images/user-avtar/pic1.jpg") }}" alt=""></div>
+                                                    <div class="single-user-com-pic"><img src="{{ asset("assets/front/images/user-avtar/pic1.jpg") }}" alt=""></div>
                                                     <div class="single-user-com-text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</div>
                                                     <div class="single-user-msg-time">12:37 PM</div>
                                                 </div>
@@ -205,7 +205,7 @@
                                         <div class="row">
                                             <div class="col-xl-9 col-lg-12">
                                                 <div class="single-user-comment-block clearfix">
-                                                    <div class="single-user-com-pic"><img src="{{ asset("assets/images/user-avtar/pic4.jpg") }}" alt=""></div>
+                                                    <div class="single-user-com-pic"><img src="{{ asset("assets/front/images/user-avtar/pic4.jpg") }}" alt=""></div>
                                                     <div class="single-user-com-text">Breaking the endless cycle of meaningless text message conversations starts with only talking to someone who offers interesting topics opinions.</div>
                                                     <div class="single-user-msg-time">12:13 PM</div>
                                                 </div>
@@ -219,7 +219,7 @@
                                         <div class="row justify-content-end">
                                             <div class="col-xl-9 col-lg-12">
                                                 <div class="single-user-comment-block clearfix">
-                                                    <div class="single-user-com-pic"><img src="{{ asset("assets/images/user-avtar/pic1.jpg") }}" alt=""></div>
+                                                    <div class="single-user-com-pic"><img src="{{ asset("assets/front/images/user-avtar/pic1.jpg") }}" alt=""></div>
                                                     <div class="single-user-com-text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</div>
                                                     <div class="single-user-msg-time">12:37 PM</div>
                                                 </div>
@@ -231,7 +231,7 @@
                                         <div class="row">
                                             <div class="col-xl-9 col-lg-12">
                                                 <div class="single-user-comment-block clearfix">
-                                                    <div class="single-user-com-pic"><img src="{{ asset("assets/images/user-avtar/pic4.jpg") }}" alt=""></div>
+                                                    <div class="single-user-com-pic"><img src="{{ asset("assets/front/images/user-avtar/pic4.jpg") }}" alt=""></div>
                                                     <div class="single-user-com-text">Breaking the endless cycle of meaningless text message conversations starts with only talking to someone who offers interesting topics opinions.</div>
                                                     <div class="single-user-msg-time">12:13 PM</div>
                                                 </div>
@@ -245,7 +245,7 @@
                                         <div class="row justify-content-end">
                                             <div class="col-xl-9 col-lg-12">
                                                 <div class="single-user-comment-block clearfix">
-                                                    <div class="single-user-com-pic"><img src="{{ asset("assets/images/user-avtar/pic1.jpg") }}" alt=""></div>
+                                                    <div class="single-user-com-pic"><img src="{{ asset("assets/front/images/user-avtar/pic1.jpg") }}" alt=""></div>
                                                     <div class="single-user-com-text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour.</div>
                                                     <div class="single-user-msg-time">12:37 PM</div>
                                                 </div>

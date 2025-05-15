@@ -47,7 +47,7 @@
                                     <div class="twm-candidates-grid-style1 mb-5">
                                         <div class="twm-media">
                                             <div class="twm-media-pic">
-                                                <img src="{{ asset("assets/images/candidates/pic1.jpg") }}" alt="#">
+                                                <img src="{{ asset("assets/front/images/candidates/pic1.jpg") }}" alt="#">
                                             </div>
                                         </div>
                                         <div class="twm-mid-content">
@@ -75,7 +75,7 @@
                                     <div class="twm-candidates-grid-style1 mb-5">
                                         <div class="twm-media">
                                             <div class="twm-media-pic">
-                                                <img src="{{ asset("assets/images/candidates/pic2.jpg") }}" alt="#">
+                                                <img src="{{ asset("assets/front/images/candidates/pic2.jpg") }}" alt="#">
                                             </div>
 
                                         </div>
@@ -103,7 +103,7 @@
                                     <div class="twm-candidates-grid-style1 mb-5">
                                         <div class="twm-media">
                                             <div class="twm-media-pic">
-                                                <img src="{{ asset("assets/images/candidates/pic3.jpg") }}" alt="#">
+                                                <img src="{{ asset("assets/front/images/candidates/pic3.jpg") }}" alt="#">
                                             </div>
 
                                         </div>
@@ -131,7 +131,7 @@
                                     <div class="twm-candidates-grid-style1 mb-5">
                                         <div class="twm-media">
                                             <div class="twm-media-pic">
-                                                <img src="{{ asset("assets/images/candidates/pic4.jpg") }}" alt="#">
+                                                <img src="{{ asset("assets/front/images/candidates/pic4.jpg") }}" alt="#">
                                             </div>
 
                                         </div>
@@ -159,7 +159,7 @@
                                     <div class="twm-candidates-grid-style1 mb-5">
                                         <div class="twm-media">
                                             <div class="twm-media-pic">
-                                                <img src="{{ asset("assets/images/candidates/pic5.jpg") }}" alt="#">
+                                                <img src="{{ asset("assets/front/images/candidates/pic5.jpg") }}" alt="#">
                                             </div>
 
                                         </div>
@@ -187,7 +187,7 @@
                                     <div class="twm-candidates-grid-style1 mb-5">
                                         <div class="twm-media">
                                             <div class="twm-media-pic">
-                                                <img src="{{ asset("assets/images/candidates/pic6.jpg") }}" alt="#">
+                                                <img src="{{ asset("assets/front/images/candidates/pic6.jpg") }}" alt="#">
                                             </div>
 
                                         </div>
@@ -215,7 +215,7 @@
                                     <div class="twm-candidates-grid-style1 mb-5">
                                         <div class="twm-media">
                                             <div class="twm-media-pic">
-                                                <img src="{{ asset("assets/images/candidates/pic7.jpg") }}" alt="#">
+                                                <img src="{{ asset("assets/front/images/candidates/pic7.jpg") }}" alt="#">
                                             </div>
 
                                         </div>
@@ -243,7 +243,7 @@
                                     <div class="twm-candidates-grid-style1 mb-5">
                                         <div class="twm-media">
                                             <div class="twm-media-pic">
-                                                <img src="{{ asset("assets/images/candidates/pic8.jpg") }}" alt="#">
+                                                <img src="{{ asset("assets/front/images/candidates/pic8.jpg") }}" alt="#">
                                             </div>
 
                                         </div>
@@ -270,7 +270,7 @@
                                     <div class="twm-candidates-grid-style1 mb-5">
                                         <div class="twm-media">
                                             <div class="twm-media-pic">
-                                                <img src="{{ asset("assets/images/candidates/pic9.jpg") }}" alt="#">
+                                                <img src="{{ asset("assets/front/images/candidates/pic9.jpg") }}" alt="#">
                                             </div>
 
                                         </div>
@@ -297,7 +297,7 @@
                                     <div class="twm-candidates-grid-style1 mb-5">
                                         <div class="twm-media">
                                             <div class="twm-media-pic">
-                                                <img src="{{ asset("assets/images/candidates/pic10.jpg") }}" alt="#">
+                                                <img src="{{ asset("assets/front/images/candidates/pic10.jpg") }}" alt="#">
                                             </div>
 
                                         </div>

@@ -18,13 +18,13 @@
                 <div class="col-lg-8 col-md-12">
                     <!-- Candidate detail START -->
                     <div class="cabdidate-de-info">
-                        <div class="twm-candi-self-wrap overlay-wraper" style="background-image:url({{ asset("assets/images/candidates/candidate-bg.jpg") }});">
+                        <div class="twm-candi-self-wrap overlay-wraper" style="background-image:url({{ asset("assets/front/images/candidates/candidate-bg.jpg") }});">
                             <div class="overlay-main site-bg-primary opacity-01"></div>
                             <div class="twm-candi-self-info">
                                 <div class="twm-candi-self-top">
                                     <div class="twm-candi-fee">$20 / Day</div>
                                     <div class="twm-media">
-                                        <img src="{{ asset("assets/images/candidates/pic2.jpg") }}" alt="#">
+                                        <img src="{{ asset("assets/front/images/candidates/pic2.jpg") }}" alt="#">
                                     </div>
                                     <div class="twm-mid-content">
 

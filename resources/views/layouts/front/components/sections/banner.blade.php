@@ -1,4 +1,4 @@
-<div class="twm-home1-banner-section site-bg-gray bg-cover" style="background-image:url({{ asset("assets/images/main-slider/slider1/bg1.jpg") }})">
+<div class="twm-home1-banner-section site-bg-gray bg-cover" style="background-image:url({{ asset("assets/front/images/main-slider/slider1/bg1.jpg") }})">
     <div class="row">
 
         <!--Left Section-->
@@ -77,13 +77,13 @@
                     <div class="owl-carousel twm-h1-bnr-carousal">
                         <div class="item">
                           <div class="slide-img">
-                            <img src="{{ asset("assets/images/main-slider/slider1/r-img1.png") }}" alt="#">
+                            <img src="{{ asset("assets/front/images/main-slider/slider1/r-img1.png") }}" alt="#">
                           </div>
                         </div>
                         <div class="item">
                           <div class="slide-img">
                             <div class="slide-img">
-                                <img src="{{ asset("assets/images/main-slider/slider1/r-img2.png") }}" alt="#">
+                                <img src="{{ asset("assets/front/images/main-slider/slider1/r-img2.png") }}" alt="#">
                               </div>
                           </div>
                         </div>
@@ -93,7 +93,7 @@
                         <!--icon-block-1-->
                         <div class="twm-bnr-blocks twm-bnr-blocks-position-1">
                             <div class="twm-icon">
-                                <img src="{{ asset("assets/images/main-slider/slider1/icon-1.png") }}" alt="">
+                                <img src="{{ asset("assets/front/images/main-slider/slider1/icon-1.png") }}" alt="">
                             </div>
                             <div class="twm-content">
                                 <div class="tw-count-number text-clr-sky">
@@ -106,7 +106,7 @@
                         <!--icon-block-2-->
                         <div class="twm-bnr-blocks twm-bnr-blocks-position-2">
                             <div class="twm-icon">
-                                <img src="{{ asset("assets/images/main-slider/slider1/icon-2.png") }}" alt="">
+                                <img src="{{ asset("assets/front/images/main-slider/slider1/icon-2.png") }}" alt="">
                             </div>
                             <div class="twm-content">
                                 <div class="tw-count-number text-clr-pink">
@@ -119,12 +119,12 @@
                         <!--icon-block-3-->
                         <div class="twm-bnr-blocks-3 twm-bnr-blocks-position-3">
                             <div class="twm-pics">
-                                <span><img src="{{ asset("assets/images/main-slider/slider1/user/u-1.jpg") }}" alt=""></span>
-                                <span><img src="{{ asset("assets/images/main-slider/slider1/user/u-2.jpg") }}" alt=""></span>
-                                <span><img src="{{ asset("assets/images/main-slider/slider1/user/u-3.jpg") }}" alt=""></span>
-                                <span><img src="{{ asset("assets/images/main-slider/slider1/user/u-4.jpg") }}" alt=""></span>
-                                <span><img src="{{ asset("assets/images/main-slider/slider1/user/u-5.jpg") }}" alt=""></span>
-                                <span><img src="{{ asset("assets/images/main-slider/slider1/user/u-6.jpg") }}" alt=""></span>
+                                <span><img src="{{ asset("assets/front/images/main-slider/slider1/user/u-1.jpg") }}" alt=""></span>
+                                <span><img src="{{ asset("assets/front/images/main-slider/slider1/user/u-2.jpg") }}" alt=""></span>
+                                <span><img src="{{ asset("assets/front/images/main-slider/slider1/user/u-3.jpg") }}" alt=""></span>
+                                <span><img src="{{ asset("assets/front/images/main-slider/slider1/user/u-4.jpg") }}" alt=""></span>
+                                <span><img src="{{ asset("assets/front/images/main-slider/slider1/user/u-5.jpg") }}" alt=""></span>
+                                <span><img src="{{ asset("assets/front/images/main-slider/slider1/user/u-6.jpg") }}" alt=""></span>
                             </div>
                             <div class="twm-content">
                                 <div class="tw-count-number text-clr-green">

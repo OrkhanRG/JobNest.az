@@ -9,7 +9,7 @@
 
     <div class="section-full p-t60 p-b90 bg-white">
         <!--Top Wide banner Start-->
-        <div class="twm-top-wide-banner overlay-wraper" style="background-image:url({{ asset("assets/images/detail-pic/company-bnr1.jpg") }});">
+        <div class="twm-top-wide-banner overlay-wraper" style="background-image:url({{ asset("assets/front/images/detail-pic/company-bnr1.jpg") }});">
             <div class="overlay-main site-bg-primary opacity-09"></div>
 
             <div class="twm-top-wide-banner-content container ">
@@ -17,7 +17,7 @@
                 <div class="twm-mid-content">
                     <div class="twm-employer-self-top">
                         <div class="twm-media">
-                            <img src="{{ asset("assets/images/jobs-company/pic1.jpg") }}" alt="#">
+                            <img src="{{ asset("assets/front/images/jobs-company/pic1.jpg") }}" alt="#">
                         </div>
 
                         <h3 class="twm-job-title">Galaxy Software Development</h3>
@@ -212,7 +212,7 @@
 
                                     <div class="col-lg-12 col-md-12 m-b30">
                                         <h4 class="twm-s-title">Video</h4>
-                                        <div class="video-section-first" style="background-image: url({{ asset("assets/images/video-bg.jpg") }});">
+                                        <div class="video-section-first" style="background-image: url({{ asset("assets/front/images/video-bg.jpg") }});">
                                             <a href="https://www.youtube.com/watch?v=c1XNqw2gSbU" class="mfp-video play-now-video">
                                                 <i class="icon feather-play"></i>
                                                 <span class="ripple"></span>
@@ -226,8 +226,8 @@
                                             <div class="row">
                                                 <div class="col-lg-3 col-md-3">
                                                     <div class="tw-service-gallery-thumb">
-                                                        <a class="elem" href="{{ asset("assets/images/gallery/pic1.jpg") }}" title="Title 1" data-lcl-author="" data-lcl-thumb="{{ asset("assets/images/gallery/thumb/pic1.jpg") }}">
-                                                            <img src="{{ asset("assets/images/gallery/thumb/pic1.jpg") }}" alt="">
+                                                        <a class="elem" href="{{ asset("assets/front/images/gallery/pic1.jpg") }}" title="Title 1" data-lcl-author="" data-lcl-thumb="{{ asset("assets/front/images/gallery/thumb/pic1.jpg") }}">
+                                                            <img src="{{ asset("assets/front/images/gallery/thumb/pic1.jpg") }}" alt="">
                                                             <i class="fa fa-file-image"></i>
                                                         </a>
                                                     </div>
@@ -235,8 +235,8 @@
 
                                                 <div class="col-lg-3 col-md-3">
                                                     <div class="tw-service-gallery-thumb">
-                                                        <a class="elem" href="{{ asset("assets/images/gallery/pic2.jpg") }}" title="Title 2" data-lcl-author="" data-lcl-thumb="{{ asset("assets/images/gallery/thumb/pic2.jpg") }}">
-                                                            <img src="{{ asset("assets/images/gallery/thumb/pic2.jpg") }}" alt="">
+                                                        <a class="elem" href="{{ asset("assets/front/images/gallery/pic2.jpg") }}" title="Title 2" data-lcl-author="" data-lcl-thumb="{{ asset("assets/front/images/gallery/thumb/pic2.jpg") }}">
+                                                            <img src="{{ asset("assets/front/images/gallery/thumb/pic2.jpg") }}" alt="">
                                                             <i class="fa fa-file-image"></i>
                                                         </a>
                                                     </div>
@@ -244,8 +244,8 @@
 
                                                 <div class="col-lg-3 col-md-3">
                                                     <div class="tw-service-gallery-thumb ">
-                                                        <a class="elem" href="{{ asset("assets/images/gallery/pic3.jpg") }}" title="Title 3"  data-lcl-author="" data-lcl-thumb="{{ asset("assets/images/gallery/thumb/pic3.jpg") }}">
-                                                            <img src="{{ asset("assets/images/gallery/thumb/pic3.jpg") }}" alt="">
+                                                        <a class="elem" href="{{ asset("assets/front/images/gallery/pic3.jpg") }}" title="Title 3"  data-lcl-author="" data-lcl-thumb="{{ asset("assets/front/images/gallery/thumb/pic3.jpg") }}">
+                                                            <img src="{{ asset("assets/front/images/gallery/thumb/pic3.jpg") }}" alt="">
                                                             <i class="fa fa-file-image"></i>
                                                         </a>
                                                     </div>
@@ -253,8 +253,8 @@
 
                                                 <div class="col-lg-3 col-md-3">
                                                     <div class="tw-service-gallery-thumb">
-                                                        <a class="elem" href="{{ asset("assets/images/gallery/pic4.jpg") }}" title="Title 4"  data-lcl-author="" data-lcl-thumb="{{ asset("assets/images/gallery/thumb/pic4.jpg") }}">
-                                                            <img src="{{ asset("assets/images/gallery/thumb/pic4.jpg") }}" alt="">
+                                                        <a class="elem" href="{{ asset("assets/front/images/gallery/pic4.jpg") }}" title="Title 4"  data-lcl-author="" data-lcl-thumb="{{ asset("assets/front/images/gallery/thumb/pic4.jpg") }}">
+                                                            <img src="{{ asset("assets/front/images/gallery/thumb/pic4.jpg") }}" alt="">
                                                             <i class="fa fa-file-image"></i>
                                                         </a>
                                                     </div>
@@ -262,8 +262,8 @@
 
                                                 <div class="col-lg-3 col-md-3">
                                                     <div class="tw-service-gallery-thumb">
-                                                        <a class="elem" href="{{ asset("assets/images/gallery/pic5.jpg") }}" title="Title 5"  data-lcl-author="" data-lcl-thumb="{{ asset("assets/images/gallery/thumb/pic5.jpg") }}">
-                                                            <img src="{{ asset("assets/images/gallery/thumb/pic5.jpg") }}" alt="">
+                                                        <a class="elem" href="{{ asset("assets/front/images/gallery/pic5.jpg") }}" title="Title 5"  data-lcl-author="" data-lcl-thumb="{{ asset("assets/front/images/gallery/thumb/pic5.jpg") }}">
+                                                            <img src="{{ asset("assets/front/images/gallery/thumb/pic5.jpg") }}" alt="">
                                                             <i class="fa fa-file-image"></i>
                                                         </a>
                                                     </div>
@@ -271,8 +271,8 @@
 
                                                 <div class="col-lg-3 col-md-3">
                                                     <div class="tw-service-gallery-thumb">
-                                                        <a class="elem" href="{{ asset("assets/images/gallery/pic6.jpg") }}" title="Title 6"  data-lcl-author="" data-lcl-thumb="{{ asset("assets/images/gallery/thumb/pic6.jpg") }}">
-                                                            <img src="{{ asset("assets/images/gallery/thumb/pic6.jpg") }}" alt="">
+                                                        <a class="elem" href="{{ asset("assets/front/images/gallery/pic6.jpg") }}" title="Title 6"  data-lcl-author="" data-lcl-thumb="{{ asset("assets/front/images/gallery/thumb/pic6.jpg") }}">
+                                                            <img src="{{ asset("assets/front/images/gallery/thumb/pic6.jpg") }}" alt="">
                                                             <i class="fa fa-file-image"></i>
                                                         </a>
                                                     </div>
@@ -280,8 +280,8 @@
 
                                                 <div class="col-lg-3 col-md-3">
                                                     <div class="tw-service-gallery-thumb">
-                                                        <a class="elem" href="{{ asset("assets/images/gallery/pic7.jpg") }}" title="Title 7" data-lcl-author="" data-lcl-thumb="{{ asset("assets/images/gallery/thumb/pic1.jpg") }}">
-                                                            <img src="{{ asset("assets/images/gallery/thumb/pic7.jpg") }}" alt="">
+                                                        <a class="elem" href="{{ asset("assets/front/images/gallery/pic7.jpg") }}" title="Title 7" data-lcl-author="" data-lcl-thumb="{{ asset("assets/front/images/gallery/thumb/pic1.jpg") }}">
+                                                            <img src="{{ asset("assets/front/images/gallery/thumb/pic7.jpg") }}" alt="">
                                                             <i class="fa fa-file-image"></i>
                                                         </a>
                                                     </div>
@@ -289,8 +289,8 @@
 
                                                 <div class="col-lg-3 col-md-3">
                                                     <div class="tw-service-gallery-thumb">
-                                                        <a class="elem" href="{{ asset("assets/images/gallery/pic8.jpg") }}" title="Title 8" data-lcl-author="" data-lcl-thumb="{{ asset("assets/images/gallery/thumb/pic2.jpg") }}">
-                                                            <img src="{{ asset("assets/images/gallery/thumb/pic8.jpg") }}" alt="">
+                                                        <a class="elem" href="{{ asset("assets/front/images/gallery/pic8.jpg") }}" title="Title 8" data-lcl-author="" data-lcl-thumb="{{ asset("assets/front/images/gallery/thumb/pic2.jpg") }}">
+                                                            <img src="{{ asset("assets/front/images/gallery/thumb/pic8.jpg") }}" alt="">
                                                             <i class="fa fa-file-image"></i>
                                                         </a>
                                                     </div>
@@ -311,7 +311,7 @@
                                      <li>
                                          <div class="twm-jobs-list-style1 mb-5">
                                              <div class="twm-media">
-                                                 <img src="{{ asset("assets/images/jobs-company/pic1.jpg") }}" alt="#">
+                                                 <img src="{{ asset("assets/front/images/jobs-company/pic1.jpg") }}" alt="#">
                                              </div>
                                              <div class="twm-mid-content">
                                                  <a href="job-detail.html" class="twm-job-title">
@@ -331,7 +331,7 @@
                                      <li>
                                          <div class="twm-jobs-list-style1 mb-5">
                                              <div class="twm-media">
-                                                 <img src="{{ asset("assets/images/jobs-company/pic2.jpg") }}" alt="#">
+                                                 <img src="{{ asset("assets/front/images/jobs-company/pic2.jpg") }}" alt="#">
                                              </div>
                                              <div class="twm-mid-content">
                                                  <a href="job-detail.html" class="twm-job-title">
@@ -351,7 +351,7 @@
                                      <li>
                                          <div class="twm-jobs-list-style1 mb-5">
                                              <div class="twm-media">
-                                                 <img src="{{ asset("assets/images/jobs-company/pic3.jpg") }}" alt="#">
+                                                 <img src="{{ asset("assets/front/images/jobs-company/pic3.jpg") }}" alt="#">
                                              </div>
                                              <div class="twm-mid-content">
                                                  <a href="job-detail.html" class="twm-job-title">

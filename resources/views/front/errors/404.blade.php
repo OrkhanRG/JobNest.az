@@ -13,7 +13,7 @@
 
                     <div class="col-lg-6 col-md-12">
                         <div class="twm-error-image">
-                            <img src="{{ asset("assets/images/error-404.png") }}" alt="#">
+                            <img src="{{ asset("assets/front/images/error-404.png") }}" alt="#">
                         </div>
                     </div>
 

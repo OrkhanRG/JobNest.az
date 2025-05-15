@@ -19,7 +19,7 @@
                         <!--Block one-->
                         <div class="blog-post twm-blog-post-1-outer">
                             <div class="wt-post-media">
-                                <a href="blog-single.html"><img src="{{ asset("assets/images/blog/latest/bg1.jpg") }}" alt=""></a>
+                                <a href="blog-single.html"><img src="{{ asset("assets/front/images/blog/latest/bg1.jpg") }}" alt=""></a>
                             </div>
                             <div class="wt-post-info">
                                 <div class="wt-post-meta ">
@@ -49,7 +49,7 @@
                         <!--Block two-->
                         <div class="blog-post twm-blog-post-1-outer">
                             <div class="wt-post-media">
-                                <a href="blog-single.html"><img src="{{ asset("assets/images/blog/latest/bg2.jpg") }}" alt=""></a>
+                                <a href="blog-single.html"><img src="{{ asset("assets/front/images/blog/latest/bg2.jpg") }}" alt=""></a>
                             </div>
                             <div class="wt-post-info">
                                 <div class="wt-post-meta ">
@@ -80,7 +80,7 @@
                         <!--Block three-->
                         <div class="blog-post twm-blog-post-1-outer">
                             <div class="wt-post-media">
-                                <a href="blog-single.html"><img src="{{ asset("assets/images/blog/latest/bg3.jpg") }}" alt=""></a>
+                                <a href="blog-single.html"><img src="{{ asset("assets/front/images/blog/latest/bg3.jpg") }}" alt=""></a>
                             </div>
                             <div class="wt-post-info">
                                 <div class="wt-post-meta ">
@@ -111,7 +111,7 @@
                         <!--Block Four-->
                         <div class="blog-post twm-blog-post-1-outer">
                             <div class="wt-post-media">
-                                <a href="blog-single.html"><img src="{{ asset("assets/images/blog/latest/bg1.jpg") }}" alt=""></a>
+                                <a href="blog-single.html"><img src="{{ asset("assets/front/images/blog/latest/bg1.jpg") }}" alt=""></a>
                             </div>
                             <div class="wt-post-info">
                                 <div class="wt-post-meta ">
@@ -141,7 +141,7 @@
                         <!--Block Five-->
                         <div class="blog-post twm-blog-post-1-outer">
                             <div class="wt-post-media">
-                                <a href="blog-single.html"><img src="{{ asset("assets/images/blog/latest/bg2.jpg") }}" alt=""></a>
+                                <a href="blog-single.html"><img src="{{ asset("assets/front/images/blog/latest/bg2.jpg") }}" alt=""></a>
                             </div>
                             <div class="wt-post-info">
                                 <div class="wt-post-meta ">
@@ -172,7 +172,7 @@
                         <!--Block Six-->
                         <div class="blog-post twm-blog-post-1-outer">
                             <div class="wt-post-media">
-                                <a href="blog-single.html"><img src="{{ asset("assets/images/blog/latest/bg3.jpg") }}" alt=""></a>
+                                <a href="blog-single.html"><img src="{{ asset("assets/front/images/blog/latest/bg3.jpg") }}" alt=""></a>
                             </div>
                             <div class="wt-post-info">
                                 <div class="wt-post-meta ">

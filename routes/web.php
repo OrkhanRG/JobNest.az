@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\JobCategoryController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
@@ -13,7 +15,7 @@ use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\VacancyController;
 use Illuminate\Support\Facades\Route;
 
-
+//Front
 Route::name("front.")->group(function(){
     //Home
     Route::get("/", [HomeController::class, "index"])->name("index");
@@ -43,10 +45,10 @@ Route::name("front.")->group(function(){
     Route::get("/blogs", [BlogController::class, "index"])->name("blogs");
     Route::get("/blog/{slug}", [BlogController::class, "getBySlug"])->name("blog");
 
-    Route::prefix("management")->group(function(){
+    Route::prefix("management")->middleware("custom_auth")->group(function(){
         //Candidate Management
         Route::prefix("candidate")->name("candidate.")->middleware("role:candidate")->group(function(){
-            Route::get("/dashboard", [CandidateController::class, "dashboard"])->name("dashboard");
+            Route::get("/", [CandidateController::class, "dashboard"])->name("dashboard");
             Route::get("/profile", [CandidateController::class, "profile"])->name("profile");
             Route::get("/applied-jobs", [CandidateController::class, "appliedJobs"])->name("applied-jobs");
             Route::get("/my-resume", [CandidateController::class, "myResume"])->name("my-resume");
@@ -59,15 +61,29 @@ Route::name("front.")->group(function(){
 
         //Company Management
         Route::prefix("company")->name("company.")->middleware("role:company")->group(function(){
-            Route::get("dashboard", [CompanyController::class, "dashboard"])->name("dashboard");
-            Route::get("profile", [CompanyController::class, "profile"])->name("profile");
-            Route::get("resume", [CompanyController::class, "resume"])->name("resume");
-            Route::get("manage-jobs", [CompanyController::class, "manageJobs"])->name("manage-jobs");
-            Route::get("post-job", [CompanyController::class, "postJob"])->name("post-job");
-            Route::get("transaction", [CompanyController::class, "transaction"])->name("transaction");
-            Route::get("change-password", [CompanyController::class, "changePassword"])->name("change-password");
+            Route::get("/", [CompanyController::class, "dashboard"])->name("dashboard");
+            Route::get("/profile", [CompanyController::class, "profile"])->name("profile");
+            Route::get("/resume", [CompanyController::class, "resume"])->name("resume");
+            Route::get("/manage-jobs", [CompanyController::class, "manageJobs"])->name("manage-jobs");
+            Route::get("/post-job", [CompanyController::class, "postJob"])->name("post-job");
+            Route::get("/transaction", [CompanyController::class, "transaction"])->name("transaction");
+            Route::get("/change-password", [CompanyController::class, "changePassword"])->name("change-password");
         });
     });
+});
+
+//Admin
+Route::prefix("admin")->name("admin.")->middleware("custom_auth", "role:admin,developer,moderator")->group(function(){
+    //Dashboard
+    Route::get("/", [DashboardController::class, "index"])->name("dashboard");
+
+    //Job Categories
+    Route::get("/job-categories", [JobCategoryController::class, "index"])->name("job-categories.list");
+    Route::get("/job-categories/create", [JobCategoryController::class, "create"])->name("job-categories.create");
+    Route::post("/job-categories/create", [JobCategoryController::class, "store"]);
+    Route::get("/job-categories/{category}/edit", [JobCategoryController::class, "edit"])->name("job-categories.edit");
+    Route::put("/job-categories/{category}/edit", [JobCategoryController::class, "update"]);
+    Route::delete("/job-categories/{category}/delete", [JobCategoryController::class, "destroy"])->name("job-categories.delete");
 });
 
 //Login

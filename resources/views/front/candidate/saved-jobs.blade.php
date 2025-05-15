@@ -33,7 +33,7 @@
                                             <div class="twm-candidate-save-job-list">
                                                 <div class="twm-media">
                                                     <div class="twm-media-pic">
-                                                       <img src="{{ asset( "assets/images/jobs-company/pic1.jpg") }}" alt="#">
+                                                       <img src="{{ asset( "assets/front/images/jobs-company/pic1.jpg") }}" alt="#">
                                                     </div>
                                                 </div>
                                                 <div class="twm-mid-content">
@@ -75,7 +75,7 @@
                                             <div class="twm-candidate-save-job-list">
                                                 <div class="twm-media">
                                                     <div class="twm-media-pic">
-                                                       <img src="{{ asset( "assets/images/jobs-company/pic2.jpg") }}" alt="#">
+                                                       <img src="{{ asset( "assets/front/images/jobs-company/pic2.jpg") }}" alt="#">
                                                     </div>
                                                 </div>
                                                 <div class="twm-mid-content">
@@ -117,7 +117,7 @@
                                             <div class="twm-candidate-save-job-list">
                                                 <div class="twm-media">
                                                     <div class="twm-media-pic">
-                                                       <img src="{{ asset( "assets/images/jobs-company/pic3.jpg") }}" alt="#">
+                                                       <img src="{{ asset( "assets/front/images/jobs-company/pic3.jpg") }}" alt="#">
                                                     </div>
                                                 </div>
                                                 <div class="twm-mid-content">
@@ -159,7 +159,7 @@
                                             <div class="twm-candidate-save-job-list">
                                                 <div class="twm-media">
                                                     <div class="twm-media-pic">
-                                                       <img src="{{ asset( "assets/images/jobs-company/pic4.jpg") }}" alt="#">
+                                                       <img src="{{ asset( "assets/front/images/jobs-company/pic4.jpg") }}" alt="#">
                                                     </div>
                                                 </div>
                                                 <div class="twm-mid-content">
@@ -201,7 +201,7 @@
                                             <div class="twm-candidate-save-job-list">
                                                 <div class="twm-media">
                                                     <div class="twm-media-pic">
-                                                       <img src="{{ asset( "assets/images/jobs-company/pic5.jpg") }}" alt="#">
+                                                       <img src="{{ asset( "assets/front/images/jobs-company/pic5.jpg") }}" alt="#">
                                                     </div>
                                                 </div>
                                                 <div class="twm-mid-content">
@@ -243,7 +243,7 @@
                                             <div class="twm-candidate-save-job-list">
                                                 <div class="twm-media">
                                                     <div class="twm-media-pic">
-                                                       <img src="{{ asset( "assets/images/jobs-company/pic1.jpg") }}" alt="#">
+                                                       <img src="{{ asset( "assets/front/images/jobs-company/pic1.jpg") }}" alt="#">
                                                     </div>
                                                 </div>
                                                 <div class="twm-mid-content">
@@ -284,7 +284,7 @@
                                             <div class="twm-candidate-save-job-list">
                                                 <div class="twm-media">
                                                     <div class="twm-media-pic">
-                                                       <img src="{{ asset( "assets/images/jobs-company/pic2.jpg") }}" alt="#">
+                                                       <img src="{{ asset( "assets/front/images/jobs-company/pic2.jpg") }}" alt="#">
                                                     </div>
                                                 </div>
                                                 <div class="twm-mid-content">

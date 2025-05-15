@@ -1,4 +1,4 @@
-        <footer class="footer-dark" style="background-image: url({{ asset("assets/images/f-bg.jpg") }});">
+        <footer class="footer-dark" style="background-image: url({{ asset("assets/front/images/f-bg.jpg") }});">
             <div class="container">
                 <input type="hidden" data-role="show-reset-password-modal" value="{{ $show_forgot_password ?? 0 }}">
                 <!-- NEWS LETTER SECTION START -->
@@ -29,7 +29,7 @@
 
                             <div class="widget widget_about">
                                 <div class="logo-footer clearfix">
-                                    <a href="{{ route("front.index") }}"><img src="{{ asset("assets/images/logo-light.png") }}" alt=""></a>
+                                    <a href="{{ route("front.index") }}"><img src="{{ asset("assets/front/images/logo-light.png") }}" alt=""></a>
                                 </div>
                                 <p>JobNest — Peşəkarlar burada birləşir!</p>
                                 <ul class="ftr-list">
@@ -129,31 +129,31 @@
  	</div>
 
 <!-- JAVASCRIPT  FILES ========================================= -->
-<script  src={{ asset("assets/js/jquery-3.6.0.min.js") }}></script><!-- JQUERY.MIN JS -->
-<script  src={{ asset("assets/js/popper.min.js") }}></script><!-- POPPER.MIN JS -->
-<script  src={{ asset("assets/js/bootstrap.min.js") }}></script><!-- BOOTSTRAP.MIN JS -->
-<script  src={{ asset("assets/js/sweetalert2.js") }}></script><!-- BOOTSTRAP.MIN JS -->
-<script  src={{ asset("assets/js/magnific-popup.min.js") }}></script><!-- MAGNIFIC-POPUP JS -->
-<script  src={{ asset("assets/js/waypoints.min.js") }}></script><!-- WAYPOINTS JS -->
-<script  src={{ asset("assets/js/counterup.min.js") }}></script><!-- COUNTERUP JS -->
-<script  src={{ asset("assets/js/waypoints-sticky.min.js") }}></script><!-- STICKY HEADER -->
-<script  src={{ asset("assets/js/isotope.pkgd.min.js") }}></script><!-- MASONRY  -->
-<script  src={{ asset("assets/js/imagesloaded.pkgd.min.js") }}></script><!-- MASONRY  -->
-<script  src={{ asset("assets/js/owl.carousel.min.js") }}></script><!-- OWL  SLIDER  -->
-<script  src={{ asset("assets/js/theia-sticky-sidebar.js") }}></script><!-- STICKY SIDEBAR  -->
-<script  src={{ asset("assets/js/lc_lightbox.lite.js") }} ></script><!-- IMAGE POPUP -->
-<script  src={{ asset("assets/js/bootstrap-select.min.js") }}></script><!-- Form js -->
-<script  src={{ asset("assets/js/dropzone.js") }}></script><!-- IMAGE UPLOAD  -->
-<script  src={{ asset("assets/js/jquery.scrollbar.js") }}></script><!-- scroller -->
-<script  src={{ asset("assets/js/bootstrap-datepicker.js") }}></script><!-- scroller -->
-<script  src={{ asset("assets/js/jquery.dataTables.min.js") }}></script><!-- Datatable -->
-<script  src={{ asset("assets/js/dataTables.bootstrap5.min.js") }}></script><!-- Datatable -->
-<script  src={{ asset("assets/js/chart.js") }}></script><!-- Chart -->
-<script  src={{ asset("assets/js/bootstrap-slider.min.js") }}></script><!-- Price range slider -->
-<script  src={{ asset("assets/js/swiper-bundle.min.js") }}></script><!-- Swiper JS -->
-<script  src={{ asset("assets/js/custom.js") }}></script><!-- CUSTOM FUCTIONS  -->
-<script  src={{ asset("assets/js/switcher.js") }}></script><!-- SHORTCODE FUCTIONS  -->
-<script  src={{ asset("assets/js/toastr.min.js") }}></script><!-- SHORTCODE FUCTIONS  -->
+<script  src={{ asset("assets/front/js/jquery-3.6.0.min.js") }}></script><!-- JQUERY.MIN JS -->
+<script  src={{ asset("assets/front/js/popper.min.js") }}></script><!-- POPPER.MIN JS -->
+<script  src={{ asset("assets/front/js/bootstrap.min.js") }}></script><!-- BOOTSTRAP.MIN JS -->
+<script  src={{ asset("assets/front/js/sweetalert2.js") }}></script><!-- BOOTSTRAP.MIN JS -->
+<script  src={{ asset("assets/front/js/magnific-popup.min.js") }}></script><!-- MAGNIFIC-POPUP JS -->
+<script  src={{ asset("assets/front/js/waypoints.min.js") }}></script><!-- WAYPOINTS JS -->
+<script  src={{ asset("assets/front/js/counterup.min.js") }}></script><!-- COUNTERUP JS -->
+<script  src={{ asset("assets/front/js/waypoints-sticky.min.js") }}></script><!-- STICKY HEADER -->
+<script  src={{ asset("assets/front/js/isotope.pkgd.min.js") }}></script><!-- MASONRY  -->
+<script  src={{ asset("assets/front/js/imagesloaded.pkgd.min.js") }}></script><!-- MASONRY  -->
+<script  src={{ asset("assets/front/js/owl.carousel.min.js") }}></script><!-- OWL  SLIDER  -->
+<script  src={{ asset("assets/front/js/theia-sticky-sidebar.js") }}></script><!-- STICKY SIDEBAR  -->
+<script  src={{ asset("assets/front/js/lc_lightbox.lite.js") }} ></script><!-- IMAGE POPUP -->
+<script  src={{ asset("assets/front/js/bootstrap-select.min.js") }}></script><!-- Form js -->
+<script  src={{ asset("assets/front/js/dropzone.js") }}></script><!-- IMAGE UPLOAD  -->
+<script  src={{ asset("assets/front/js/jquery.scrollbar.js") }}></script><!-- scroller -->
+<script  src={{ asset("assets/front/js/bootstrap-datepicker.js") }}></script><!-- scroller -->
+<script  src={{ asset("assets/front/js/jquery.dataTables.min.js") }}></script><!-- Datatable -->
+<script  src={{ asset("assets/front/js/dataTables.bootstrap5.min.js") }}></script><!-- Datatable -->
+<script  src={{ asset("assets/front/js/chart.js") }}></script><!-- Chart -->
+<script  src={{ asset("assets/front/js/bootstrap-slider.min.js") }}></script><!-- Price range slider -->
+<script  src={{ asset("assets/front/js/swiper-bundle.min.js") }}></script><!-- Swiper JS -->
+<script  src={{ asset("assets/front/js/custom.js") }}></script><!-- CUSTOM FUCTIONS  -->
+<script  src={{ asset("assets/front/js/switcher.js") }}></script><!-- SHORTCODE FUCTIONS  -->
+<script  src={{ asset("assets/front/js/toastr.min.js") }}></script><!-- SHORTCODE FUCTIONS  -->
 @include('sweetalert::alert')
 
 <script>
@@ -200,11 +200,11 @@
 
 
 </script>
-        <script  src="{{ asset("assets/custom/library/btn-loader.js") }}"></script>
-        <script  src="{{ asset("assets/custom/js/helper.js") }}"></script>
-        <script  src="{{ asset("assets/custom/js/app.js") }}"></script>
-        <script  src="{{ asset("assets/custom/js/login.js") }}"></script>
-        <script  src="{{ asset("assets/custom/js/register.js") }}"></script>
+        <script  src="{{ asset("assets/front/custom/library/btn-loader.js") }}"></script>
+        <script  src="{{ asset("assets/front/custom/js/helper.js") }}"></script>
+        <script  src="{{ asset("assets/front/custom/js/app.js") }}"></script>
+        <script  src="{{ asset("assets/front/custom/js/login.js") }}"></script>
+        <script  src="{{ asset("assets/front/custom/js/register.js") }}"></script>
 
 @stack("js")
 

@@ -30,7 +30,7 @@
                     <!--Block one-->
                     <div class="blog-post twm-blog-post-1-outer twm-blog-list-style">
                         <div class="wt-post-media">
-                            <a href="{{ route("front.blog", "test") }}"><img src="{{ asset("/assets/images/blog/latest/bg1.jpg") }}" alt=""></a>
+                            <a href="{{ route("front.blog", "test") }}"><img src="{{ asset("/assets/front/images/blog/latest/bg1.jpg") }}" alt=""></a>
                         </div>
                         <div class="wt-post-info">
                             <div class="wt-post-meta ">
@@ -58,7 +58,7 @@
                     <!--Block two-->
                     <div class="blog-post twm-blog-post-1-outer twm-blog-list-style">
                         <div class="wt-post-media">
-                            <a href="blog-single.html"><img src="{{ asset("assets/images/blog/latest/bg2.jpg") }}" alt=""></a>
+                            <a href="blog-single.html"><img src="{{ asset("assets/front/images/blog/latest/bg2.jpg") }}" alt=""></a>
                         </div>
                         <div class="wt-post-info">
                             <div class="wt-post-meta ">
@@ -87,7 +87,7 @@
                     <!--Block three-->
                     <div class="blog-post twm-blog-post-1-outer twm-blog-list-style">
                         <div class="wt-post-media">
-                            <a href="blog-single.html"><img src="{{ asset("assets/images/blog/latest/bg3.jpg") }}" alt=""></a>
+                            <a href="blog-single.html"><img src="{{ asset("assets/front/images/blog/latest/bg3.jpg") }}" alt=""></a>
                         </div>
                         <div class="wt-post-info">
                             <div class="wt-post-meta ">
@@ -116,7 +116,7 @@
                     <!--Block Four-->
                     <div class="blog-post twm-blog-post-1-outer twm-blog-list-style">
                         <div class="wt-post-media">
-                            <a href="blog-single.html"><img src="{{ asset("assets/images/blog/latest/bg4.jpg") }}" alt=""></a>
+                            <a href="blog-single.html"><img src="{{ asset("assets/front/images/blog/latest/bg4.jpg") }}" alt=""></a>
                         </div>
                         <div class="wt-post-info">
                             <div class="wt-post-meta ">
@@ -192,7 +192,7 @@
 
                                     <div class="widget-post clearfix">
                                         <div class="wt-post-media">
-                                            <img src="{{ asset("assets/images/blog/recent-blog/pic1.jpg") }}" alt="">
+                                            <img src="{{ asset("assets/front/images/blog/recent-blog/pic1.jpg") }}" alt="">
                                         </div>
                                         <div class="wt-post-info">
                                             <div class="wt-post-header">
@@ -206,7 +206,7 @@
 
                                     <div class="widget-post clearfix">
                                         <div class="wt-post-media">
-                                            <img src="{{ asset("assets/images/blog/recent-blog/pic2.jpg") }}" alt="">
+                                            <img src="{{ asset("assets/front/images/blog/recent-blog/pic2.jpg") }}" alt="">
                                         </div>
                                         <div class="wt-post-info">
                                             <div class="wt-post-header">
@@ -220,7 +220,7 @@
 
                                     <div class="widget-post clearfix">
                                         <div class="wt-post-media">
-                                            <img src="{{ asset("assets/images/blog/recent-blog/pic3.jpg") }}" alt="">
+                                            <img src="{{ asset("assets/front/images/blog/recent-blog/pic3.jpg") }}" alt="">
                                         </div>
                                         <div class="wt-post-info">
                                             <div class="wt-post-header">
@@ -234,7 +234,7 @@
 
                                     <div class="widget-post clearfix">
                                         <div class="wt-post-media">
-                                            <img src="{{ asset("assets/images/blog/recent-blog/pic4.jpg") }}" alt="">
+                                            <img src="{{ asset("assets/front/images/blog/recent-blog/pic4.jpg") }}" alt="">
                                         </div>
                                         <div class="wt-post-info">
                                             <div class="wt-post-header">
@@ -248,7 +248,7 @@
 
                                     <div class="widget-post clearfix">
                                         <div class="wt-post-media">
-                                            <img src="{{ asset("assets/images/blog/recent-blog/pic5.jpg") }}" alt="">
+                                            <img src="{{ asset("assets/front/images/blog/recent-blog/pic5.jpg") }}" alt="">
                                         </div>
                                         <div class="wt-post-info">
                                             <div class="wt-post-header">

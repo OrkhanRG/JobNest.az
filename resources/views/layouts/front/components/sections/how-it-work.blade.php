@@ -19,7 +19,7 @@
                         <span class="twm-large-number">01</span>
                         <div class="twm-w-pro-top bg-clr-sky">
                             <div class="twm-media">
-                                <span><img src="{{ asset("assets/images/work-process/icon1.png") }}" alt="icon1"></span>
+                                <span><img src="{{ asset("assets/front/images/work-process/icon1.png") }}" alt="icon1"></span>
                             </div>
                             <h4 class="twm-title">Register<br>Your Account</h4>
                         </div>
@@ -32,7 +32,7 @@
                         <span class="twm-large-number">02</span>
                         <div class="twm-w-pro-top bg-clr-pink">
                             <div class="twm-media">
-                                <span><img src="{{ asset("assets/images/work-process/icon2.png") }}" alt="icon1"></span>
+                                <span><img src="{{ asset("assets/front/images/work-process/icon2.png") }}" alt="icon1"></span>
                             </div>
                             <h4 class="twm-title">Apply <br>
                                 For Dream Job</h4>
@@ -46,7 +46,7 @@
                         <span class="twm-large-number">03</span>
                         <div class="twm-w-pro-top bg-clr-green">
                             <div class="twm-media">
-                                <span><img src="{{ asset("assets/images/work-process/icon3.png") }}" alt="icon1"></span>
+                                <span><img src="{{ asset("assets/front/images/work-process/icon3.png") }}" alt="icon1"></span>
                             </div>
                             <h4 class="twm-title">Upload <br>Your Resume</h4>
                         </div>
