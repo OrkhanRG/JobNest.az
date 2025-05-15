@@ -34,30 +34,18 @@
                     <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
+                        <th scope="col">İkon</th>
+                        <th scope="col">Ad</th>
+                        <th scope="col">Üst Kateqoriya</th>
+                        <th scope="col">Slug</th>
+                        <th scope="col">Açığlama</th>
+                        <th scope="col" class="text-center">
+                            <iconify-icon class="fs-21 align-middle" icon="iconamoon:settings-duotone"></iconify-icon>
+                        </th>
                     </tr>
                     </thead>
-                    <tbody class="table-group-divider">
-                    <tr>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Larry the Bird</td>
-                        <td>Simsons</td>
-                        <td>@twitter</td>
-                    </tr>
+                    <tbody class="table-group-divider" data-role="table-body">
+
                     </tbody>
                 </table>
             </div>
@@ -67,5 +55,8 @@
 @endsection
 
 @push("js")
-
+    <script>
+        let job_categories_route =  "{{ route("admin.job-categories.list") }}";
+    </script>
+    <script src="{{ asset("assets/admin/custom/js/job_category/list.js") }}"></script>
 @endpush

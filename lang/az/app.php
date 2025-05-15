@@ -9,4 +9,6 @@ return [
     "candidate" => "Namizəd",
     "company" => "Şirkət",
     "warning" => "Diqqət!",
+    "success" => "Uğurlu!",
+    "error" => "Xəta!",
 ];

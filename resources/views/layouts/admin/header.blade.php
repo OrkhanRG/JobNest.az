@@ -25,6 +25,8 @@
     <!-- App css (Require in all Page) -->
     <link href="{{ asset("assets/admin/css/app.min.css") }}" rel="stylesheet" type="text/css" />
 
+    <link href="{{ asset("assets/admin/custom/css/default.css") }}" rel="stylesheet" type="text/css" />
+
     <!-- Theme Config js (Require in all Page) -->
     <script src="{{ asset("assets/admin/js/config.js") }}"></script>
     @stack("css")

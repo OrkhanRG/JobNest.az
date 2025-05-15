@@ -30,11 +30,15 @@
 <!-- Vendor Javascript (Require in all Page) -->
 <script src="{{ asset("assets/admin/js/vendor.js") }}"></script>
 
+<!-- jQuery -->
+<script src="{{ asset("assets/admin/js/jquery-3.6.0.min.js") }}"></script>
+
 <!-- App Javascript (Require in all Page) -->
 <script src="{{ asset("assets/admin/js/app.js") }}"></script>
+
+<script  src="{{ asset("assets/global/js/helper.js") }}"></script>
+<script src="{{ asset("assets/admin/custom/js/default.js") }}"></script>
 @stack("js")
 
 </body>
-
-<!-- Mirrored from techzaa.in/reback/admin/pages-starter.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 14 May 2025 12:43:17 GMT -->
 </html>
