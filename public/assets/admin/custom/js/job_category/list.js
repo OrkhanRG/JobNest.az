@@ -2,11 +2,14 @@ $(function () {
     const trComponent = (d, i) => {
         return `<tr>
                     <td>${ ++i }</td>
-                    <td>${ d.icon ?? "" }</td>
+                    <td>
+                        ${d.icon ? `<img width="50" src="/${ d.icon ?? "" }" alt="">` : ``}
+                    </td>
                     <td>${ d.name ?? "" }</td>
-                    <td>${ d.parent_name ?? "" }</td>
                     <td>${ d.slug ?? "" }</td>
-                    <td>${ d.description ?? "" }</td>
+                    <td>
+                        <iconify-icon class="fs-21 align-middle" icon="iconamoon:comment-duotone" data-toggle="tooltip" data-placement="top" title="${ d.description ?? "" }"></iconify-icon>
+                    </td>
                     <td width="100px" class="text-end">
                         <a href="#1">
                             <iconify-icon class="text-primary fs-21 align-middle" icon="iconamoon:eye-duotone"></iconify-icon>
@@ -23,24 +26,26 @@ $(function () {
                 </tr>`;
     }
 
-    $(`[data-role="table-body"]`).html(trComponent({}, 0));
 
     const getAll = () => {
+        let h = ``;
+
+        $(`.table`).addClass("loader");
+
         $.get({
             url: job_categories_route,
             success: function (d) {
-                console.log({d});
-                if (d.code === 200){
-                    notify(d.message, "", "success")
-                } else {
-                    notify("Diqqət!", d.message, "warning")
-                }
+                let data = d?.data;
+                h += data.map((v, i) => trComponent(v, i)).join("");
+
+                $(`[data-role="table-body"]`).html(h);
+
             },
             error: function (err) {
-                // console.log(err)
+                $(`[data-role="table-body"]`).html(tableMessage("Məlumat Tapılmadı"));
             },
             complete: function () {
-                //
+                $(`.table`).removeClass("loader");
             }
         });
     }

@@ -9,3 +9,21 @@ const notify = (title, text = null, icon = "success", btn_confirm_text = "Ok", s
         focusConfirm: focus_confirm_btn,
     });
 }
+
+function getBase64FromSelector(selector) {
+    return new Promise((resolve, reject) => {
+        const input = document.querySelector(`[${selector}]`);
+        if (!input || !input.files || !input.files[0]) {
+            resolve(undefined);
+            return;
+        }
+
+        const file = input.files[0],
+              reader = new FileReader();
+
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (err) => reject(err);
+
+        reader.readAsDataURL(file);
+    });
+}

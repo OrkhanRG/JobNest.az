@@ -78,12 +78,16 @@ Route::prefix("admin")->name("admin.")->middleware("custom_auth", "role:admin,de
     Route::get("/", [DashboardController::class, "index"])->name("dashboard");
 
     //Job Categories
-    Route::get("/job-categories", [JobCategoryController::class, "index"])->name("job-categories.list");
-    Route::get("/job-categories/create", [JobCategoryController::class, "create"])->name("job-categories.create");
-    Route::post("/job-categories/create", [JobCategoryController::class, "store"]);
-    Route::get("/job-categories/{category}/edit", [JobCategoryController::class, "edit"])->name("job-categories.edit");
-    Route::put("/job-categories/{category}/edit", [JobCategoryController::class, "update"]);
-    Route::delete("/job-categories/{category}/delete", [JobCategoryController::class, "destroy"])->name("job-categories.delete");
+    Route::prefix("job-categories")->group(function(){
+        Route::get("/", [JobCategoryController::class, "index"])->name("job-categories.list");
+        Route::get("/create", [JobCategoryController::class, "create"])->name("job-categories.create");
+        Route::post("/create", [JobCategoryController::class, "store"]);
+        Route::get("/{category}/edit", [JobCategoryController::class, "edit"])->name("job-categories.edit");
+        Route::put("/{category}/edit", [JobCategoryController::class, "update"]);
+        Route::delete("/{category}/delete", [JobCategoryController::class, "destroy"])->name("job-categories.delete");
+
+        Route::get("/get-parents", [JobCategoryController::class, "getParents"])->name("job-categories.getParents");
+    });
 });
 
 //Login

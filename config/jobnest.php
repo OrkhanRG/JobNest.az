@@ -1,6 +1,8 @@
 <?php
 
 return [
+    "modules" => ["admin", "front"],
+
     "default_user_type" =>  "candidate",
 
     "user_types" => [

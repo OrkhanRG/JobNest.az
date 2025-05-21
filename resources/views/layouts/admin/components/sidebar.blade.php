@@ -83,7 +83,7 @@
                         <li class="sub-nav-item">
                             <a
                                 class="sub-nav-link"
-                                href="dashboard-finance.html"
+                                href="{{ route("admin.job-categories.create") }}"
                             >Əlavə Et</a
                             >
                         </li>

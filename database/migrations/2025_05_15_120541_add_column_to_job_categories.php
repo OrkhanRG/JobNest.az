@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::table('job_categories', function (Blueprint $table) {
             $table->unsignedBigInteger("parent_id")->nullable()->after('id');
-            $table->string('icon', 60)->nullable()->after('description');
+            $table->string('icon', 255)->nullable()->after('description');
+            $table->enum("is_active", ["0", "1"])->default(0)->after('icon');
 
             $table->foreign('parent_id')->references('id')->on('job_categories')->onDelete('cascade');
         });

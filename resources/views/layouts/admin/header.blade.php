@@ -12,6 +12,7 @@
     />
     <meta name="author" content="Techzaa" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset("assets/admin/images/favicon.ico") }}" />
@@ -21,6 +22,8 @@
 
     <!-- Icons css (Require in all Page) -->
     <link href="{{ asset("assets/admin/css/icons.min.css") }}" rel="stylesheet" type="text/css" />
+
+    <link href="{{ asset("assets/admin/css/select2.min.css") }}" rel="stylesheet" type="text/css" />
 
     <!-- App css (Require in all Page) -->
     <link href="{{ asset("assets/admin/css/app.min.css") }}" rel="stylesheet" type="text/css" />

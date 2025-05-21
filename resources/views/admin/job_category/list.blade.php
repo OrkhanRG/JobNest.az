@@ -24,9 +24,14 @@
                 <h5 class="card-title mb-1 anchor" id="dividers">
                     Kateqoriyalar
                 </h5>
-                <p class="text-muted font-14">
-                    <span>nəticə: <b>3</b></span> | <span>saniyə: <b>12</b></span>
-                </p>
+                <div class="d-flex">
+                    <p class="text-muted font-14 me-2">
+                        <span>nəticə: <b>3</b></span> | <span>saniyə: <b>12</b></span>
+                    </p>
+                    <a href="{{ route("admin.job-categories.create") }}" title="Yeni Kateqoriya">
+                        <iconify-icon class="fs-24 align-middle" icon="iconamoon:sign-plus-circle-duotone"></iconify-icon>
+                    </a>
+                </div>
             </div>
 
             <div class="table-responsive">
@@ -36,7 +41,6 @@
                         <th scope="col">#</th>
                         <th scope="col">İkon</th>
                         <th scope="col">Ad</th>
-                        <th scope="col">Üst Kateqoriya</th>
                         <th scope="col">Slug</th>
                         <th scope="col">Açığlama</th>
                         <th scope="col" class="text-center">

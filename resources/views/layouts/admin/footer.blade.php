@@ -32,12 +32,23 @@
 
 <!-- jQuery -->
 <script src="{{ asset("assets/admin/js/jquery-3.6.0.min.js") }}"></script>
+<script src="{{ asset("assets/admin/js/select2.min.js") }}"></script>
 
 <!-- App Javascript (Require in all Page) -->
 <script src="{{ asset("assets/admin/js/app.js") }}"></script>
 
 <script  src="{{ asset("assets/global/js/helper.js") }}"></script>
+<script  src="{{ asset("assets/admin/custom/js/helper.js") }}"></script>
 <script src="{{ asset("assets/admin/custom/js/default.js") }}"></script>
+<script>
+    $(function () {
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $(`meta[name="csrf-token"]`).attr("content")
+            }
+        })
+    });
+</script>
 @stack("js")
 
 </body>

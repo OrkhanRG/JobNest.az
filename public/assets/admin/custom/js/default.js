@@ -1,5 +1,5 @@
-const noContent = (message = null) => {
+const tableMessage = (message = null, colspan = 6) => {
     return `<tr>
-                <td colSpan="7" class="text-center">${message ?? "Məlumat Tapılmadı!"}</td>
+                <td colspan="${colspan}" class="text-center">${message ?? "Məlumat Tapılmadı!"}</td>
             </tr>`;
 }
