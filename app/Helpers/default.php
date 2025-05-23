@@ -19,12 +19,19 @@ if (!function_exists("json_response")) {
 }
 
 if (!function_exists("slugify")) {
-    function slugify(string $text, string $model): string {
+    function slugify(string $text, string $model, ?int $ignored_id = null): string {
         $slug = Str::slug($text);
         $original = $slug;
         $i = 1;
 
-        while ($model::query()->where("slug", $slug)->exists()) {
+        while (
+            $model::query()
+                ->where("slug", $slug)
+                ->when($ignored_id, function ($query) use ($ignored_id) {
+                    return $query->where("id", "!=", $ignored_id);
+                })
+                ->exists()
+        ) {
             $slug = $original."-".$i++;
         }
 

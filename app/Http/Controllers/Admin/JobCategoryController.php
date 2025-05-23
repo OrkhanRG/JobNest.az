@@ -4,12 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\JobCategoryCreateRequest;
+use App\Http\Requests\JobCategoryUpdateRequest;
 use App\Http\Services\JobCategoryService;
 use App\Models\JobCategory;
+use App\Traits\Loggable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class JobCategoryController extends Controller
 {
+    use Loggable;
+
     public function __construct(
         readonly JobCategoryService $jobCategoryService
     ) {}
@@ -17,9 +22,11 @@ class JobCategoryController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $categories = $this->jobCategoryService->getAll(["created_at", "updated_at"], ["children"]);
+            $data = $this->jobCategoryService->getAll(makeHidden: ["created_at", "updated_at"],
+                                                            with: ["children"],
+                                                            offset: $request->input('offset'));
 
-            return json_response(__("app.success"), 200, $categories);
+            return json_response(__("app.success"), 200, $data);
         }
 
         return view('admin.job_category.list');
@@ -33,8 +40,7 @@ class JobCategoryController extends Controller
 
     public function create()
     {
-        $categories = $this->jobCategoryService->getParents();
-        return view('admin.job_category.create-update', compact('categories'));
+        return view('admin.job_category.create-update');
     }
 
     public function store(JobCategoryCreateRequest $request)
@@ -55,17 +61,34 @@ class JobCategoryController extends Controller
         }
     }
 
-    public function edit(JobCategory $jobCategory)
+    public function edit(JobCategory $category)
     {
-
+        return view('admin.job_category.create-update', compact('category'));
     }
 
-    public function update(JobCategory $jobCategory)
+    public function update(JobCategoryUpdateRequest $request, JobCategory $category)
     {
+        try {
+            $data = $request->only("name", "slug", "description", "parent_id", "is_active", "file_is_deleted");
 
+            if ($request->hasFile('icon')) {
+                $data['icon'] = $request->file('icon');
+            }
+
+            $update = $this->jobCategoryService->setCategory($category)->update($data);
+
+            if (!$update) {
+                return json_response(__('app.error'), 500);
+            }
+            return json_response(__('app.success'), 202);
+
+        } catch (\Throwable $exception) {
+            $this->logErrorToFile($exception, "JobCategoryController@update");
+            return json_response(__("text.unexpected_error_text"), 500);
+        }
     }
 
-    public function destroy(JobCategory $jobCategory)
+    public function destroy(JobCategory $category)
     {
 
     }

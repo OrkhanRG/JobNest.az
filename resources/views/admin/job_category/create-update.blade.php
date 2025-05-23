@@ -2,7 +2,7 @@
 @section("title", "İş Kateqoriyaları")
 
 @push("css")
-
+    <link rel="stylesheet" href="{{ asset("assets/admin/custom/css/job_category/create-update.css") }}" type="text/css">
 @endpush
 
 @section("breadcrumb")
@@ -35,37 +35,38 @@
                 </a>
             </div>
 
-            <form class="my-3" method="POST" data-role="form-create" action="{{ route("admin.job-categories.create") }}" enctype="multipart/form-data">
+            <form class="my-3" method="{{ isset($category) ? "PUT" : "POST" }}" data-role="form" action="{{ isset($category) ? route("admin.job-categories.edit", $category->id) : route("admin.job-categories.create") }}" enctype="multipart/form-data">
                 <div class="row g-3">
                     <div class="col-md-6">
                         <label for="name" class="form-label">Ad</label> <span class="text-danger">*</span>
-                        <input type="text" class="form-control" id="name" name="name" data-role="name" value=""  placeholder="Kateqoriya Adı...">
+                        <input type="text" class="form-control" id="name" name="name" data-role="name" value="{{ isset($category) ? $category->name : "" }}"  placeholder="Kateqoriya Adı...">
                     </div>
 
                     <div class="col-md-6">
                         <label for="slug" class="form-label">Slug</label>
-                        <input type="text" class="form-control" id="slug" name="slug" data-role="slug" value="" placeholder="Slug...">
+                        <input type="text" class="form-control" id="slug" name="slug" data-role="slug" value="{{ isset($category) ? $category->slug : "" }}" placeholder="Slug...">
                     </div>
 
                     <div class="col-md-12">
                         <label for="description" class="form-label">Təsvir</label>
-                        <textarea class="form-control" id="description" name="description" data-role="description" rows="4" placeholder="Kateqoriya haqda məlumat..."></textarea>
+                        <textarea class="form-control" id="description" name="description" data-role="description" rows="4" placeholder="Kateqoriya haqda məlumat...">{{ isset($category) ? $category->description : "" }}</textarea>
                     </div>
 
                     <div class="col-md-12">
                         <label for="parent_id" class="form-label">Üst Kateqoriya</label>
-                        <select class="form-control" id="parent_id" name="parent_id" data-type data-role="parent_id">
+                        <select class="form-control" data-selected-id="{{ isset($category) ? $category->id : "" }}" id="parent_id" name="parent_id" data-type data-role="parent_id">
                         </select>
                     </div>
 
-                    <div class="col-md-8">
+                    <div class="col-md-4">
                         <label for="icon" class="d-block mb-1">İkon</label>
                         <input type="file" id="icon" name="icon" data-role="icon">
                     </div>
-                    <div class="col-md-4">
-                        <div class="flex-shrink-0 me-3 d-none">
-                            <div class="avatar-sm bg-light rounded">
-                                <img class="img-fluid rounded d-block" src="#" alt="Image" />
+                    <div class="col-md-6">
+                        <div class="flex-shrink-0 me-3 {{ isset($category) && $category->icon ? "" : "d-none" }}" data-role="preview-icon">
+                            <div class="avatar bg-light rounded icon-container">
+                                <img class="img-fluid rounded d-block" src="{{ isset($category) ? asset($category->icon) : "" }}" alt="Image" />
+                                <iconify-icon data-role="icon-close" class="fs-24 align-middle text-danger icon-remove" icon="material-symbols:close-small"/>
                             </div>
                         </div>
                     </div>
@@ -73,15 +74,15 @@
                     <div class="col-md-12">
                         <label for="is_active" class="d-block mb-1">Status</label>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" data-role="is_active" id=is_active checked>
+                            <input class="form-check-input" type="checkbox" role="switch" data-role="is_active" id=is_active {{ isset($category) && $category->is_active ? "checked" : "" }}>
                             <label class="form-check-label" for="is_active">Aktivdir?</label>
                         </div>
                     </div>
 
                     <div class="col-12 d-flex justify-content-end">
-                        <button data-role="btn-create" class="btn btn-primary" type="submit">
-                            <iconify-icon class="fs-21 align-middle" icon="iconamoon:sign-plus-duotone"></iconify-icon>
-                            Əlavə Et
+                        <button class="btn btn-primary" type="submit">
+                            <iconify-icon class="fs-21 align-middle" icon="material-symbols:{{ isset($category) ? "save-as-outline" : "add" }}-rounded"></iconify-icon>
+                            {{ isset($category) ? "Güncəllə" : "Əlavə Et" }}
                         </button>
                     </div>
                 </div>

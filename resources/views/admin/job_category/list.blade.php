@@ -21,13 +21,10 @@
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-between">
-                <h5 class="card-title mb-1 anchor" id="dividers">
-                    Kateqoriyalar
+                <h5 class="mb-1 anchor" id="dividers">
+                    <span>nəticə: <b data-role="table-total-count">0</b></span> | <span>saniyə: <b data-role="table-total-time">12</b></span>
                 </h5>
-                <div class="d-flex">
-                    <p class="text-muted font-14 me-2">
-                        <span>nəticə: <b>3</b></span> | <span>saniyə: <b>12</b></span>
-                    </p>
+                <div>
                     <a href="{{ route("admin.job-categories.create") }}" title="Yeni Kateqoriya">
                         <iconify-icon class="fs-24 align-middle" icon="iconamoon:sign-plus-circle-duotone"></iconify-icon>
                     </a>
@@ -52,7 +49,10 @@
 
                     </tbody>
                 </table>
+
             </div>
+            <div data-role="loader" class="loader d-none"></div>
+
         </div>
 
     </div>
@@ -60,7 +60,8 @@
 
 @push("js")
     <script>
-        let job_categories_route =  "{{ route("admin.job-categories.list") }}";
+        let job_categories_route =  "{{ route("admin.job-categories.list") }}",
+            job_categories_edit_route = "{{ route("admin.job-categories.edit", "category_id") }}";
     </script>
     <script src="{{ asset("assets/admin/custom/js/job_category/list.js") }}"></script>
 @endpush

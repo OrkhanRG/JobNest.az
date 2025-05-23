@@ -127,6 +127,13 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
 
+
+        //custom
+        'custom_error' => [
+            'driver' => 'custom',
+            'via' => App\Logging\CustomPathLogger::class,
+            'level' => 'error',
+        ],
     ],
 
 ];

@@ -40,6 +40,7 @@
 <script  src="{{ asset("assets/global/js/helper.js") }}"></script>
 <script  src="{{ asset("assets/admin/custom/js/helper.js") }}"></script>
 <script src="{{ asset("assets/admin/custom/js/default.js") }}"></script>
+<script src="{{ asset("assets/admin/custom/library/ajax-timer.js") }}"></script>
 <script>
     $(function () {
         $.ajaxSetup({
