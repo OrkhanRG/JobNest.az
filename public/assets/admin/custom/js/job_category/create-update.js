@@ -3,8 +3,7 @@ $(function () {
     let parent_id_element = $(`[data-role="parent_id"]`),
         file_is_deleted = 0;
     const getParents = () => {
-        let h = ``;
-
+        let h = `<option value="">Yoxdur</option>`;
         parent_id_element.prop("disabled", true).select2();
 
         $.get({
@@ -17,8 +16,6 @@ $(function () {
                     if (!!parent_id_element.data("selected-id")) {
                         $(`[data-role="parent_id"]`).val(parent_id_element.data("selected-id")).trigger("change");
                     }
-                } else {
-                    h = `<option value="">Yoxdur</option>`;
                 }
 
                 parent_id_element.html(h);

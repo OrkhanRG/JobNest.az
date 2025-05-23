@@ -61,7 +61,8 @@
 @push("js")
     <script>
         let job_categories_route =  "{{ route("admin.job-categories.list") }}",
-            job_categories_edit_route = "{{ route("admin.job-categories.edit", "category_id") }}";
+            job_categories_edit_route = "{{ route("admin.job-categories.edit", "category_id") }}",
+            job_categories_delete_route = "{{ route("admin.job-categories.delete", "category_id") }}";
     </script>
     <script src="{{ asset("assets/admin/custom/js/job_category/list.js") }}"></script>
 @endpush

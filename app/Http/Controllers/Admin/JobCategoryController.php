@@ -8,8 +8,10 @@ use App\Http\Requests\JobCategoryUpdateRequest;
 use App\Http\Services\JobCategoryService;
 use App\Models\JobCategory;
 use App\Traits\Loggable;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\View\View;
 
 class JobCategoryController extends Controller
 {
@@ -19,7 +21,7 @@ class JobCategoryController extends Controller
         readonly JobCategoryService $jobCategoryService
     ) {}
 
-    public function index(Request $request)
+    public function index(Request $request): View|JsonResponse
     {
         if ($request->ajax()) {
             $data = $this->jobCategoryService->getAll(makeHidden: ["created_at", "updated_at"],
@@ -32,18 +34,18 @@ class JobCategoryController extends Controller
         return view('admin.job_category.list');
     }
 
-    public function getParents()
+    public function getParents(): JsonResponse
     {
         $categories = $this->jobCategoryService->getParents();
         return json_response(__("app.success"), 200, $categories);
     }
 
-    public function create()
+    public function create(): View
     {
         return view('admin.job_category.create-update');
     }
 
-    public function store(JobCategoryCreateRequest $request)
+    public function store(JobCategoryCreateRequest $request): JsonResponse
     {
         try {
             $data = $request->only("name", "slug", "description", "parent_id", "is_active");
@@ -61,12 +63,12 @@ class JobCategoryController extends Controller
         }
     }
 
-    public function edit(JobCategory $category)
+    public function edit(JobCategory $category): View
     {
         return view('admin.job_category.create-update', compact('category'));
     }
 
-    public function update(JobCategoryUpdateRequest $request, JobCategory $category)
+    public function update(JobCategoryUpdateRequest $request, JobCategory $category): JsonResponse
     {
         try {
             $data = $request->only("name", "slug", "description", "parent_id", "is_active", "file_is_deleted");
@@ -88,8 +90,19 @@ class JobCategoryController extends Controller
         }
     }
 
-    public function destroy(JobCategory $category)
+    public function destroy(JobCategory $category): JsonResponse
     {
+        try {
+            $delete = $this->jobCategoryService->setCategory($category)->remove();
 
+            if (!$delete) {
+                return json_response(__('text.unexpected_error_text'), 500);
+            }
+            return json_response(__('app.success'), 202);
+
+        } catch (\Throwable $exception) {
+            $this->logErrorToFile($exception, "JobCategoryController@destroy");
+            return json_response(__("text.unexpected_error_text"), 500);
+        }
     }
 }

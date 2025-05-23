@@ -16,7 +16,7 @@ class JobCategoryService
 
     public function getAll(array $makeHidden = [], null|string|array $with = null, int $limit = LoadLimit::JOB_CATEGORY_LIMIT, int $offset = 0): array
     {
-        $query = JobCategory::query()->select('*', DB::raw('COUNT(*) OVER() as total_count'));
+        $query = JobCategory::query()->doesntHave("parent")->select('*', DB::raw('COUNT(*) OVER() as total_count'));
 
         if (!!$with) {
             $query = $query->with($with);
@@ -30,7 +30,7 @@ class JobCategoryService
             $query = $query->offset($offset);
         }
 
-        $categories = $query->get();
+        $categories = $query->orderBy("id", "desc")->get();
 
         $total_count = $categories->first()?->total_count ?? 0;
         $categories->each(function ($item) {
@@ -49,7 +49,7 @@ class JobCategoryService
 
     public function getParents(): Collection
     {
-        return JobCategory::query()->with(['parent'])->doesntHave("parent")->get();
+        return JobCategory::query()->with(['parent'])->doesntHave("parent")->orderBy("id", "desc")->get();
     }
 
     public function create($data): JobCategory
@@ -77,7 +77,7 @@ class JobCategoryService
         return $this;
     }
 
-    public function update(array $data)
+    public function update(array $data): bool
     {
         if (!$this->category) {
             return false;
@@ -102,5 +102,23 @@ class JobCategoryService
         }
 
         return $this->category->update($update_data);
+    }
+
+    public function remove(): bool
+    {
+        if (!$this->category) {
+            return false;
+        }
+
+        $old_paths = $this->category->children->pluck('icon')->toArray();
+        $old_paths[] = $this->category->icon;
+
+        if (!$this->category->delete()) {
+            return false;
+        }
+
+        $this->imageService->removeFromFolder($old_paths);
+
+        return true ;
     }
 }

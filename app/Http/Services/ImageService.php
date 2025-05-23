@@ -24,12 +24,15 @@ class ImageService
         return $folderPath . '/' . $imageName;
     }
 
-    public function removeFromFolder(?string $path): void
+    public function removeFromFolder(null|string|array $path): void
     {
-        if ($path) {
-            $path = public_path($path);
-            if (file_exists($path)) {
-                unlink($path);
+        if (!!$path) {
+            $path = array_values(array_filter(is_array($path) ? $path : [$path]));
+            foreach ($path as $pathItem) {
+                $pathItem = public_path($pathItem);
+                if (file_exists($pathItem)) {
+                    unlink($pathItem);
+                }
             }
         }
     }
