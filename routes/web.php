@@ -85,6 +85,7 @@ Route::prefix("admin")->name("admin.")->middleware("custom_auth", "role:admin,de
         Route::get("/{category}/edit", [JobCategoryController::class, "edit"])->name("job-categories.edit");
         Route::put("/{category}/edit", [JobCategoryController::class, "update"]);
         Route::delete("/{category}/delete", [JobCategoryController::class, "destroy"])->name("job-categories.delete");
+        Route::delete("/{category}/change-status", [JobCategoryController::class, "changeStatus"])->name("job-categories.change-status");
 
         Route::get("/get-parents", [JobCategoryController::class, "getParents"])->name("job-categories.getParents");
     });

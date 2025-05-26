@@ -1,9 +1,39 @@
 $(function () {
+    let keyword, is_active;
+
     let offset = 0,
         count = 0,
         isLoading = false;
 
     const timer = new AjaxTimer(`[data-role="table-total-time"]`);
+
+    const setFilter = () => {
+        keyword = $(`[data-role="keyword"]`).val()?.trim();
+        is_active = $(`[data-role="status"]`).val()?.trim();
+    }
+
+    const resetFilter = () => {
+        keyword = "";
+        is_active = "";
+
+        $(`[data-role="keyword"]`).val(keyword);
+        $(`[data-role="status"]`).val(is_active);
+    }
+
+    const loadFilter = () => {
+        keyword = getUrlParameter('keyword') ?? "";
+        is_active = getUrlParameter('is_active') ?? "";
+
+        if (+is_active) {
+            $(`[data-role="status"]`).val(is_active);
+        }
+
+        if (keyword) {
+            $(`[data-role="keyword"]`).val(keyword);
+        }
+    }
+
+    loadFilter();
 
     const trComponent = (d, i) => {
         let index = ++i + offset;
@@ -31,6 +61,11 @@ $(function () {
                     <td>
                         <iconify-icon class="fs-21 align-middle" icon="iconamoon:comment-duotone" data-toggle="tooltip" data-placement="top" title="${item.description ?? ""}"></iconify-icon>
                     </td>
+                    <td>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" data-role="change-status" id="switch${item.id}" ${+item.is_active ? "checked" : ""}>
+                        </div>
+                    </td>
                     <td width="100px" class="text-end">
                         <a href="${job_categories_edit_route.replace('category_id', item.id)}">
                             <iconify-icon class="text-success fs-21 align-middle" icon="iconamoon:edit-duotone"></iconify-icon>
@@ -40,11 +75,21 @@ $(function () {
                 </tr>`;
     };
 
-
     const getAll = (first_time = true) => {
         let h = ``;
 
-        let data = {offset};
+        let data = {
+            keyword,
+            is_active,
+            offset
+        };
+
+        if (first_time) {
+            filter_url({
+                keyword,
+                is_active,
+            });
+        }
 
         $(`.table`).addClass("loader");
         timer.start();
@@ -60,7 +105,11 @@ $(function () {
                     let data = d?.data?.categories;
                     count = d?.data?.count || 0;
 
-                    h += data.map((v, i) => trComponent(v, i)).join("");
+                    if (count) {
+                        h += data.map((v, i) => trComponent(v, i)).join("");
+                    } else {
+                        h += tableMessage();
+                    }
 
                     if (first_time) {
                         $(`[data-role="table-body"]`).html(h);
@@ -80,6 +129,8 @@ $(function () {
                 timer.stop();
                 isLoading = false;
                 $(`[data-role="loader"]`).hide();
+                $(`[data-role="filter-apply"]`).prop("disabled", false);
+                $(`[data-role="filter-reset"]`).prop("disabled", false);
             }
         });
     }
@@ -107,7 +158,7 @@ $(function () {
                     success: function (d) {
                         if ([201, 202].includes(d.code)) {
                             tr.remove();
-                            tr.find(`[data-parent-id="${id}"]`).remove();
+                            $(`[data-parent-id="${id}"]`).remove();
                             notify("Uğurlu!", d.message, "success");
                         } else {
                             notify("Diqqət!", d.message, "warning");
@@ -127,8 +178,66 @@ $(function () {
         });
     });
 
+    $(document).on("change", `[data-role="change-status"]`, function () {
+        let self = $(this),
+            tr = self.closest("tr"),
+            name = tr.find(`[data-row="name"]`).text()?.trim(),
+            id = tr.data("id");
+
+        let data = {
+            is_active: self.prop("checked") ? "1" : "0",
+            _method: "DELETE"
+        };
+
+        Swal.fire({
+            title: ` <b class="text-danger">${name}</b> statusunu dəyişmək istədiyinizə əminsiniz?`,
+            showDenyButton: true,
+            confirmButtonText: "Sil",
+            denyButtonText: `İmtina`
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.post({
+                    url: job_categories_change_status_route.replace('category_id', id),
+                    data,
+                    success: function (d) {
+                        if ([201, 202].includes(d.code)) {
+                            notify("Uğurlu!", d.message, "success");
+                        } else {
+                            notify("Diqqət!", d.message, "warning");
+                        }
+                    },
+                    error: function (err) {
+                        if (err?.code === 500) {
+                            notify("Xəta!", err.message, "error");
+                        }
+                    },
+                    complete: function () {
+                    }
+                });
+            } else if (result.isDenied) {
+                notify("İmtina edildi! 👍", null, "info");
+                self.prop("checked", !self.prop("checked"));
+            } else {
+                self.prop("checked", !self.prop("checked"));
+            }
+        });
+    });
+
+    $(document).on("click", `[data-role="filter-apply"]`, function () {
+       $(this).prop("disabled", true);
+       setFilter();
+       getAll();
+    });
+
+    $(document).on("click", `[data-role="filter-reset"]`, function () {
+        $(this).prop("disabled", true);
+        resetFilter();
+        getAll();
+    });
+
     $(window).on('scroll', function () {
-        if (isLoading ||offset >= count) return;
+
+        if (isLoading || $(`.table tbody tr`).length >= count) return;
         offset = $(`.table tbody tr`).length;
 
         const scrollTop = $(window).scrollTop();

@@ -53,3 +53,12 @@
     margin-top: -25px;
     margin-left: -25px;
 }
+
+.form-filter:hover {
+    color: #147fcb;
+    cursor: pointer;
+}
+
+.active-filter {
+    color: #147fcb;
+}

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Constants\LoadLimit;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\JobCategoryCreateRequest;
 use App\Http\Requests\JobCategoryUpdateRequest;
@@ -10,7 +11,6 @@ use App\Models\JobCategory;
 use App\Traits\Loggable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\View\View;
 
 class JobCategoryController extends Controller
@@ -24,9 +24,9 @@ class JobCategoryController extends Controller
     public function index(Request $request): View|JsonResponse
     {
         if ($request->ajax()) {
-            $data = $this->jobCategoryService->getAll(makeHidden: ["created_at", "updated_at"],
-                                                            with: ["children"],
-                                                            offset: $request->input('offset'));
+            $params = $request->only("keyword", "is_active", "offset");
+            $params["limit"] = LoadLimit::JOB_CATEGORY_LIMIT;
+            $data = $this->jobCategoryService->getAll($params, with: ["children"]);
 
             return json_response(__("app.success"), 200, $data);
         }
@@ -102,6 +102,26 @@ class JobCategoryController extends Controller
 
         } catch (\Throwable $exception) {
             $this->logErrorToFile($exception, "JobCategoryController@destroy");
+            return json_response(__("text.unexpected_error_text"), 500);
+        }
+    }
+
+    public function changeStatus(JobCategory $category, Request $request): JsonResponse
+    {
+        try {
+            $data = [
+              "is_active" => $request->input("is_active") ? "1" : "0",
+            ];
+
+            $status = $this->jobCategoryService->setCategory($category)->changeField($data);
+
+            if (!$status) {
+                return json_response(__('text.unexpected_error_text'), 500);
+            }
+            return json_response(__('app.success'), 202);
+
+        } catch (\Throwable $exception) {
+            $this->logErrorToFile($exception, "JobCategoryController@changeStatus");
             return json_response(__("text.unexpected_error_text"), 500);
         }
     }
