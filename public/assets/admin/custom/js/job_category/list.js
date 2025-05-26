@@ -49,9 +49,10 @@ $(function () {
     };
 
     const renderRow = (item, index, prefix = "", parent_id = "") => {
-        return `<tr data-id="${item.id}" ${prefix !== "" ? `data-parent-id="${parent_id}"` : "" }>
+        let is_parent = prefix === "";
+        return `<tr class="${is_parent ? "fw-bold" : ""}" data-id="${item.id}" ${prefix !== "" ? `data-parent-id="${parent_id}"` : "" }>
                     <td>
-                        ${prefix === "" ? `<b>${prefix}${index}</b>` : `&nbsp &nbsp &nbsp ${prefix}${index}`}
+                        ${is_parent ? `` : `&nbsp &nbsp &nbsp`} ${prefix}${index}
                     </td>
                     <td>
                         ${item.icon ? `<img width="50" src="/${item.icon}" alt="">` : ``}
