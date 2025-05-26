@@ -6,6 +6,8 @@ use App\Events\PasswordReset;
 use App\Events\UserRegistered;
 use App\Listeners\SendPasswordResetEmail;
 use App\Listeners\SendVerifyEmail;
+use App\Models\JobCategory;
+use App\Observers\JobCategoryObserver;
 use Illuminate\Routing\Events\RouteMatched;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
@@ -29,5 +31,7 @@ class AppServiceProvider extends ServiceProvider
             UserRegistered::class => SendVerifyEmail::class,
             PasswordReset::class => SendPasswordResetEmail::class
         ]);
+
+        JobCategory::observe(JobCategoryObserver::class);
     }
 }

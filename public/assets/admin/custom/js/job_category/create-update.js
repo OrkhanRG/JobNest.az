@@ -11,14 +11,14 @@ $(function () {
             success: function (d) {
                 if (d.code === 200) {
                     let data = d?.data;
-
                     h += data.map((v, i) => `<option value="${v.id}">${v.name}</option>`).join('');
-                    if (!!parent_id_element.data("selected-id")) {
-                        $(`[data-role="parent_id"]`).val(parent_id_element.data("selected-id")).trigger("change");
-                    }
                 }
 
                 parent_id_element.html(h);
+
+                if (!!parent_id_element.data("selected-id")) {
+                    parent_id_element.val(parent_id_element.data("selected-id")).trigger("change");
+                }
             },
             error: function (err) {
                 // console.log(err)
