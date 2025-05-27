@@ -19,6 +19,7 @@ class JobCategoryResource extends JsonResource
             "name" => $this->name,
             "slug" => $this->slug,
             "description" => $this->description,
+            "icon" => $this->icon,
             "children" => self::collection($this->whenLoaded('children')),
             "is_active" => $this->is_active,
             "parent_id" => $this->parent_id

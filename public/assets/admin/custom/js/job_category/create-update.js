@@ -1,13 +1,20 @@
 $(function () {
 
     let parent_id_element = $(`[data-role="parent_id"]`),
-        file_is_deleted = 0;
+        file_is_deleted = 0,
+        edit_id = $(`[data-role="edit-id"]`).val()?.trim();
+
     const getParents = () => {
-        let h = `<option value="">Yoxdur</option>`;
+        let h = `<option value="">Yoxdur</option>`,
+            data = {
+                id: edit_id
+            };
+
         parent_id_element.prop("disabled", true).select2();
 
         $.get({
             url: job_categories_get_parents_route,
+            data,
             success: function (d) {
                 if (d.code === 200) {
                     let data = d?.data;
@@ -16,8 +23,10 @@ $(function () {
 
                 parent_id_element.html(h);
 
-                if (!!parent_id_element.data("selected-id")) {
-                    parent_id_element.val(parent_id_element.data("selected-id")).trigger("change");
+
+                if (!!edit_id) {
+                    let parent_id = parent_id_element.data("parent-id");
+                    parent_id_element.val(parent_id !== edit_id ? parent_id : "").trigger("change");
                 }
             },
             error: function (err) {
@@ -74,6 +83,10 @@ $(function () {
                     getParents();
                     if (request_type === "POST") {
                         emptyInput(parent);
+
+                        let preview_icon = $(`[data-role="preview-icon"]`);
+                        preview_icon.addClass("d-none");
+                        preview_icon.find("img").attr("src", "");
                     }
                 } else {
                     notify("Diqqət!", d.message, "warning");

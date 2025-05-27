@@ -30,13 +30,17 @@
     @include("layouts.front.components.sections.job-post")
     <!-- JOB POST END -->
 
-    <!-- TESTIMONIAL SECTION START -->
-    @include("layouts.front.components.sections.testimonials")
-    <!-- TESTIMONIAL SECTION END -->
+    @if(false)
+        <!-- TESTIMONIAL SECTION START -->
+        @include("layouts.front.components.sections.testimonials")
+        <!-- TESTIMONIAL SECTION END -->
+    @endif
 
-    <!-- OUR BLOG START -->
-    @include("layouts.front.components.sections.our-blog")
-    <!-- OUR BLOG END -->
+    @if(false)
+        <!-- OUR BLOG START -->
+        @include("layouts.front.components.sections.our-blog")
+        <!-- OUR BLOG END -->
+    @endif
 @endsection
 
 @push("js")

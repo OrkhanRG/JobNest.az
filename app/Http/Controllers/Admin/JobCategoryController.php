@@ -34,9 +34,10 @@ class JobCategoryController extends Controller
         return view('admin.job_category.list');
     }
 
-    public function getParents(): JsonResponse
+    public function getParents(Request $request): JsonResponse
     {
-        $categories = $this->jobCategoryService->getParents();
+        $id = $request->input("id");
+        $categories = $this->jobCategoryService->getParents($id);
         return json_response(__("app.success"), 200, $categories);
     }
 

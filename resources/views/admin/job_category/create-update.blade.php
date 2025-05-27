@@ -35,6 +35,8 @@
                 </a>
             </div>
 
+            <input type="hidden" data-role="edit-id" value="{{ isset($category) ? $category->id : "" }}">
+
             <form class="my-3" method="{{ isset($category) ? "PUT" : "POST" }}" data-role="form" action="{{ isset($category) ? route("admin.job-categories.edit", $category->id) : route("admin.job-categories.create") }}" enctype="multipart/form-data">
                 <div class="row g-3">
                     <div class="col-md-6">
@@ -54,7 +56,7 @@
 
                     <div class="col-md-12">
                         <label for="parent_id" class="form-label">Üst Kateqoriya</label>
-                        <select class="form-control" data-selected-id="{{ isset($category) ? $category->id : "" }}" id="parent_id" name="parent_id" data-type data-role="parent_id">
+                        <select class="form-control" data-selected-id="{{ isset($category) ? $category->id : "" }}" id="parent_id" name="parent_id" data-type data-role="parent_id" data-parent-id="{{ isset($category) ? $category->parent_id : "" }}">
                         </select>
                     </div>
 

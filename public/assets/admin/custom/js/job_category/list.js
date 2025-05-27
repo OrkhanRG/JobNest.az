@@ -35,45 +35,49 @@ $(function () {
 
     loadFilter();
 
-    const trComponent = (d, i) => {
-        let index = ++i + offset;
-        let html = renderRow(d, index);
+    const trComponent = (d, i = 0, prefix = "", parent_id = "") => {
+        let index = ++i + offset,
+            fullIndex = prefix + index,
+            html = renderRow(d, index, prefix, parent_id);
 
         if (Array.isArray(d.children) && d.children.length > 0) {
             d.children.forEach((child, i2) => {
-                html += renderRow(child, ++i2, `${index}.`, d.id);
+                html += trComponent(child, i2, fullIndex + ".", d.id);
             });
         }
 
         return html;
     };
 
-    const renderRow = (item, index, prefix = "", parent_id = "") => {
-        let is_parent = prefix === "";
+    const renderRow = (item, index, prefix, parent_id) => {
+        let is_parent = prefix === "",
+            level = prefix === "" ? 0 : prefix.split('.').length,
+            paddingLeft = level * 20;
+
         return `<tr class="${is_parent ? "fw-bold" : ""}" data-id="${item.id}" ${prefix !== "" ? `data-parent-id="${parent_id}"` : "" }>
-                    <td>
-                        ${is_parent ? `` : `&nbsp &nbsp &nbsp`} ${prefix}${index}
-                    </td>
-                    <td>
-                        ${item.icon ? `<img width="50" src="/${item.icon}" alt="">` : ``}
-                    </td>
-                    <td data-row="name">${item.name ?? ""}</td>
-                    <td>${item.slug ?? ""}</td>
-                    <td>
-                        <iconify-icon class="fs-21 align-middle" icon="iconamoon:comment-duotone" data-toggle="tooltip" data-placement="top" title="${item.description ?? ""}"></iconify-icon>
-                    </td>
-                    <td>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" data-role="change-status" id="switch${item.id}" ${+item.is_active ? "checked" : ""}>
-                        </div>
-                    </td>
-                    <td width="100px" class="text-end">
-                        <a href="${job_categories_edit_route.replace('category_id', item.id)}">
-                            <iconify-icon class="text-success fs-21 align-middle" icon="iconamoon:edit-duotone"></iconify-icon>
-                        </a>
-                        <iconify-icon data-role="btn-delete" class="text-danger fs-21 align-middle cursor-pointer" icon="iconamoon:trash-duotone"></iconify-icon>
-                    </td>
-                </tr>`;
+                <td style="padding-left: ${paddingLeft}px">
+                    ${prefix}${index}
+                </td>
+                <td>
+                    ${item.icon ? `<img width="50" src="/${item.icon}" alt="">` : ``}
+                </td>
+                <td data-row="name">${item.name ?? ""}</td>
+                <td>${item.slug ?? ""}</td>
+                <td>
+                    <iconify-icon class="fs-21 align-middle" icon="iconamoon:comment-duotone" data-toggle="tooltip" data-placement="top" title="${item.description ?? ""}"></iconify-icon>
+                </td>
+                <td>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" role="switch" data-role="change-status" id="switch${item.id}" ${+item.is_active ? "checked" : ""}>
+                    </div>
+                </td>
+                <td width="100px" class="text-end">
+                    <a href="${job_categories_edit_route.replace('category_id', item.id)}">
+                        <iconify-icon class="text-success fs-21 align-middle" icon="iconamoon:edit-duotone"></iconify-icon>
+                    </a>
+                    <iconify-icon data-role="btn-delete" class="text-danger fs-21 align-middle cursor-pointer" icon="iconamoon:trash-duotone"></iconify-icon>
+                </td>
+            </tr>`;
     };
 
     const getAll = (first_time = true) => {
@@ -193,7 +197,7 @@ $(function () {
         Swal.fire({
             title: ` <b class="text-danger">${name}</b> statusunu dəyişmək istədiyinizə əminsiniz?`,
             showDenyButton: true,
-            confirmButtonText: "Sil",
+            confirmButtonText: "Dəyişdir",
             denyButtonText: `İmtina`
         }).then((result) => {
             if (result.isConfirmed) {

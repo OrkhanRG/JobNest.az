@@ -5,6 +5,7 @@ namespace App\Http\Services;
 use App\Constants\App;
 use App\Http\Resources\JobCategoryResource;
 use App\Models\JobCategory;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Collection;
 
 class JobCategoryService
@@ -29,9 +30,17 @@ class JobCategoryService
         ];
     }
 
-    public function getParents(): Collection
+    public function getParents(int $id = null): AnonymousResourceCollection
     {
-        return JobCategory::query()->with(['parent'])->doesntHave("parent")->orderBy("id", "desc")->get();
+        $categories = JobCategory::query()
+            ->doesntHave("parent")
+            ->orderBy("id", "desc")
+            ->when($id, function ($query) use ($id) {
+                $query->whereNot("id", $id);
+            })
+            ->get();
+
+        return JobCategoryResource::collection($categories);
     }
 
     public function create($data): JobCategory

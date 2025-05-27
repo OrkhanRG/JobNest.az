@@ -26,7 +26,7 @@ class JobCategory extends Model
 
     public function children(): HasMany
     {
-        return $this->hasMany(JobCategory::class, "parent_id");
+        return $this->hasMany(JobCategory::class, "parent_id")->with("children");
     }
 
     #[Scope]
