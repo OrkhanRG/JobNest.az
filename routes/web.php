@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\JobCategoryController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -88,6 +89,17 @@ Route::prefix("admin")->name("admin.")->middleware("custom_auth", "role:admin,de
         Route::delete("/{category}/change-status", [JobCategoryController::class, "changeStatus"])->name("job-categories.change-status");
 
         Route::get("/get-parents", [JobCategoryController::class, "getParents"])->name("job-categories.getParents");
+    });
+
+    //Users
+    Route::prefix("users")->group(function(){
+       Route::get("/", [UserController::class, "index"])->name("users.list");
+        Route::get("/create", [UserController::class, "create"])->name("users.create");
+        Route::post("/create", [UserController::class, "store"]);
+        Route::get("/{user}/edit", [UserController::class, "edit"])->name("users.edit");
+        Route::put("/{user}/edit", [UserController::class, "update"]);
+        Route::delete("/{user}/delete", [UserController::class, "destroy"])->name("users.delete");
+        Route::delete("/{user}/change-status", [UserController::class, "changeStatus"])->name("users.change-status");
     });
 });
 

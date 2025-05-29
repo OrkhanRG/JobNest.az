@@ -3,10 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -83,5 +85,21 @@ class User extends Authenticatable
     {
         $role = Role::query()->where("name", $roleName)->firstOrFail();
         $this->roles()->syncWithoutDetaching([$role->id]);
+    }
+
+    #[Scope]
+    public function filter($query, $params)
+    {
+        $query->select('*', DB::raw('COUNT(*) OVER() as total_count'));
+
+        if ($params["limit"]) {
+            $query->limit($params["limit"]);
+        }
+
+        if ($params["offset"]) {
+            $query->offset($params["offset"]);
+        }
+
+        return $query;
     }
 }

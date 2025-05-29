@@ -7,38 +7,39 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\JobCategoryCreateRequest;
 use App\Http\Requests\JobCategoryUpdateRequest;
 use App\Http\Services\JobCategoryService;
+use App\Http\Services\RoleService;
+use App\Http\Services\UserService;
 use App\Models\JobCategory;
 use App\Traits\Loggable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class JobCategoryController extends Controller
+class UserController extends Controller
 {
     use Loggable;
 
     public function __construct(
-        readonly JobCategoryService $jobCategoryService
+        readonly UserService $userService,
+        readonly RoleService $roleService,
     ) {}
 
     public function index(Request $request): View|JsonResponse
     {
         if ($request->ajax()) {
-            $params = $request->only("keyword", "is_active", "offset");
-            $params["limit"] = LoadLimit::JOB_CATEGORY;
-            $data = $this->jobCategoryService->getAll($params, with: ["children"]);
+            $params = [
+                ...$request->only("keyword", "is_active", "offset"),
+                "limit" => LoadLimit::USER
+            ];
+
+            $data = $this->userService->getAll($params);
 
             return json_response(__("app.success"), 200, $data);
         }
 
-        return view('admin.job_category.list');
-    }
+        $roles = $this->roleService->getAll();
 
-    public function getParents(Request $request): JsonResponse
-    {
-        $id = $request->input("id");
-        $categories = $this->jobCategoryService->getParents($id);
-        return json_response(__("app.success"), 200, $categories);
+        return view('admin.users.list', compact('roles'));
     }
 
     public function create(): View
@@ -55,7 +56,7 @@ class JobCategoryController extends Controller
                 $data['icon'] = $request->file('icon');
             }
 
-            $this->jobCategoryService->create($data);
+            $this->userService->create($data);
 
             return json_response(__('app.success'), 201);
         } catch (\Throwable $exception) {
@@ -78,7 +79,7 @@ class JobCategoryController extends Controller
                 $data['icon'] = $request->file('icon');
             }
 
-            $update = $this->jobCategoryService->setCategory($category)->update($data);
+            $update = $this->userService->setCategory($category)->update($data);
 
             if (!$update) {
                 return json_response(__('app.error'), 500);
@@ -94,7 +95,7 @@ class JobCategoryController extends Controller
     public function destroy(JobCategory $category): JsonResponse
     {
         try {
-            $delete = $this->jobCategoryService->setCategory($category)->remove();
+            $delete = $this->userService->setCategory($category)->remove();
 
             if (!$delete) {
                 return json_response(__('text.unexpected_error_text'), 500);
@@ -111,10 +112,10 @@ class JobCategoryController extends Controller
     {
         try {
             $data = [
-              "is_active" => $request->input("is_active") ? "1" : "0",
+                "is_active" => $request->input("is_active") ? "1" : "0",
             ];
 
-            $status = $this->jobCategoryService->setCategory($category)->changeField($data);
+            $status = $this->userService->setCategory($category)->changeField($data);
 
             if (!$status) {
                 return json_response(__('text.unexpected_error_text'), 500);

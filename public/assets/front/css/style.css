@@ -7,7 +7,7 @@ template.
 This files [Table of contents] are outlined below
 ---------------------------------------------------
 ** - ========================
-	 GENERAL 
+	 GENERAL
 	 ========================
 ** - Title separators
 ** - Title separators
@@ -80,8 +80,8 @@ This files [Table of contents] are outlined below
 ** - Work Experience
 2** - Social Share
 ** - Employer detail
-** - Home Page 2 Banner Section Css Start 
-** - Home Page 1 Banner Section Css Start 
+** - Home Page 2 Banner Section Css Start
+** - Home Page 1 Banner Section Css Start
 ** - Side Map
 ** - Side Map2
 ** - Sidebar Info
@@ -94,11 +94,11 @@ This files [Table of contents] are outlined below
 ** - Dashboard Header
 ** - My Account css
 ** - Dashboard message Dropdown
-** - Dashboard Notification Dropdown 
+** - Dashboard Notification Dropdown
 ** - Dashboard Message
 ** - Dashboard Notification
-** - Admin Nav 
-** - Form Elements 
+** - Admin Nav
+** - Form Elements
 ** - Dashboard Card
 ** - Upload Video Button
 ** - dashboard List
@@ -111,11 +111,11 @@ This files [Table of contents] are outlined below
 ** - msg user list side button
 ** - Chart
 ** - Dashboard candidates style
-** - Data Table Candidets 
+** - Data Table Candidets
 ** - default table
-** - Data Table Candidets 
+** - Data Table Candidets
 ** - Data Table
-** - Model Popup 
+** - Model Popup
 ---------------------------------------------------
 */
 @import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&amp;display=swap");
@@ -2484,7 +2484,7 @@ ol li {
 }
 
 /*-------------------------------------
-	Tabs 
+	Tabs
 -------------------------------------*/
 /*Tabs style 1 [ default ] */
 .wt-tabs .tab-pane {
@@ -22124,7 +22124,7 @@ Home page 11 banner
 }
 
 /*-----------------------------------------------------------------
-	Home Page 12 
+	Home Page 12
 ------------------------------------------------------------------*/
 .twm-hpage12-bnr-pic {
   text-align: center;
@@ -22230,7 +22230,7 @@ Home page 11 banner
 }
 
 /*-----------------------------------------------------------------
-	Home Page 13 
+	Home Page 13
 ------------------------------------------------------------------*/
 .twm-home3-banner-section.twm-bnr-hpage-13 {
   background-color: #f7f7f7;
@@ -22549,7 +22549,7 @@ Home page 11 banner
 }
 
 /*-----------------------------------------------------------------
-	Home Page 14 
+	Home Page 14
 ------------------------------------------------------------------*/
 .twm-home3-banner-section.twm-bnr-hpage-14 {
   background-color: #0f0f11;

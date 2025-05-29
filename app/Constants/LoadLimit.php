@@ -4,5 +4,6 @@ namespace App\Constants;
 
 class LoadLimit
 {
-    public const JOB_CATEGORY_LIMIT = 100;
+    public const JOB_CATEGORY = 100;
+    public const USER = 100;
 }

@@ -60,11 +60,11 @@
             <li class="nav-item">
                 <a
                     class="nav-link menu-arrow"
-                    href="#sidebarDashboards"
+                    href="#jobCategories"
                     data-bs-toggle="collapse"
                     role="button"
                     aria-expanded="false"
-                    aria-controls="sidebarDashboards"
+                    aria-controls="jobCategories"
                 >
                                 <span class="nav-icon">
                                     <iconify-icon
@@ -73,7 +73,7 @@
                                 </span>
                     <span class="nav-text"> İş Kateqoriyalar </span>
                 </a>
-                <div class="collapse" id="sidebarDashboards">
+                <div class="collapse" id="jobCategories">
                     <ul class="nav sub-navbar-nav">
                         <li class="sub-nav-item">
                             <a class="sub-nav-link" href="{{ route("admin.job-categories.list") }}"
@@ -91,6 +91,19 @@
                 </div>
             </li>
 
+            <li class="menu-title">Main</li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route("admin.users.list") }}">
+                                <span class="nav-icon">
+                                    <iconify-icon
+                                        icon="mdi:users"
+                                    ></iconify-icon>
+                                </span>
+                    <span class="nav-text"> İstifadəçilər </span>
+                </a>
+            </li>
+
             <li class="nav-item">
                 <a class="nav-link" href="javascript:void(0)">
                                 <span class="nav-icon">
@@ -102,7 +115,6 @@
                     <span class="badge badge-pill text-end bg-danger">Hot</span>
                 </a>
             </li>
-
         </ul>
     </div>
 </div>

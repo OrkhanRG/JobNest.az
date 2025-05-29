@@ -60,7 +60,7 @@ class JobCategory extends Model
         }
 
         if ($params["keyword"]) {
-            $query = $query->where(function ($q) use ($params) {
+            $query->where(function ($q) use ($params) {
                 $q->where('name', 'like', '%' . $params["keyword"] . '%')
                     ->orWhere('slug', 'like', '%' . $params["keyword"] . '%')
                     ->orWhere('description', 'like', '%' . $params["keyword"] . '%');
@@ -76,11 +76,11 @@ class JobCategory extends Model
         }
 
         if ($params["limit"]) {
-            $query = $query->limit($params["limit"]);
+            $query->limit($params["limit"]);
         }
 
         if ($params["offset"]) {
-            $query = $query->offset($params["offset"]);
+            $query->offset($params["offset"]);
         }
 
         return $query->orderBy("id", "desc")->get();

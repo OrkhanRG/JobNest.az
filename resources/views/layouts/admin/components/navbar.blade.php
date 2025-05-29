@@ -380,7 +380,7 @@
                                         <img
                                             class="rounded-circle"
                                             width="32"
-                                            src="{{ asset("assets/admin/images/users/avatar-1.jpg") }}"
+                                            src="{{ asset(auth()->user()->avatar) }}"
                                             alt="avatar-3"
                                         />
                                     </span>
@@ -392,32 +392,20 @@
                             <i
                                 class="bx bx-user-circle text-muted fs-18 align-middle me-1"
                             ></i
-                            ><span class="align-middle">Profile</span>
+                            ><span class="align-middle">Profil</span>
                         </a>
                         <a class="dropdown-item" href="apps-chat.html">
                             <i
                                 class="bx bx-message-dots text-muted fs-18 align-middle me-1"
                             ></i
-                            ><span class="align-middle">Messages</span>
+                            ><span class="align-middle">Mesajlar</span>
                         </a>
 
-                        <a class="dropdown-item" href="pages-pricing.html">
-                            <i
-                                class="bx bx-wallet text-muted fs-18 align-middle me-1"
-                            ></i
-                            ><span class="align-middle">Pricing</span>
-                        </a>
-                        <a class="dropdown-item" href="pages-faqs.html">
-                            <i
-                                class="bx bx-help-circle text-muted fs-18 align-middle me-1"
-                            ></i
-                            ><span class="align-middle">Help</span>
-                        </a>
                         <a class="dropdown-item" href="auth-lock-screen.html">
                             <i
                                 class="bx bx-lock text-muted fs-18 align-middle me-1"
                             ></i
-                            ><span class="align-middle">Lock screen</span>
+                            ><span class="align-middle">Ekranı kilidləyin</span>
                         </a>
 
                         <div class="dropdown-divider my-1"></div>
@@ -427,7 +415,7 @@
                             href="{{ route("logout") }}"
                         >
                             <i class="bx bx-log-out fs-18 align-middle me-1"></i
-                            ><span class="align-middle">Logout</span>
+                            ><span class="align-middle">Çıxış</span>
                         </a>
                     </div>
                 </div>

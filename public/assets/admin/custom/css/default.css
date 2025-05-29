@@ -12,7 +12,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(255, 255, 255, 0.6); /* beyaz opak arka plan */
+    background: rgba(255, 255, 255, 0.6);
     z-index: 1;
 }
 
@@ -61,4 +61,15 @@
 
 .active-filter {
     color: #147fcb;
+}
+
+.select2-container--default .select2-selection--single {
+    height: 38px !important;
+    line-height: 38px !important;
+    border-color: #dae1e8;
+}
+
+.select2-selection__rendered {
+    line-height: 38px !important;
+    color: #73757c !important;
 }

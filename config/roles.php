@@ -1,5 +1,5 @@
 <?php
 
 return [
-    "super_admins" => ["developer"]
+    "super_admins" => ["developer"],
 ];
