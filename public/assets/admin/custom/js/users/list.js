@@ -1,6 +1,7 @@
 $(function () {
     let keyword,
-        is_active,
+        status,
+        role,
         statues = {0:"Deaktiv", 1:"Aktiv", 2:"Gözləmədə"};
 
     let offset = 0,
@@ -15,23 +16,31 @@ $(function () {
 
     const setFilter = () => {
         keyword = $(`[data-role="keyword"]`).val()?.trim();
-        is_active = $(`[data-role="status"]`).val()?.trim();
+        status = $(`[data-role="status"]`).val()?.trim();
+        role = $(`[data-role="role"]`).val()?.trim();
     }
 
     const resetFilter = () => {
         keyword = "";
-        is_active = "";
+        status = "";
+        role = "";
 
         $(`[data-role="keyword"]`).val(keyword);
-        $(`[data-role="status"]`).val(is_active);
+        $(`[data-role="status"]`).val(status);
+        $(`[data-role="role"]`).val(role);
     }
 
     const loadFilter = () => {
         keyword = getUrlParameter('keyword') ?? "";
-        is_active = getUrlParameter('is_active') ?? "";
+        status = getUrlParameter('status') ?? "";
+        role = getUrlParameter('role') ?? "";
 
-        if (+is_active) {
-            $(`[data-role="status"]`).val(is_active);
+        if (+status) {
+            $(`[data-role="status"]`).val(status).trigger("change");
+        }
+
+        if (role) {
+            $(`[data-role="role"]`).val(role).trigger("change");
         }
 
         if (keyword) {
@@ -76,14 +85,16 @@ $(function () {
 
         let data = {
             keyword,
-            is_active,
+            status,
+            role,
             offset
         };
 
         if (first_time) {
             filter_url({
                 keyword,
-                is_active,
+                status,
+                role
             });
         }
 
@@ -224,6 +235,15 @@ $(function () {
        $(this).prop("disabled", true);
        setFilter();
        getAll();
+    });
+
+    $(document).on("keyup", function (e) {
+        if (e.key === "Enter") {
+            const $button = $(`[data-role="filter-apply"]`);
+            $button.prop("disabled", true);
+            setFilter();
+            getAll();
+        }
     });
 
     $(document).on("click", `[data-role="filter-reset"]`, function () {

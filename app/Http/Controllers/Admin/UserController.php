@@ -28,7 +28,7 @@ class UserController extends Controller
     {
         if ($request->ajax()) {
             $params = [
-                ...$request->only("keyword", "is_active", "offset"),
+                ...$request->only("keyword", "status", "role", "offset"),
                 "limit" => LoadLimit::USER
             ];
 
@@ -44,7 +44,7 @@ class UserController extends Controller
 
     public function create(): View
     {
-        return view('admin.job_category.create-update');
+        return view('admin.users.create-update');
     }
 
     public function store(JobCategoryCreateRequest $request): JsonResponse

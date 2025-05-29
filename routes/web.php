@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\JobCategoryController;
@@ -100,6 +101,11 @@ Route::prefix("admin")->name("admin.")->middleware("custom_auth", "role:admin,de
         Route::put("/{user}/edit", [UserController::class, "update"]);
         Route::delete("/{user}/delete", [UserController::class, "destroy"])->name("users.delete");
         Route::delete("/{user}/change-status", [UserController::class, "changeStatus"])->name("users.change-status");
+    });
+
+    //Role
+    Route::prefix("roles")->group(function(){
+        Route::get("/get-all", [RoleController::class, "getAll"])->name("roles.getAll");
     });
 });
 

@@ -11,4 +11,5 @@ return [
     "warning" => "Diqqət!",
     "success" => "Uğurlu!",
     "error" => "Xəta!",
+    "no_content" => "Məlumat tapılmadı!"
 ];

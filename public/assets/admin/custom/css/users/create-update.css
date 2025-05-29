@@ -1,0 +1,13 @@
+.icon-container {
+    display: flex;
+}
+
+.icon-remove:hover{
+    cursor: pointer;
+}
+
+.icon-remove{
+    position: relative;
+    top: -4px;
+    left: -4px;
+}

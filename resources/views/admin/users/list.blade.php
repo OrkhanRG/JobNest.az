@@ -26,7 +26,7 @@
                 </h5>
                 <div>
                     @if(hasPermission("user.create"))
-                        <a href="#" title="Yeni İstifadəçi">
+                        <a href="{{ route("admin.users.create") }}" title="Yeni İstifadəçi">
                             <iconify-icon class="fs-24 align-middle" icon="iconamoon:sign-plus-circle-duotone"></iconify-icon>
                         </a>
                     @endif
@@ -46,8 +46,9 @@
                             <label for="slug" class="form-label">Status</label>
                             <select class="form-control" id="status" name="status" data-role="status">
                                 <option value="">Hamsı</option>
-                                <option value="0">Passiv</option>
-                                <option value="1">Aktiv</option>
+                                @foreach(config("statuses.users") as $key => $status)
+                                    <option value="{{ $key }}">{{ $status }}</option>
+                                @endforeach
                             </select>
                         </div>
 
@@ -57,7 +58,7 @@
                                 <option value="">Hamsı</option>
                                 @isset($roles)
                                     @foreach($roles as $role)
-                                        <option value="{{ $role->name }}">{{ $role->label }}</option>
+                                        <option value="{{ $role->id }}">{{ $role->label }}</option>
                                     @endforeach
                                 @endisset
                             </select>

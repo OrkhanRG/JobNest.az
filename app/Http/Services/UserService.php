@@ -34,19 +34,6 @@ class UserService
         ];
     }
 
-    public function getParents(int $id = null): AnonymousResourceCollection
-    {
-        $categories = User::query()
-            ->doesntHave("parent")
-            ->orderBy("id", "desc")
-            ->when($id, function ($query) use ($id) {
-                $query->whereNot("id", $id);
-            })
-            ->get();
-
-        return UserResource::collection($categories);
-    }
-
     public function create($data): User
     {
         $slug = slugify($data['slug'] ?? $data['name'], User::class);

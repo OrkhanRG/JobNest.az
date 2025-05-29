@@ -92,6 +92,19 @@ class User extends Authenticatable
     {
         $query->select('*', DB::raw('COUNT(*) OVER() as total_count'));
 
+        if ($params["keyword"]) {
+            $query->where("name", "LIKE", "%{$params["keyword"]}%")
+            ->orWhere("email", "LIKE", "%{$params["keyword"]}%");
+        }
+
+        if (isset($params["status"]) && in_array($params['status'], ['0', '1', '2'])) {
+            $query->where("status", $params['status']);
+        }
+
+        if ($params['role']) {
+            $query->whereHas("roles", fn($q) => $q->where("role_id", $params['role']));
+        }
+
         if ($params["limit"]) {
             $query->limit($params["limit"]);
         }

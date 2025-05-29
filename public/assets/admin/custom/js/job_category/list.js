@@ -234,6 +234,15 @@ $(function () {
        getAll();
     });
 
+    $(document).on("keyup", function (e) {
+        if (e.key === "Enter") {
+            const $button = $(`[data-role="filter-apply"]`);
+            $button.prop("disabled", true);
+            setFilter();
+            getAll();
+        }
+    });
+
     $(document).on("click", `[data-role="filter-reset"]`, function () {
         $(this).prop("disabled", true);
         resetFilter();

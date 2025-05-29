@@ -2,13 +2,17 @@
 
 namespace App\Http\Services;
 
+use App\Http\Resources\RoleResource;
 use App\Models\Role;
-use Illuminate\Support\Collection;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class RoleService
 {
-    public function getAll(): Collection
+    public function getAll(): AnonymousResourceCollection
     {
-        return Role::query()->get();
+        return RoleResource::collection(Role::query()
+            ->orderBy("name")
+            ->get()
+        );
     }
 }
