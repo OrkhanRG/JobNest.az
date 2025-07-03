@@ -15,4 +15,14 @@ class RoleService
             ->get()
         );
     }
+
+    public function find(string $role): ?Role
+    {
+        return Role::query()->where("name", $role)->first();
+    }
+
+    public function getById(int $id): ?Role
+    {
+        return Role::query()->where("id", $id)->first();
+    }
 }

@@ -1,5 +1,5 @@
 @extends("layouts.admin")
-@section("title", "Yeni İstifadəçi")
+@section("title", isset($user) && $user ? $user->name : "Yeni İstifadəçi")
 
 @push("css")
     <link rel="stylesheet" href="{{ asset("assets/admin/custom/css/users/create-update.css") }}" type="text/css">
@@ -7,14 +7,14 @@
 
 @section("breadcrumb")
     @include("layouts.admin.components.breadcrumb", [
-        "title" => "Yeni İstifadəçi",
+        "title" => isset($user) && $user ? $user->name : "Yeni İstifadəçi",
         "links" => [
             [
                 "name" => "İstifadəçilər",
                 "url" => route("admin.users.list")
             ],
             [
-                "name" => "Yeni İstifadəçi",
+                "name" => isset($user) && $user ? $user->name : "Yeni İstifadəçi",
                 "url" => route("admin.users.create")
             ],
 
@@ -35,6 +35,9 @@
                 </a>
             </div>
 
+            <input type="hidden" data-role="selected_role_id" value="{{ isset($user) && $user ? $user->roles->first()->name : "" }}">
+            <input type="hidden" data-role="selected_status_id" value="{{ isset($user) && $user ? $user->status : "" }}">
+
             <form class="my-3" method="{{ isset($user) ? "PUT" : "POST" }}" data-role="form" action="{{ isset($user) ? route("admin.users.edit", $user->id) : route("admin.users.create") }}" enctype="multipart/form-data">
                 <div class="row g-3">
                     <div class="col-md-6">
@@ -53,12 +56,12 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label for="password" class="form-label">Şifrə</label> <span class="text-danger">*</span>
+                        <label for="password" class="form-label">Şifrə</label> <span class="text-danger">{{ isset($user) ? "" : "*" }}</span>
                         <input type="password" class="form-control" id="password" name="password" data-role="password" value=""  placeholder="Şifrə...">
                     </div>
 
                     <div class="col-md-6">
-                        <label for="password_confirmation" class="form-label">Şifrə Təkrar</label> <span class="text-danger">*</span>
+                        <label for="password_confirmation" class="form-label">Şifrə Təkrar</label> <span class="text-danger">{{ isset($user) ? "" : "*" }}</span>
                         <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" data-role="password_confirmation" value="" placeholder="Şifrə Təkrar...">
                     </div>
 
@@ -84,9 +87,9 @@
                         <input type="file" id="avatar" name="avatar" data-role="avatar">
                     </div>
                     <div class="col-md-6">
-                        <div class="flex-shrink-0 me-3 {{ isset($user) && $user->icon ? "" : "d-none" }}" data-role="preview-icon">
+                        <div class="flex-shrink-0 me-3 {{ isset($user) && $user->avatar ? "" : "d-none" }}" data-role="preview-icon">
                             <div class="avatar bg-light rounded icon-container">
-                                <img class="img-fluid rounded d-block" src="{{ isset($user) ? asset($user->icon) : "" }}" alt="Image" />
+                                <img class="img-fluid rounded d-block" src="{{ isset($user) ? asset($user->avatar) : "" }}" alt="Image" />
                                 <iconify-icon data-role="icon-close" class="fs-24 align-middle text-danger icon-remove" icon="material-symbols:close-small"/>
                             </div>
                         </div>

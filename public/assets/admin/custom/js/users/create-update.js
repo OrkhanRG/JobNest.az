@@ -1,11 +1,15 @@
 $(function () {
 
     let role_element = $(`[data-role="role"]`),
-        status_element = $(`[data-role="status"]`),
-        file_is_deleted = 0;
+        file_is_deleted = 0,
+        selected_role_id = $(`[data-role="selected_role_id"]`).val()?.trim(),
+        selected_status_id = $(`[data-role="selected_status_id"]`).val()?.trim();
 
     $(`[data-role="role"], [data-role="status"]`).select2();
 
+    if (+selected_status_id) {
+        $(`[data-role="status"]`).val(+selected_status_id).trigger("change");
+    }
 
     const getRoles = () => {
         let h = `<option value="">Rol Seçin</option>`;
@@ -16,10 +20,14 @@ $(function () {
             success: function (d) {
                 if (d.code === 200) {
                     let data = d?.data;
-                    h += data.map(v => `<option value="${v.id}">${v.label}</option>`).join('');
+                    h += data.map(v => `<option value="${v.name}">${v.label}</option>`).join('');
                 }
 
                 role_element.html(h);
+
+                if (selected_role_id) {
+                    role_element.val(selected_role_id).trigger("change");
+                }
             },
             error: function (err) {
                 // console.log(err)
@@ -36,12 +44,18 @@ $(function () {
         e.preventDefault();
 
         let parent = $(this).closest(".row"),
-            requiredFields = ["name", "role", "status", "email", "password", "password_confirmation"],
-            optionalFields = ["surname", "avatar"],
-            data = validateInput(parent, requiredFields, optionalFields),
+            requiredFields = ["name", "role", "status", "email"],
+            optionalFields = ["surname", "avatar", "file_is_deleted"],
             route = $(this).attr("action"),
-            request_type = $(this).attr("method"),
+            request_type = $(this).attr("method").toUpperCase(),
             submit_button = $(this).find("button");
+
+        if (request_type === "POST") {
+            requiredFields.push("password", "password_confirmation");
+        }
+
+        let data = validateInput(parent, requiredFields, optionalFields);
+
 
         if (!data) {
             return;
@@ -54,7 +68,7 @@ $(function () {
 
         let iconFile = parent.find(`[data-role="avatar"]`)[0]?.files[0];
         if (iconFile) {
-            formData.append("icon", iconFile);
+            formData.append("avatar", iconFile);
         }
         if (request_type === "PUT") {
             formData.append('_method', 'PUT')
@@ -72,7 +86,6 @@ $(function () {
 
                 if ([201, 202].includes(d.code)) {
                     notify("Uğurlu!", d.message, "success");
-                    getRoles();
                     if (request_type === "POST") {
                         emptyInput(parent);
 

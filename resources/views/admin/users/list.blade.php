@@ -111,9 +111,9 @@
 @push("js")
     <script>
         let users_route =  "{{ route("admin.users.list") }}",
-            users_edit_route = "{{ route("admin.users.edit", "category_id") }}",
-            users_delete_route = "{{ route("admin.users.delete", "category_id") }}",
-            users_change_status_route = "{{ route("admin.users.change-status", "category_id") }}";
+            users_edit_route = "{{ route("admin.users.edit", "user_id") }}",
+            users_delete_route = "{{ route("admin.users.delete", "user_id") }}",
+            users_change_status_route = "{{ route("admin.users.change-status", "user_id") }}";
     </script>
     <script src="{{ asset("assets/admin/custom/js/users/list.js") }}"></script>
 @endpush

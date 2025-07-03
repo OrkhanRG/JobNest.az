@@ -46,13 +46,33 @@ const validateInput = (parent, requiredFields, optionalFields = []) => {
         } else {
             data[field] = value;
         }
-        input.removeClass("is-invalid");
+
+        if (input.hasClass("select2-hidden-accessible")) {
+            const selection = input.next('.select2').find('.select2-selection');
+            selection.removeAttr("style");
+        } else {
+            input.removeClass("is-invalid");
+        }
+
         input.siblings(".invalid-feedback").remove();
+
+
 
         if (requiredFields.includes(field) && !value) {
             isValid = false;
             input.addClass("is-invalid");
-            input.after(validationComponent());
+
+            if (input.hasClass("select2-hidden-accessible")) {
+                const select2Container = input.next('.select2'),
+                      selection = select2Container.find('.select2-selection');
+
+                selection.css('border-color', '#f06060');
+                selection.css('border-width', '1px');
+
+                select2Container.after(validationComponent());
+            } else {
+                input.after(validationComponent());
+            }
             continue;
         }
 

@@ -1,5 +1,5 @@
 @extends("layouts.admin")
-@section("title", "İş Kateqoriyaları")
+@section("title", isset($category) && $category ? $category->name : "Yeni Kateqoriya")
 
 @push("css")
     <link rel="stylesheet" href="{{ asset("assets/admin/custom/css/job_category/create-update.css") }}" type="text/css">
@@ -7,14 +7,14 @@
 
 @section("breadcrumb")
     @include("layouts.admin.components.breadcrumb", [
-        "title" => "Yeni Kateqoriya",
+        "title" => isset($category) && $category ? $category->name : "Yeni Kateqoriya",
         "links" => [
             [
                 "name" => "Kateqoriyalar",
                 "url" => route("admin.job-categories.list")
             ],
             [
-                "name" => "Yeni Kateqoriya",
+                "name" => isset($category) && $category ? $category->name : "Yeni Kateqoriya",
                 "url" => route("admin.job-categories.create")
             ],
 

@@ -27,3 +27,7 @@ function getBase64FromSelector(selector) {
         reader.readAsDataURL(file);
     });
 }
+
+function public_path(url) {
+    return "../../../" + url;
+}

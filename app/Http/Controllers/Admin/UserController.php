@@ -4,16 +4,17 @@ namespace App\Http\Controllers\Admin;
 
 use App\Constants\LoadLimit;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\JobCategoryCreateRequest;
-use App\Http\Requests\JobCategoryUpdateRequest;
-use App\Http\Services\JobCategoryService;
+use App\Http\Requests\UserCreateRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Http\Services\RoleService;
 use App\Http\Services\UserService;
 use App\Models\JobCategory;
+use App\Models\User;
 use App\Traits\Loggable;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends Controller
 {
@@ -47,39 +48,50 @@ class UserController extends Controller
         return view('admin.users.create-update');
     }
 
-    public function store(JobCategoryCreateRequest $request): JsonResponse
+    public function store(UserCreateRequest $request): JsonResponse
     {
         try {
-            $data = $request->only("name", "slug", "description", "parent_id", "is_active");
+            $data = $request->only("name", "surname", "email", "password", "role", "status", "avatar");
 
-            if ($request->hasFile('icon')) {
-                $data['icon'] = $request->file('icon');
+            if ($request->hasFile('avatar')) {
+                $data['avatar'] = $request->file('avatar');
             }
 
-            $this->userService->create($data);
+            $user = $this->userService->create($data);
+
+            if (!$user) {
+                return json_response(__("text.unexpected_error_text"), 500);
+            }
 
             return json_response(__('app.success'), 201);
         } catch (\Throwable $exception) {
+            $this->logErrorToFile($exception, "UserController@stroe");
+
             $message = __("text.unexpected_error_text");
             return json_response($message, 500);
         }
     }
 
-    public function edit(JobCategory $category): View
+    public function edit(User $user): View
     {
-        return view('admin.job_category.create-update', compact('category'));
+        return view('admin.users.create-update', compact('user'));
     }
 
-    public function update(JobCategoryUpdateRequest $request, JobCategory $category): JsonResponse
+    public function update(UserUpdateRequest $request, User $user): JsonResponse
     {
         try {
-            $data = $request->only("name", "slug", "description", "parent_id", "is_active", "file_is_deleted");
+            $data = $request->only("name", "surname", "email", "password", "role", "status", "avatar", "file_is_deleted");;
 
-            if ($request->hasFile('icon')) {
-                $data['icon'] = $request->file('icon');
+            if ($request->hasFile('avatar')) {
+                $data['avatar'] = $request->file('avatar');
             }
 
-            $update = $this->userService->setCategory($category)->update($data);
+            $role = $this->roleService->find($data["role"]);
+            if (!$role) {
+                return json_response(__('text.role_not_found'), Response::HTTP_NO_CONTENT);
+            }
+
+            $update = $this->userService->setUser($user)->update($data, !$user->hasRole($role->name));
 
             if (!$update) {
                 return json_response(__('app.error'), 500);
@@ -92,10 +104,11 @@ class UserController extends Controller
         }
     }
 
-    public function destroy(JobCategory $category): JsonResponse
+    //-- TODO non completed after
+    public function destroy(User $user): JsonResponse
     {
         try {
-            $delete = $this->userService->setCategory($category)->remove();
+            $delete = $this->userService->setUser($user)->remove();
 
             if (!$delete) {
                 return json_response(__('text.unexpected_error_text'), 500);

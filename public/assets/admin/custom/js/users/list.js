@@ -56,7 +56,7 @@ $(function () {
                         ${++i + offset}
                     </td>
                     <td>
-                        ${d.avatar ? `<img width="50" src="/${d.avatar}" alt="">` : ``}
+                        <img width="50" src="/${d.avatar ?? public_path("assets/admin/custom/images/default/user.png")}" alt="">
                     </td>
                     <td data-row="name">
                         <span>${d.name ?? ""} ${d.surname ?? ""}</span>
@@ -72,7 +72,7 @@ $(function () {
                                             : (d.status === 2 ? 'warning' : 'danger')}">${statues[d.status] ?? "-"}</span>
                     </td>
                     <td width="100px" class="text-end">
-                        <a href="${users_edit_route.replace('category_id', d.id)}">
+                        <a href="${users_edit_route.replace('user_id', d.id)}">
                             <iconify-icon class="text-success fs-21 align-middle" icon="iconamoon:edit-duotone"></iconify-icon>
                         </a>
                         <iconify-icon data-role="btn-delete" class="text-danger fs-21 align-middle cursor-pointer" icon="iconamoon:trash-duotone"></iconify-icon>
@@ -151,14 +151,14 @@ $(function () {
             id = tr.data("id");
 
         Swal.fire({
-            title: ` <b class="text-danger">${name}</b> kateqoriyasını silmək istədiyinizə əminsiniz?`,
+            title: ` <b class="text-danger">${name}</b> istifadəçisini silmək istədiyinizə əminsiniz?`,
             showDenyButton: true,
             confirmButtonText: "Sil",
             denyButtonText: `İmtina`
         }).then((result) => {
             if (result.isConfirmed) {
                 $.post({
-                    url: users_delete_route.replace('category_id', id),
+                    url: users_delete_route.replace('user_id', id),
                     data: {
                         id,
                         _method: "DELETE"

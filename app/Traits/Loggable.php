@@ -48,6 +48,6 @@ trait Loggable
             'user'       => $user,
         ];
 
-        Log::channel('custom_error')->error('⚠️ Application Error Log:', $log);
+        Log::channel('custom_error')->error('⚠️ Application Error Log:'. json_encode($log, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
     }
 }

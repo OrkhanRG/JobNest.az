@@ -2,6 +2,7 @@
 
 namespace App\Logging;
 
+use Monolog\Formatter\LineFormatter;
 use Monolog\Logger;
 use Monolog\Handler\StreamHandler;
 use Illuminate\Support\Facades\File;
@@ -23,7 +24,10 @@ class CustomPathLogger
         }
 
         $logger = new Logger('custom_error');
-        $logger->pushHandler(new StreamHandler($logFile, Logger::DEBUG));
+        $stream = new StreamHandler($logFile, Logger::DEBUG);
+        $formatter = new LineFormatter(null, null, true, true);
+        $stream->setFormatter($formatter);
+        $logger->pushHandler($stream);
 
         return $logger;
     }

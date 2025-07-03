@@ -25,7 +25,9 @@ class User extends Authenticatable
         'surname',
         'email',
         'status',
+        'avatar',
         'password',
+        'email_verified_at',
     ];
 
     /**
@@ -81,10 +83,15 @@ class User extends Authenticatable
             ->exists();
     }
 
-    public function assignRole(string $roleName): void
+    public function assignRole(string $roleName, bool $update = false): void
     {
         $role = Role::query()->where("name", $roleName)->firstOrFail();
-        $this->roles()->syncWithoutDetaching([$role->id]);
+
+        if ($update) {
+            $this->roles()->sync([$role->id]);
+        } else {
+            $this->roles()->syncWithoutDetaching([$role->id]);
+        }
     }
 
     #[Scope]
