@@ -99,8 +99,8 @@ Route::prefix("admin")->name("admin.")->middleware("custom_auth", "role:admin,de
         Route::post("/create", [UserController::class, "store"]);
         Route::get("/{user}/edit", [UserController::class, "edit"])->name("users.edit");
         Route::put("/{user}/edit", [UserController::class, "update"]);
+        Route::put("/{user}/change-status", [UserController::class, "changeStatus"])->name("users.change-status");
         Route::delete("/{user}/delete", [UserController::class, "destroy"])->name("users.delete");
-        Route::delete("/{user}/change-status", [UserController::class, "changeStatus"])->name("users.change-status");
     });
 
     //Role

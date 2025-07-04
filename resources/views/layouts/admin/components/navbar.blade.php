@@ -380,7 +380,7 @@
                                         <img
                                             class="rounded-circle"
                                             width="32"
-                                            src="{{ asset(auth()->user()->avatar) }}"
+                                            src="{{ asset(auth()->user()->avatar ?? config("jobnest.default_user_avatar")) }}"
                                             alt="avatar-3"
                                         />
                                     </span>

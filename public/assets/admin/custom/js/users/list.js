@@ -67,7 +67,7 @@ $(function () {
                         <span class="badge bg-${d.roles.name === 'candidate' ? 'secondary'
                                               : d.roles.name === 'company' ? 'info' : 'primary' }">${d.roles.label ?? ""}</span>
                     </td>
-                    <td>
+                    <td data-row="status" data-status="${d.status}">
                         <span class="badge bg-${d.status === 1 ? 'success'
                                             : (d.status === 2 ? 'warning' : 'danger')}">${statues[d.status] ?? "-"}</span>
                     </td>
@@ -186,6 +186,7 @@ $(function () {
         });
     });
 
+    let changed_status = null;
     $(document).on("change", `[data-role="change-status"]`, function () {
         let self = $(this),
             tr = self.closest("tr"),
@@ -193,23 +194,27 @@ $(function () {
             id = tr.data("id");
 
         let data = {
-            is_active: self.prop("checked") ? "1" : "0",
-            _method: "DELETE"
+            status: self.val()?.trim(),
+            _method: "PUT"
         };
 
+        console.log(changed_status)
+
         Swal.fire({
-            title: ` <b class="text-danger">${name}</b> statusunu dəyişmək istədiyinizə əminsiniz?`,
+            title: ` <b class="text-danger">${name}</b> istifadəçisinin statusunu dəyişmək istədiyinizə əminsiniz?`,
             showDenyButton: true,
             confirmButtonText: "Dəyişdir",
             denyButtonText: `İmtina`
         }).then((result) => {
             if (result.isConfirmed) {
                 $.post({
-                    url: users_change_status_route.replace('category_id', id),
+                    url: users_change_status_route.replace('user_id', id),
                     data,
                     success: function (d) {
                         if ([201, 202].includes(d.code)) {
-                            notify("Uğurlu!", d.message, "success");
+                            notify(d.message, "", "success");
+                        } else if ([422].includes(d.code)) {
+                            notify("Xəta!", d.message, "error")
                         } else {
                             notify("Diqqət!", d.message, "warning");
                         }
@@ -222,11 +227,10 @@ $(function () {
                     complete: function () {
                     }
                 });
-            } else if (result.isDenied) {
-                notify("İmtina edildi! 👍", null, "info");
-                self.prop("checked", !self.prop("checked"));
             } else {
-                self.prop("checked", !self.prop("checked"));
+                notify("İmtina edildi! 👍", null, "info");
+                self.val(changed_status);
+                changed_status = null;
             }
         });
     });
@@ -250,6 +254,55 @@ $(function () {
         $(this).prop("disabled", true);
         resetFilter();
         getAll();
+    });
+
+    $(document).on("click", `[data-row="status"]`, function (e) {
+        e.stopPropagation();
+        if ($(this).find("select").length) {
+            return;
+        }
+
+       let old_status = $(this).attr("data-status"),
+           new_html = "<select data-role='change-status'>" + Object.keys(statues).map((i) => `<option ${i == old_status ? "selected" : ""} value="${i}">${statues[i]}</option>`).join("") + "</select>";
+
+        changed_status = old_status;
+       if ($(this).find("span").length) {
+           $(this).html(new_html);
+           // $(`[data-role="change-status"]`).select2({
+           //     width: '100%',
+           //     minimumResultsForSearch: -1
+           // });
+       }
+
+        changeSelectWithSpan($(this));
+    });
+
+    const changeSelectWithSpan = (self = null) => {
+        let tdsWithSelect = $(`[data-row="status"]:has(select)`);
+        if (tdsWithSelect.length) {
+            tdsWithSelect.each((i, v) => {
+                let selected_status = $(v).find("select option:selected").val();
+                $(v).attr("data-status", selected_status);
+
+                if (self && self instanceof jQuery && self[0] === v) {
+                    return true;
+                }
+
+                $(v).html(`<span class="badge bg-${selected_status == 1 ? 'success'
+                                : (selected_status == 2 ? 'warning' : 'danger')}">${statues[selected_status] ?? "-"}
+                           </span>
+                         `);
+            })
+        }
+
+    }
+
+    $(document).on("click", function (e) {
+        if ($(this).closest('[data-row="status"]').length) {
+            return;
+        }
+
+        changeSelectWithSpan();
     });
 
     $(window).on('scroll', function () {

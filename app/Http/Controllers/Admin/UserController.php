@@ -104,7 +104,6 @@ class UserController extends Controller
         }
     }
 
-    //-- TODO non completed after
     public function destroy(User $user): JsonResponse
     {
         try {
@@ -121,14 +120,20 @@ class UserController extends Controller
         }
     }
 
-    public function changeStatus(JobCategory $category, Request $request): JsonResponse
+    //-- TODO non completed after
+
+    public function changeStatus(User $user, Request $request): JsonResponse
     {
         try {
             $data = [
-                "is_active" => $request->input("is_active") ? "1" : "0",
+                "status" => trim($request->input("status")),
             ];
 
-            $status = $this->userService->setCategory($category)->changeField($data);
+            if (!array_key_exists($request->input("status"), config("statuses.users"))) {
+                return json_response(__('text.unassigned_status'), 422);
+            }
+
+            $status = $this->userService->setUser($user)->changeField($data);
 
             if (!$status) {
                 return json_response(__('text.unexpected_error_text'), 500);
