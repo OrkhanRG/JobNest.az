@@ -22,6 +22,7 @@ class LoginController extends Controller
             $data = $request->only("email", "password", "remember_me");
             $data["remember_me"] = $request->has('remember_me');
             $status = $this->loginService->login($data);
+            //login olanda role is_active-in check ett. en son burda qaldin
 
             $response = match ($status) {
                 UserLoginStatus::UserNotFound => json_response(__('text.user_login_error_text'), 204),

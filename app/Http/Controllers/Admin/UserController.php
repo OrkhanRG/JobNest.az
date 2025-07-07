@@ -57,6 +57,10 @@ class UserController extends Controller
                 $data['avatar'] = $request->file('avatar');
             }
 
+            if (!$this->roleService->find($data["role"])) {
+                return json_response(__('text.role_not_found'), Response::HTTP_NO_CONTENT);
+            }
+
             $user = $this->userService->create($data);
 
             if (!$user) {
@@ -119,8 +123,6 @@ class UserController extends Controller
             return json_response(__("text.unexpected_error_text"), 500);
         }
     }
-
-    //-- TODO non completed after
 
     public function changeStatus(User $user, Request $request): JsonResponse
     {

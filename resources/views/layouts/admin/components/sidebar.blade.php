@@ -91,7 +91,7 @@
                 </div>
             </li>
 
-            <li class="menu-title">Main</li>
+            <li class="menu-title">Manage</li>
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ route("admin.users.list") }}">
@@ -103,6 +103,42 @@
                     <span class="nav-text"> İstifadəçilər </span>
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a
+                    class="nav-link menu-arrow"
+                    href="#RolePermission"
+                    data-bs-toggle="collapse"
+                    role="button"
+                    aria-expanded="false"
+                    aria-controls="RolePermission"
+                >
+                                <span class="nav-icon">
+                                    <iconify-icon
+                                        icon="tabler:lock-access"
+                                    ></iconify-icon>
+                                </span>
+                    <span class="nav-text">Rol & İcazələr</span>
+                </a>
+                <div class="collapse" id="RolePermission">
+                    <ul class="nav sub-navbar-nav">
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="{{ route("admin.roles.list") }}"
+                            >Rollar</a
+                            >
+                        </li>
+                        <li class="sub-nav-item">
+                            <a
+                                class="sub-nav-link"
+                                href="#"
+                            >İcazələr</a
+                            >
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="menu-title">Main</li>
 
             <li class="nav-item">
                 <a class="nav-link" href="javascript:void(0)">

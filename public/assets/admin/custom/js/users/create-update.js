@@ -19,7 +19,7 @@ $(function () {
             url: users_get_roles_route,
             success: function (d) {
                 if (d.code === 200) {
-                    let data = d?.data;
+                    let data = d?.data?.list;
                     h += data.map(v => `<option value="${v.name}">${v.label}</option>`).join('');
                 }
 

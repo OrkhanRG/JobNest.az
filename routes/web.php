@@ -75,7 +75,7 @@ Route::name("front.")->group(function(){
 });
 
 //Admin
-Route::prefix("admin")->name("admin.")->middleware("custom_auth", "role:admin,developer,moderator")->group(function(){
+Route::prefix("admin")->name("admin.")->middleware(["custom_auth", "role:admin,developer,moderator"])->group(function(){
     //Dashboard
     Route::get("/", [DashboardController::class, "index"])->name("dashboard");
 
@@ -104,8 +104,15 @@ Route::prefix("admin")->name("admin.")->middleware("custom_auth", "role:admin,de
     });
 
     //Role
-    Route::prefix("roles")->group(function(){
-        Route::get("/get-all", [RoleController::class, "getAll"])->name("roles.getAll");
+    Route::prefix("roles")->name("roles.")->group(function(){
+        Route::get("/", [RoleController::class, "index"])->name("list");
+        Route::get("/get-all", [RoleController::class, "getAll"])->name("getAll");
+        Route::get("/create", [RoleController::class, "create"])->name("create");
+        Route::post("/create", [RoleController::class, "store"]);
+        Route::get("/{role}/edit", [RoleController::class, "edit"])->name("edit");
+        Route::put("/{role}/edit", [RoleController::class, "update"]);
+        Route::put("/{role}/change-status", [RoleController::class, "changeStatus"])->name("change-status");
+        Route::delete("/{role}/delete", [RoleController::class, "destroy"])->name("delete");
     });
 });
 

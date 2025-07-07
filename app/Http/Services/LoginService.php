@@ -17,7 +17,11 @@ class LoginService
 {
     public function login(array $data): UserLoginStatus
     {
-        $user = User::query()->where('email', $data['email'])->first();
+        $user = User::query()
+            ->whereHas("roles", function ($query) {
+                $query->where("is_active", "1");
+            })
+            ->where('email', $data['email'])->first();
 
         if (!$user || !Hash::check($data['password'], $user->password)) {
             return UserLoginStatus::UserNotFound;

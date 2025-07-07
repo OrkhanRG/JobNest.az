@@ -20,5 +20,6 @@ return [
     "user_reset_password_failed_text" => "Daxil olduğunuz keçid müddəti bitmişdir! Zəhmət olmasa yenidən şifrəmi unutdum düyməsinə keçid edin.",
     "user_success_password_reset_text" => "Təbriklər! Şifrəniz sıfırlandı.",
     "role_not_found" => "Rol tapılmadı!",
-    "unassigned_status" => "Daxil etdiyiniz status təyin olunmayıb!"
+    "unassigned_status" => "Daxil etdiyiniz status təyin olunmayıb!",
+    "check_deactivate_role" => "Bu səhifəyə giriş izniniz yoxdur!"
 ];

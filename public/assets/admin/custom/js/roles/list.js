@@ -1,8 +1,6 @@
 $(function () {
     let keyword,
-        status,
-        role,
-        statues = {0:"Deaktiv", 1:"Aktiv", 2:"Gözləmədə"};
+        is_active;
 
     let offset = 0,
         count = 0,
@@ -10,37 +8,25 @@ $(function () {
 
     const timer = new AjaxTimer(`[data-role="table-total-time"]`);
 
-    $(`[data-role="role"], [data-role="status"]`).select2({
-        width: '100%',
-    });
-
     const setFilter = () => {
         keyword = $(`[data-role="keyword"]`).val()?.trim();
-        status = $(`[data-role="status"]`).val()?.trim();
-        role = $(`[data-role="role"]`).val()?.trim();
+        is_active = $(`[data-role="is_active"]`).val()?.trim();
     }
 
     const resetFilter = () => {
         keyword = "";
-        status = "";
-        role = "";
+        is_active = "";
 
         $(`[data-role="keyword"]`).val(keyword);
-        $(`[data-role="status"]`).val(status);
-        $(`[data-role="role"]`).val(role);
+        $(`[data-role="is_active"]`).val(is_active);
     }
 
     const loadFilter = () => {
         keyword = getUrlParameter('keyword') ?? "";
-        status = getUrlParameter('status') ?? "";
-        role = getUrlParameter('role') ?? "";
+        is_active = getUrlParameter('is_active') ?? "";
 
-        if (+status) {
-            $(`[data-role="status"]`).val(status).trigger("change");
-        }
-
-        if (role) {
-            $(`[data-role="role"]`).val(role).trigger("change");
+        if (+is_active) {
+            $(`[data-role="is_active"]`).val(is_active).trigger("change");
         }
 
         if (keyword) {
@@ -55,24 +41,19 @@ $(function () {
                     <td>
                         ${++i + offset}
                     </td>
-                    <td>
-                        <img width="50" src="/${d.avatar ?? public_path("assets/admin/custom/images/default/user.png")}" alt="">
-                    </td>
                     <td data-row="name">
-                        <span>${d.name ?? ""} ${d.surname ?? ""}</span>
-                        ${["developer", "admin", "moderator"].includes(d?.roles?.name) ? `<iconify-icon class="text-success fs-21 align-middle" icon="mdi:administrator-outline"></iconify-icon>` : `` }
+                        <span>${d.name ?? ""}</span>
                     </td>
-                    <td>${d.email ?? ""}</td>
+                    <td data-row="label">
+                        <span>${d.label ?? ""}</span>
+                    </td>
                     <td>
-                        <span class="badge bg-${d.roles.name === 'candidate' ? 'secondary'
-                                              : d.roles.name === 'company' ? 'info' : 'primary' }">${d.roles.label ?? ""}</span>
-                    </td>
-                    <td data-row="status" data-status="${d.status}">
-                        <span class="badge bg-${d.status === 1 ? 'success'
-                                            : (d.status === 2 ? 'warning' : 'danger')}">${statues[d.status] ?? "-"}</span>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" data-role="change-status" id="switch${d.id}" ${+d.is_active ? "checked" : ""}>
+                        </div>
                     </td>
                     <td width="100px" class="text-end">
-                        <a href="${users_edit_route.replace('user_id', d.id)}">
+                        <a href="${roles_edit_route.replace('role_id', d.id)}">
                             <iconify-icon class="text-success fs-21 align-middle" icon="iconamoon:edit-duotone"></iconify-icon>
                         </a>
                         <iconify-icon data-role="btn-delete" class="text-danger fs-21 align-middle cursor-pointer" icon="iconamoon:trash-duotone"></iconify-icon>
@@ -85,16 +66,14 @@ $(function () {
 
         let data = {
             keyword,
-            status,
-            role,
+            is_active,
             offset
         };
 
         if (first_time) {
             filter_url({
                 keyword,
-                status,
-                role
+                is_active
             });
         }
 
@@ -105,7 +84,7 @@ $(function () {
         $(`[data-role="loader"]`).show();
 
         $.get({
-            url: users_route,
+            url: roles_route,
             data,
             success: function (d) {
                 if (d.code === 200) {
@@ -151,14 +130,14 @@ $(function () {
             id = tr.data("id");
 
         Swal.fire({
-            title: ` <b class="text-danger">${name}</b> istifadəçisini silmək istədiyinizə əminsiniz?`,
+            title: ` <b class="text-danger">${name}</b> rolunu silmək istədiyinizə əminsiniz?`,
             showDenyButton: true,
             confirmButtonText: "Sil",
             denyButtonText: `İmtina`
         }).then((result) => {
             if (result.isConfirmed) {
                 $.post({
-                    url: users_delete_route.replace('user_id', id),
+                    url: roles_delete_route.replace('role_id', id),
                     data: {
                         id,
                         _method: "DELETE"
@@ -181,13 +160,12 @@ $(function () {
                     complete: function () {
                     }
                 });
-            } else if (result.isDenied) {
+            } else {
                 notify("İmtina edildi! 👍", null, "info");
             }
         });
     });
 
-    let changed_status = null;
     $(document).on("change", `[data-role="change-status"]`, function () {
         let self = $(this),
             tr = self.closest("tr"),
@@ -195,21 +173,19 @@ $(function () {
             id = tr.data("id");
 
         let data = {
-            status: self.val()?.trim(),
+            is_active: self.prop("checked") ? "1" : "0",
             _method: "PUT"
         };
 
-        console.log(changed_status)
-
         Swal.fire({
-            title: ` <b class="text-danger">${name}</b> istifadəçisinin statusunu dəyişmək istədiyinizə əminsiniz?`,
+            title: ` <b class="text-danger">${name}</b> istifadəçisinin rolunun statusunu dəyişmək istədiyinizə əminsiniz?`,
             showDenyButton: true,
             confirmButtonText: "Dəyişdir",
             denyButtonText: `İmtina`
         }).then((result) => {
             if (result.isConfirmed) {
                 $.post({
-                    url: users_change_status_route.replace('user_id', id),
+                    url: roles_change_status_route.replace('role_id', id),
                     data,
                     success: function (d) {
                         if ([201, 202].includes(d.code)) {
@@ -230,8 +206,7 @@ $(function () {
                 });
             } else {
                 notify("İmtina edildi! 👍", null, "info");
-                self.val(changed_status);
-                changed_status = null;
+                self.prop("checked", !self.prop("checked"))
             }
         });
     });
@@ -255,55 +230,6 @@ $(function () {
         $(this).prop("disabled", true);
         resetFilter();
         getAll();
-    });
-
-    $(document).on("click", `[data-row="status"]`, function (e) {
-        e.stopPropagation();
-        if ($(this).find("select").length) {
-            return;
-        }
-
-       let old_status = $(this).attr("data-status"),
-           new_html = "<select data-role='change-status'>" + Object.keys(statues).map((i) => `<option ${i == old_status ? "selected" : ""} value="${i}">${statues[i]}</option>`).join("") + "</select>";
-
-        changed_status = old_status;
-       if ($(this).find("span").length) {
-           $(this).html(new_html);
-           // $(`[data-role="change-status"]`).select2({
-           //     width: '100%',
-           //     minimumResultsForSearch: -1
-           // });
-       }
-
-        changeSelectWithSpan($(this));
-    });
-
-    const changeSelectWithSpan = (self = null) => {
-        let tdsWithSelect = $(`[data-row="status"]:has(select)`);
-        if (tdsWithSelect.length) {
-            tdsWithSelect.each((i, v) => {
-                let selected_status = $(v).find("select option:selected").val();
-                $(v).attr("data-status", selected_status);
-
-                if (self && self instanceof jQuery && self[0] === v) {
-                    return true;
-                }
-
-                $(v).html(`<span class="badge bg-${selected_status == 1 ? 'success'
-                                : (selected_status == 2 ? 'warning' : 'danger')}">${statues[selected_status] ?? "-"}
-                           </span>
-                         `);
-            })
-        }
-
-    }
-
-    $(document).on("click", function (e) {
-        if ($(this).closest('[data-row="status"]').length) {
-            return;
-        }
-
-        changeSelectWithSpan();
     });
 
     $(window).on('scroll', function () {

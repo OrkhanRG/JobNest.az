@@ -31,3 +31,11 @@ function getBase64FromSelector(selector) {
 function public_path(url) {
     return "../../../" + url;
 }
+
+$(document).ajaxError(function(event, jqxhr, settings, thrownError) {
+    console.log('AJAX Error:', jqxhr.status);
+
+    if (jqxhr.status === 401 || jqxhr.status === 419) {
+        window.location.href = '/';
+    }
+});

@@ -61,15 +61,19 @@ class User extends Authenticatable
 
     public function hasRole(string|array $roles): bool
     {
+        $query = $this->roles()->where("is_active", "1");
         if (is_array($roles)) {
-            return $this->roles()->whereIn("name", $roles)->exists();
+            return $query->whereIn("name", $roles)->exists();
         }
-        return $this->roles()->where("name", $roles)->exists();
+        return $query->where("name", $roles)->exists();
     }
 
     public function isSuperAdmin(): bool
     {
-        return $this->roles()->whereIn("name", config("roles.super_admins", []))->exists();
+        return $this->roles()
+            ->whereIn("name", config("roles.super_admins", []))
+            ->where("is_active", "1")
+            ->exists();
     }
 
     public function hasPermission(string $permission): bool
@@ -85,7 +89,10 @@ class User extends Authenticatable
 
     public function assignRole(string $roleName, bool $update = false): void
     {
-        $role = Role::query()->where("name", $roleName)->firstOrFail();
+        $role = Role::query()
+            ->where("name", $roleName)
+            ->where("is_active", "1")
+            ->firstOrFail();
 
         if ($update) {
             $this->roles()->sync([$role->id]);

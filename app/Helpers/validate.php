@@ -8,6 +8,6 @@ if (!function_exists("hasPermission")) {
 
 if (!function_exists("hasRole")) {
     function hasRole(string $role): bool {
-        return auth()->user()->hasPermission($role);
+        return auth()->user()->hasRole($role);
     }
 }

@@ -162,6 +162,7 @@ $(function () {
                     },
                     success: function (d) {
                         if ([201, 202].includes(d.code)) {
+                            count--;
                             tr.remove();
                             $(`[data-parent-id="${id}"]`).remove();
                             notify("Uğurlu!", d.message, "success");
