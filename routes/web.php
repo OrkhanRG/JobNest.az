@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -107,12 +108,32 @@ Route::prefix("admin")->name("admin.")->middleware(["custom_auth", "role:admin,d
     Route::prefix("roles")->name("roles.")->group(function(){
         Route::get("/", [RoleController::class, "index"])->name("list");
         Route::get("/get-all", [RoleController::class, "getAll"])->name("getAll");
+
         Route::get("/create", [RoleController::class, "create"])->name("create");
         Route::post("/create", [RoleController::class, "store"]);
+
         Route::get("/{role}/edit", [RoleController::class, "edit"])->name("edit");
         Route::put("/{role}/edit", [RoleController::class, "update"]);
         Route::put("/{role}/change-status", [RoleController::class, "changeStatus"])->name("change-status");
+        Route::put("/{role}/give-permissions", [RoleController::class, "givePermissions"])->name("give-permissions");
+
         Route::delete("/{role}/delete", [RoleController::class, "destroy"])->name("delete");
+        Route::delete("/{role}/permission/{permission}", [RoleController::class, "detachPermission"])->name("permission.detach");
+    });
+
+    Route::prefix("permissions")->name("permissions.")->group(function(){
+        Route::get("/", [PermissionController::class, "index"])->name("list");
+        Route::get("/get-all", [PermissionController::class, "getAll"])->name("getAll");
+        Route::get("/get-by-role/{role}", [PermissionController::class, "getByRole"])->name("getByRole");
+
+        Route::get("/create", [PermissionController::class, "create"])->name("create");
+        Route::post("/create", [PermissionController::class, "store"]);
+
+        Route::get("/{permission}/edit", [PermissionController::class, "edit"])->name("edit");
+        Route::put("/{permission}/edit", [PermissionController::class, "update"]);
+        Route::put("/{permission}/change-status", [PermissionController::class, "changeStatus"])->name("change-status");
+
+        Route::delete("/{permission}/delete", [PermissionController::class, "destroy"])->name("delete");
     });
 });
 

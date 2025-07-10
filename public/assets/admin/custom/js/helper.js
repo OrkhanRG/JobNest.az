@@ -157,3 +157,19 @@ function filter_url(obj, reload = true) {
 
     return newUrl;
 }
+
+function activateFilterBtn(icon, collapse) {
+    if (collapse) {
+        collapse.addEventListener('shown.bs.collapse', function () {
+            icon.classList.add('active-filter');
+        });
+
+        collapse.addEventListener('hidden.bs.collapse', function () {
+            icon.classList.remove('active-filter');
+        });
+
+        if (collapse.classList.contains('show')) {
+            icon.classList.add('active-filter');
+        }
+    }
+}

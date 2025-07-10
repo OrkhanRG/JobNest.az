@@ -19,7 +19,7 @@ trait Loggable
      * @param string|null $context Optional extra context info
      * @return void
      */
-    public function logErrorToFile(Throwable $e, string $context = null): void
+    public function logErrorToFile(Throwable $e, ?string $context = null): void
     {
         $user = Auth::check() ? Auth::user()->only(['id', 'name', 'email']) : ['guest' => true];
         $ip = Request::ip();

@@ -130,7 +130,7 @@
                         <li class="sub-nav-item">
                             <a
                                 class="sub-nav-link"
-                                href="#"
+                                href="{{ route("admin.permissions.list") }}"
                             >İcazələr</a
                             >
                         </li>

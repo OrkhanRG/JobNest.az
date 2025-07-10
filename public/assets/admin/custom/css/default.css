@@ -3,7 +3,6 @@
     100% { transform: rotate(360deg); }
 }
 
-/* Yükleme efekti sadece table alanı için */
 .loader {
     position: relative;
 }
@@ -32,7 +31,6 @@
     z-index: 2;
 }
 
-/* Boyut varyasyonları */
 .loader-sm::after {
     width: 20px;
     height: 20px;
@@ -72,4 +70,12 @@
 .select2-selection__rendered {
     line-height: 38px !important;
     color: #73757c !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.select2-dropdown{
+    z-index: 9999999999;
 }

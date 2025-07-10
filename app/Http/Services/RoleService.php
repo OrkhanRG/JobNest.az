@@ -3,6 +3,7 @@
 namespace App\Http\Services;
 
 use App\Http\Resources\RoleResource;
+use App\Models\Permission;
 use App\Models\Role;
 use App\Traits\Loggable;
 use Illuminate\Support\Facades\DB;
@@ -60,10 +61,10 @@ class RoleService
         ];
 
         try {
-            $user = Role::query()->create($insert_data);
+            $role = Role::query()->create($insert_data);
 
             DB::commit();
-            return $user;
+            return $role;
         } catch (\Exception $exception) {
             DB::rollBack();
             $this->logErrorToFile($exception, "UserService@create");
@@ -112,5 +113,24 @@ class RoleService
         }
 
         return $this->role->update($data);
+    }
+
+    public function detachPermission(Permission $permission): bool
+    {
+        if (!$this->role) {
+            return false;
+        }
+
+        return !!$this->role->permissions()->detach($permission->id);
+    }
+
+    public function givePermissions(array $data): bool
+    {
+        if (!$this->role) {
+            return false;
+        }
+
+        $this->role->givePermissionTo($data["permission_ids"]);
+        return true;
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RoleCreateRequest;
 use App\Http\Requests\RoleUpdateRequest;
 use App\Http\Services\RoleService;
+use App\Models\Permission;
 use App\Models\Role;
 use App\Traits\Loggable;
 use Illuminate\Http\JsonResponse;
@@ -120,6 +121,56 @@ class RoleController extends Controller
 
         } catch (\Throwable $exception) {
             $this->logErrorToFile($exception, "JobCategoryController@changeStatus");
+            return json_response(__("text.unexpected_error_text"), 500);
+        }
+    }
+
+    public function detachPermission(Role $role, Permission $permission): JsonResponse
+    {
+        try {
+            if (!$role) {
+                return json_response(__('text.role_not_found'), 500);
+            }
+
+            if (!$permission) {
+                return json_response(__('text.permission_not_found'), 500);
+            }
+
+            $detach = $this->roleService->setRole($role)->detachPermission($permission);
+
+            if (!$detach) {
+                return json_response(__('text.unexpected_error_text'), 500);
+            }
+            return json_response(__('app.success'), 202);
+
+        } catch (\Throwable $exception) {
+            $this->logErrorToFile($exception, "RoleController@detachPermission");
+            return json_response(__("text.unexpected_error_text"), 500);
+        }
+    }
+
+    public function givePermissions(Request $request, Role $role): JsonResponse
+    {
+        try {
+            if (!$role ) {
+                return json_response(__("text.role_not_found"), 204);
+            }
+
+            $data = $request->only("permission_ids");
+
+            if (!@$data["permission_ids"] ) {
+                return json_response(__("text.permission_not_found"), 204);
+            }
+
+            $update = $this->roleService->setRole($role)->givePermissions($data);
+
+            if (!$update) {
+                return json_response(__('app.error'), 500);
+            }
+            return json_response(__('app.success'), 202);
+
+        } catch (\Throwable $exception) {
+            $this->logErrorToFile($exception, "RoleController@setPermissions");
             return json_response(__("text.unexpected_error_text"), 500);
         }
     }

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('roles', function (Blueprint $table) {
+        Schema::table('permissions', function (Blueprint $table) {
             $table->enum("is_active", ["0", "1"])->default("0")->after("label")->comment("0=Active, 1=Deactivate");
         });
     }
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('roles', function (Blueprint $table) {
+        Schema::table('permissions', function (Blueprint $table) {
             $table->dropColumn("is_active");
         });
     }
