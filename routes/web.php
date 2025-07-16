@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
@@ -134,6 +135,21 @@ Route::prefix("admin")->name("admin.")->middleware(["custom_auth", "role:admin,d
         Route::put("/{permission}/change-status", [PermissionController::class, "changeStatus"])->name("change-status");
 
         Route::delete("/{permission}/delete", [PermissionController::class, "destroy"])->name("delete");
+    });
+
+    //Language
+    Route::prefix("languages")->name("languages.")->group(function(){
+        Route::get("/", [LanguageController::class, "index"])->name("list");
+        Route::get("/get-all", [LanguageController::class, "getAll"])->name("getAll");
+
+        Route::get("/create", [LanguageController::class, "create"])->name("create");
+        Route::post("/create", [LanguageController::class, "store"]);
+
+        Route::get("/{language}/edit", [LanguageController::class, "edit"])->name("edit");
+        Route::put("/{language}/edit", [LanguageController::class, "update"]);
+        Route::put("/{language}/change-status", [LanguageController::class, "changeStatus"])->name("change-status");
+
+        Route::delete("/{language}/delete", [LanguageController::class, "destroy"])->name("delete");
     });
 });
 

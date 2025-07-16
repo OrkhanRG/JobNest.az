@@ -22,5 +22,7 @@ return [
     "role_not_found" => "Rol tapılmadı!",
     "permission_not_found" => "İcazə tapılmadı!",
     "unassigned_status" => "Daxil etdiyiniz status təyin olunmayıb!",
-    "check_deactivate_role" => "Bu səhifəyə giriş izniniz yoxdur!"
+    "check_deactivate_role" => "Bu səhifəyə giriş izniniz yoxdur!",
+    "wrong_parameter" => "Yanlış parametr!",
+    "not_have_is_default_language" => "Bir dil mütləq default olmalıdır!"
 ];

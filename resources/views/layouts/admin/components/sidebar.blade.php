@@ -138,6 +138,41 @@
                 </div>
             </li>
 
+            <li class="nav-item">
+                <a
+                    class="nav-link menu-arrow"
+                    href="#Languages"
+                    data-bs-toggle="collapse"
+                    role="button"
+                    aria-expanded="false"
+                    aria-controls="Languages"
+                >
+                                <span class="nav-icon">
+                                    <iconify-icon
+                                        icon="tabler:language"
+                                    ></iconify-icon>
+                                </span>
+                    <span class="nav-text">Dil & Tərcümə</span>
+                </a>
+                <div class="collapse" id="Languages">
+                    <ul class="nav sub-navbar-nav">
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="{{ route("admin.languages.list") }}"
+                            >Dillər</a
+                            >
+                        </li>
+                        <li class="sub-nav-item">
+                            <a
+                                class="sub-nav-link"
+                                href="#"
+                            >
+                                Tərcümələr
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
             <li class="menu-title">Main</li>
 
             <li class="nav-item">
