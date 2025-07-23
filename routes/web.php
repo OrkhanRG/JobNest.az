@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ContentTranslationController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
@@ -150,6 +151,21 @@ Route::prefix("admin")->name("admin.")->middleware(["custom_auth", "role:admin,d
         Route::put("/{language}/change-status", [LanguageController::class, "changeStatus"])->name("change-status");
 
         Route::delete("/{language}/delete", [LanguageController::class, "destroy"])->name("delete");
+    });
+
+    //Content Translation
+    Route::prefix("content-translations")->name("content-translations.")->group(function(){
+        Route::get("/", [ContentTranslationController::class, "index"])->name("list");
+        Route::get("/get-all", [ContentTranslationController::class, "getAll"])->name("getAll");
+
+        Route::get("/create", [ContentTranslationController::class, "create"])->name("create");
+        Route::post("/create", [ContentTranslationController::class, "store"]);
+
+        Route::get("/{content_translation}/edit", [ContentTranslationController::class, "edit"])->name("edit");
+        Route::put("/{content_translation}/edit", [ContentTranslationController::class, "update"]);
+        Route::put("/{content_translation}/change-status", [ContentTranslationController::class, "changeStatus"])->name("change-status");
+
+        Route::delete("/{content_translation}/delete", [ContentTranslationController::class, "destroy"])->name("delete");
     });
 });
 

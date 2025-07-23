@@ -5,12 +5,12 @@
             <img
                 src="{{ asset("assets/admin/images/logo-sm.png") }}"
                 class="logo-sm"
-                alt="logo sm"
+                alt="JobNest"
             />
             <img
                 src="{{ asset("assets/admin/images/logo-dark.png") }}"
                 class="logo-lg"
-                alt="logo dark"
+                alt="JobNest"
             />
         </a>
 
@@ -58,14 +58,7 @@
             <li class="menu-title">Apps</li>
 
             <li class="nav-item">
-                <a
-                    class="nav-link menu-arrow"
-                    href="#jobCategories"
-                    data-bs-toggle="collapse"
-                    role="button"
-                    aria-expanded="false"
-                    aria-controls="jobCategories"
-                >
+                <a class="nav-link" href="{{ route("admin.job-categories.list") }}">
                                 <span class="nav-icon">
                                     <iconify-icon
                                         icon="iconamoon:category-duotone"
@@ -73,22 +66,6 @@
                                 </span>
                     <span class="nav-text"> İş Kateqoriyalar </span>
                 </a>
-                <div class="collapse" id="jobCategories">
-                    <ul class="nav sub-navbar-nav">
-                        <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="{{ route("admin.job-categories.list") }}"
-                            >List</a
-                            >
-                        </li>
-                        <li class="sub-nav-item">
-                            <a
-                                class="sub-nav-link"
-                                href="{{ route("admin.job-categories.create") }}"
-                            >Əlavə Et</a
-                            >
-                        </li>
-                    </ul>
-                </div>
             </li>
 
             <li class="menu-title">Manage</li>
@@ -164,7 +141,7 @@
                         <li class="sub-nav-item">
                             <a
                                 class="sub-nav-link"
-                                href="#"
+                                href="{{ route("admin.content-translations.list") }}"
                             >
                                 Tərcümələr
                             </a>

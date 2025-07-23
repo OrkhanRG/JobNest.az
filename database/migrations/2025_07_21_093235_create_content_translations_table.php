@@ -14,14 +14,14 @@ return new class extends Migration
         Schema::create('content_translations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('lang_id')->constrained("languages")->cascadeOnDelete();
-            $table->string('group', 100);
+            $table->binary('group');
             $table->string('key', 150);
             $table->text('value')->nullable();
             $table->enum('is_active', ['0', '1'])->default('0');
             $table->timestamps();
-
-            $table->unique(['lang_id', 'group', 'key']);
         });
+
+        DB::statement('ALTER TABLE content_translations ADD UNIQUE content_translations_lang_id_group_key_unique (lang_id, `group`(20), `key`(100))');
     }
 
     /**

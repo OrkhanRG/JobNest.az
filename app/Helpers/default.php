@@ -38,3 +38,29 @@ if (!function_exists("slugify")) {
         return $slug;
     }
 }
+
+if (!function_exists("switchKeyToBlob")) {
+    function switchKeyToBlob(string $key, bool $reverse = false, $searched_value = "key") {
+        $config_prefix = "blob";
+
+        if (!$reverse) {
+            $segments = explode(".", $key);
+            $last_key = array_pop($segments);
+            $path = implode(".", $segments);
+            $blobs = config("$config_prefix.$path");
+
+            if (is_array($blobs)) {
+                foreach ($blobs as $blob => $item) {
+                    if (isset($item["key"]) && $item["key"] === $last_key) {
+                        return $blob;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        $item = config("$config_prefix.$key");
+        return $item[$searched_value] ?? null;
+    }
+}
