@@ -1,5 +1,8 @@
 <?php
 
+use App\Constants\Status;
+use App\Http\Services\LanguageService;
+use App\Models\ContentTranslation;
 use Illuminate\Support\Str;
 
 if (!function_exists("json_response")) {
@@ -62,5 +65,28 @@ if (!function_exists("switchKeyToBlob")) {
 
         $item = config("$config_prefix.$key");
         return $item[$searched_value] ?? null;
+    }
+}
+
+if (!function_exists("lang")) {
+    function lang(string $key, string $group, string $default = "no_locale") {
+        $key = Str::slug($key, "_");
+        $group = switchKeyToBlob("content_translations.group.$group");
+        $lang = app()->getLocale() ?? "en";
+        $default = "$default.$lang.$key";
+
+        $cacheKey = "lang.{$lang}.{$group}.{$key}";
+
+        return Cache::rememberForever($cacheKey, function () use ($lang, $group, $key, $default) {
+            $lang_id = (new LanguageService())->getByCode($lang)?->id;
+            if (!$lang_id) return $default;
+
+            return ContentTranslation::query()
+                ->where("is_active", Status::ACTIVE)
+                ->where("lang_id", $lang_id)
+                ->where("group", $group)
+                ->where("key", $key)
+                ->value("value") ?? $default;
+        });
     }
 }

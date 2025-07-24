@@ -5,9 +5,9 @@
         <!-- TITLE START-->
         <div class="section-head center wt-small-separator-outer">
             <div class="wt-small-separator site-text-primary">
-               <div>Working Process</div>
+               <div class="text-uppercase">{{ lang("working_process_title_small", "app") }}</div>
             </div>
-            <h2 class="wt-title">How It Works</h2>
+            <h2 class="wt-title">{{ lang("working_process_title", "app") }}</h2>
 
         </div>
         <!-- TITLE END-->

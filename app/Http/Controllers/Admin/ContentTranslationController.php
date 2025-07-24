@@ -131,7 +131,7 @@ class ContentTranslationController extends Controller
                 "value" => trim($request->input("value")),
             ];
 
-            if ($data["key"] === "is_active") {
+            if ($data["key"] !== "is_active") {
                 return json_response(__('text.wrong_parameter'), Response::HTTP_INTERNAL_SERVER_ERROR);
             }
 

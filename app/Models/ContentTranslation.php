@@ -26,13 +26,7 @@ class ContentTranslation extends Model
     #[Scope]
     public function filter($query, $params)
     {
-        //lang_id, group
         $query->select('*', DB::raw('COUNT(*) OVER() as total_count'));
-
-        if (@$params["keyword"]) {
-            $query->where("key", "LIKE", "%{$params["keyword"]}%")
-                ->orWhere("value", "LIKE", "%{$params["keyword"]}%");
-        }
 
         if (isset($params["is_active"]) && in_array($params['is_active'], ['0', '1'])) {
             $query->where("is_active", $params['is_active']);
@@ -44,6 +38,11 @@ class ContentTranslation extends Model
 
         if (isset($params["group"]) && $params["group"]) {
             $query->where("group", $params["group"]);
+        }
+
+        if (@$params["keyword"]) {
+            $query->where("key", "LIKE", "%{$params["keyword"]}%")
+                ->orWhere("value", "LIKE", "%{$params["keyword"]}%");
         }
 
         if (@$params["limit"]) {

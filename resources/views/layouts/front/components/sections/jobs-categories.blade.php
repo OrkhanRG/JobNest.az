@@ -8,7 +8,7 @@
                     <!-- TITLE START-->
                     <div class="section-head left wt-small-separator-outer">
                         <div class="wt-small-separator site-text-primary">
-                        <div>Jobs by Categories</div>
+                        <div class="text-uppercase">{{ lang("jobs_categories_title_small", "app") }}</div>
                         </div>
                         <h2 class="wt-title">Choose Your Desire Category</h2>
                     </div>

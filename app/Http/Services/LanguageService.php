@@ -27,6 +27,16 @@ class LanguageService extends BaseService
         );
     }
 
+    public function getByCode(string $code): LanguageResource
+    {
+        return new LanguageResource(Language::query()->where("code", $code)->first());
+    }
+
+    public function getById(int $id): LanguageResource
+    {
+        return new LanguageResource(Language::query()->where("id", $id)->first());
+    }
+
     public function create($data): ?Language
     {
         DB::beginTransaction();
