@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
-class ContentTranslationCreateRequest extends FormRequest
+class CountryUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,26 +24,17 @@ class ContentTranslationCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "key" => [
-                "required",
-                "string",
-                "max:255",
-                Rule::unique('content_translations')
-                    ->where(fn ($query) =>
-                        $query->where('group', $this->group)
-                            ->where('lang_id', $this->lang_id)
-                    )
-            ],
-            "group" => ["required", "string", "max:255"],
-            "value" => ["required"],
+            "name" => ["required", "string", "max:255"],
+            "short_name" => ["required", "string"],
+            "phone_prefix" => ["sometimes", "nullable", "regex:/^\d{1,4}$/"],
             "lang_id" => ["required", "integer", "exists:languages,id"]
         ];
     }
 
-    protected function prepareForValidation(): void
+    public function prepareForValidation(): void
     {
         $this->merge([
-            'group' => switchKeyToBlob("content_translations.group.$this->group"),
+            'phone_prefix' => $this->phone_prefix ? str_replace(["+", "_"], "", $this->phone_prefix) : null,
         ]);
     }
 }

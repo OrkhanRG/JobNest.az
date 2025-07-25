@@ -13,6 +13,11 @@ const removeErrors = (parent) => {
 
 const emptyInput = (parent) => {
     parent.find("input, textarea, select").val("").removeClass("is-invalid");
+    parent.find("select").each(function () {
+        if ($(this).hasClass("select2-hidden-accessible")) {
+            $(this).trigger("change");
+        }
+    });
     parent.find(".invalid-feedback").remove();
 }
 

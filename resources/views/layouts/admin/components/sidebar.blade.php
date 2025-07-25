@@ -68,6 +68,38 @@
                 </a>
             </li>
 
+            <li class="nav-item">
+                <a
+                    class="nav-link menu-arrow"
+                    href="#Place"
+                    data-bs-toggle="collapse"
+                    role="button"
+                    aria-expanded="false"
+                    aria-controls="Place"
+                >
+                                <span class="nav-icon">
+                                    <iconify-icon
+                                        icon="tabler:location-pin"
+                                    ></iconify-icon>
+                                </span>
+                    <span class="nav-text">Ölkə & Şəhərlər</span>
+                </a>
+                <div class="collapse" id="Place">
+                    <ul class="nav sub-navbar-nav">
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="#">
+                                Şəhərlər
+                            </a>
+                        </li>
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="{{ route("admin.countries.list") }}">
+                                Ölkələr
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
             <li class="menu-title">Manage</li>
 
             <li class="nav-item">

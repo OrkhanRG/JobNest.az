@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\ContentTranslationController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\PermissionController;
@@ -167,22 +168,39 @@ Route::prefix("admin")->name("admin.")->middleware(["custom_auth", "role:admin,d
 
         Route::delete("/{content_translation}/delete", [ContentTranslationController::class, "destroy"])->name("delete");
     });
+
+    //Country
+    Route::prefix("countries")->name("countries.")->group(function(){
+        Route::get("/", [CountryController::class, "index"])->name("list");
+        Route::get("/get-all", [CountryController::class, "getAll"])->name("getAll");
+
+        Route::get("/create", [CountryController::class, "create"])->name("create");
+        Route::post("/create", [CountryController::class, "store"]);
+
+        Route::get("/{country}/edit", [CountryController::class, "edit"])->name("edit");
+        Route::put("/{country}/edit", [CountryController::class, "update"]);
+        Route::put("/{country}/change-status", [CountryController::class, "changeStatus"])->name("change-status");
+
+        Route::delete("/{country}/delete", [CountryController::class, "destroy"])->name("delete");
+    });
+
+    //City
 });
 
 //Login
-Route::post("login", [LoginController::class, "index"])->name("login");
+Route::post("login", [LoginController::class, "index"])->name("login")->middleware("throttle:60,1");
 
 //Register
-Route::post("register", [RegisterController::class, "index"])->name("register");
+Route::post("register", [RegisterController::class, "index"])->name("register")->middleware("throttle:60,1");;
 Route::get("logout", [RegisterController::class, "logout"])->name("logout");
-Route::get("user-verify/{token}", [RegisterController::class, "verify"])->name("user-verify");
-Route::get("resend/user-verify", [RegisterController::class, "resendVerify"])->name("resend.user-verify");
+Route::get("user-verify/{token}", [RegisterController::class, "verify"])->name("user-verify")->middleware("throttle:60,1");
+Route::get("resend/user-verify", [RegisterController::class, "resendVerify"])->name("resend.user-verify")->middleware("throttle:60,1");
 
 //OAuth2
 Route::get("auth/{driver}/redirect",[LoginController::class, "redirect"])->name("oauth.redirect");
 Route::get("auth/{driver}/callback",[LoginController::class, "callback"])->name("oauth.callback");
 
 //Forgot Password
-Route::post("forgot-password", [ForgotPasswordController::class, "forgotPassword"])->name("forgot-password");
+Route::post("forgot-password", [ForgotPasswordController::class, "forgotPassword"])->name("forgot-password")->middleware("throttle:60,1");
 Route::get("reset-password", [ForgotPasswordController::class, "resetPasswordForm"])->name("password-reset");
-Route::post("reset-password", [ForgotPasswordController::class, "resetPassword"])->name("password-reset");
+Route::post("reset-password", [ForgotPasswordController::class, "resetPassword"])->name("password-reset")->middleware("throttle:60,1");

@@ -26,32 +26,32 @@
 
                     <ul class=" nav navbar-nav">
                         <li class="has-mega-menu {{ Route::is("front.index") ? "active" : "" }}">
-                            <a href="{{ route("front.index") }}">Əsas</a>
+                            <a href="{{ route("front.index") }}">{{ lang("main", "app") }}</a>
                         </li>
                         <li class="has-mega-menu {{ Route::is("front.vacancies") ? "active" : "" }}">
-                            <a href="{{ route("front.vacancies") }}">Vakansiyalar</a>
+                            <a href="{{ route("front.vacancies") }}">{{ lang("vacancies", "app") }}</a>
                         </li>
                         <li class="has-mega-menu {{ Route::is("front.companies") ? "active" : "" }}">
-                            <a href="{{ route("front.companies") }}">Şirkətlər</a>
+                            <a href="{{ route("front.companies") }}">{{ lang("companies", "app") }}</a>
                         </li>
                         <li class="has-mega-menu {{ Route::is("front.candidates") ? "active" : "" }}">
-                            <a href="{{ route("front.candidates") }}">CV-lər</a>
+                            <a href="{{ route("front.candidates") }}">{{ lang("resumes", "app") }}</a>
                         </li>
                         <li class="has-mega-menu {{ Route::is("front.about-us") ? "active" : "" }}">
-                            <a href="{{ route("front.about-us") }}">Haqqımızda</a>
+                            <a href="{{ route("front.about-us") }}">{{ lang("about_us", "app") }}</a>
                         </li>
                         @if (false)
                             <li class="has-mega-menu {{ Route::is("front.blogs") ? "active" : "" }}">
-                                <a href="{{ route("front.blogs") }}">Məqalələr</a>
+                                <a href="{{ route("front.blogs") }}">{{ lang("blogs", "app") }}</a>
                             </li>
                         @endif
                         @if (false)
                             <li class="has-mega-menu {{ Route::is("front.faq") ? "active" : "" }}">
-                                <a href="{{ route("front.faq") }}">TVS</a>
+                                <a href="{{ route("front.faq") }}">{{ lang("faq", "app") }}</a>
                             </li>
                         @endif
                         <li class="has-mega-menu {{ Route::is("front.contact-us") ? "active" : "" }}">
-                            <a href="{{ route("front.contact-us") }}">Əlaqə</a>
+                            <a href="{{ route("front.contact-us") }}">{{ lang("contact", "app") }}</a>
                         </li>
                     </ul>
 

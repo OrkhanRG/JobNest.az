@@ -29,7 +29,7 @@ class ContentTranslationUpdateRequest extends FormRequest
                 "string",
                 "max:255",
                 Rule::unique('content_translations')
-                    ->ignore($this->id)
+                    ->ignore($this->content_translation->id)
                     ->where(fn ($query) =>
                         $query->where('group', $this->group)
                             ->where('lang_id', $this->lang_id)
@@ -39,5 +39,12 @@ class ContentTranslationUpdateRequest extends FormRequest
             "value" => ["required"],
             "lang_id" => ["required", "integer", "exists:languages,id"]
         ];
+    }
+
+    protected function prepareForValidation(): void
+    {
+        $this->merge([
+            'group' => switchKeyToBlob("content_translations.group.$this->group"),
+        ]);
     }
 }

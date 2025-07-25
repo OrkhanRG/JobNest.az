@@ -12,4 +12,5 @@ class LoadLimit
     public const ROLE_PERMISSIONS = 100;
     public const LANGUAGES = 100;
     public const CONTENT_TRANSLATIONS = 100;
+    public const COUNTRIES = 100;
 }

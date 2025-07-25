@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Constants\LoadLimit;
+use App\Constants\Status;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ContentTranslationCreateRequest;
 use App\Http\Requests\ContentTranslationUpdateRequest;
@@ -37,21 +38,21 @@ class ContentTranslationController extends Controller
         }
 
         $groups = config("blob.content_translations.group");
-        $langs = $this->languageService->getAll();
+        $langs = $this->languageService->getAll(["is_active" => "1"]);
 
         return view('admin.content_translations.list', compact('groups', 'langs'));
     }
 
     public function getAll(): JsonResponse
     {
-        $data = $this->contentTranslationService->getAll();
+        $data = $this->contentTranslationService->getAll(["is_active" => Status::ACTIVE]);
         return $data["list"]->isEmpty() ? json_response(__("app.no_content"), Response::HTTP_NO_CONTENT) : json_response(__("app.success"), Response::HTTP_OK, $data);
     }
 
     public function create(): View
     {
         $groups = config("blob.content_translations.group");
-        $langs = $this->languageService->getAll();
+        $langs = $this->languageService->getAll(["is_active" => "1"]);
 
         return view('admin.content_translations.create-update', compact('groups', 'langs'));
     }
@@ -59,11 +60,7 @@ class ContentTranslationController extends Controller
     public function store(ContentTranslationCreateRequest $request): JsonResponse
     {
         try {
-            $data = [
-                ...$request->only("key", "value", "lang_id", "is_active"),
-                "group" => switchKeyToBlob("content_translations.group.".$request->group)
-            ];
-
+            $data = $request->only("key", "value", "group", "lang_id", "is_active");
             $content_translation = $this->contentTranslationService->create($data);
 
             if (!$content_translation) {
@@ -82,7 +79,7 @@ class ContentTranslationController extends Controller
     public function edit(ContentTranslation $content_translation): View
     {
         $groups = config("blob.content_translations.group");
-        $langs = $this->languageService->getAll();
+        $langs = $this->languageService->getAll(["is_active" => "1"]);
 
         return view('admin.content_translations.create-update', compact('content_translation',  'groups', 'langs'));
     }
@@ -90,10 +87,7 @@ class ContentTranslationController extends Controller
     public function update(ContentTranslationUpdateRequest $request, ContentTranslation $content_translation): JsonResponse
     {
         try {
-            $data = [
-                ...$request->only("key", "value", "lang_id", "is_active"),
-                "group" => switchKeyToBlob("content_translations.group.".$request->group)
-            ];
+            $data = $request->only("key", "value", "group", "lang_id", "is_active");
             $update = $this->contentTranslationService->setContentTranslation($content_translation)->update($data);
 
             if (!$update) {

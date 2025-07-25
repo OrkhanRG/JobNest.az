@@ -7,8 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 class City extends Model
 {
     protected $fillable = [
+        "country_id",
+        "lang_id",
         "name",
         "short_name",
-        "region_code"
+        "region_code",
+        "is_active"
     ];
 }
