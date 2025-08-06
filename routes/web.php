@@ -200,7 +200,6 @@ Route::prefix("admin")->name("admin.")->middleware(["custom_auth", "role:admin,d
         Route::delete("/{city}/delete", [CityController::class, "destroy"])->name("delete");
     });
 
-
 });
 
 
