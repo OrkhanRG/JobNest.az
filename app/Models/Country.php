@@ -36,9 +36,11 @@ class Country extends Model
         }
 
         if (@$params["keyword"]) {
-            $query->where("name", "LIKE", "%{$params["keyword"]}%")
-                ->orWhere("short_name", "LIKE", "%{$params["keyword"]}%")
-                ->orWhere("phone_prefix", "LIKE", "%{$params["keyword"]}%");
+            $query->where(function ($q) use ($params) {
+                $q->where("name", "LIKE", "%{$params["keyword"]}%")
+                    ->orWhere("short_name", "LIKE", "%{$params["keyword"]}%")
+                    ->orWhere("phone_prefix", "LIKE", "%{$params["keyword"]}%");
+            });
         }
 
         if (@$params["limit"]) {

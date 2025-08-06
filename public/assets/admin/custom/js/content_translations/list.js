@@ -15,6 +15,7 @@ $(function () {
     });
 
     const setFilter = () => {
+        offset = 0;
         keyword = $(`[data-role="keyword"]`).val()?.trim();
         lang_id = $(`[data-role="lang_id"]`).val()?.trim();
         group = $(`[data-role="group"]`).val()?.trim();
@@ -22,6 +23,7 @@ $(function () {
     }
 
     const resetFilter = () => {
+        offset = 0;
         keyword = "";
         lang_id = "";
         group = "";

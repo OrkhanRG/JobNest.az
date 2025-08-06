@@ -26,7 +26,8 @@ class CountryUpdateRequest extends FormRequest
         return [
             "name" => ["required", "string", "max:255"],
             "short_name" => ["required", "string"],
-            "phone_prefix" => ["sometimes", "nullable", "regex:/^\d{1,4}$/"],
+            "region_code" => ["required", "regex:/^\d{1,3}$/"],
+            "country_id" => ["required", "integer", "exists:countries,id"],
             "lang_id" => ["required", "integer", "exists:languages,id"]
         ];
     }

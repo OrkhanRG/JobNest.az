@@ -9,11 +9,13 @@ $(function () {
     const timer = new AjaxTimer(`[data-role="table-total-time"]`);
 
     const setFilter = () => {
+        offset = 0;
         keyword = $(`[data-role="keyword"]`).val()?.trim();
         is_active = $(`[data-role="is_active"]`).val()?.trim();
     }
 
     const resetFilter = () => {
+        offset = 0;
         keyword = "";
         is_active = "";
 

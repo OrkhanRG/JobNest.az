@@ -41,8 +41,10 @@ class ContentTranslation extends Model
         }
 
         if (@$params["keyword"]) {
-            $query->where("key", "LIKE", "%{$params["keyword"]}%")
-                ->orWhere("value", "LIKE", "%{$params["keyword"]}%");
+            $query->where(function ($q) use ($params) {
+                $q->where("key", "LIKE", "%{$params["keyword"]}%")
+                    ->orWhere("value", "LIKE", "%{$params["keyword"]}%");
+            });
         }
 
         if (@$params["limit"]) {

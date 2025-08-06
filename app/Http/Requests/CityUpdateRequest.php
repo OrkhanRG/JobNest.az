@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
-class CountryCreateRequest extends FormRequest
+class CityUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +26,7 @@ class CountryCreateRequest extends FormRequest
         return [
             "name" => ["required", "string", "max:255"],
             "short_name" => ["required", "string"],
-            "region_code" => ["required", "regex:/^\d{1,3}$/"],
-            "country_id" => ["required", "integer", "exists:countries,id"],
+            "phone_prefix" => ["sometimes", "nullable", "regex:/^\d{1,4}$/"],
             "lang_id" => ["required", "integer", "exists:languages,id"]
         ];
     }

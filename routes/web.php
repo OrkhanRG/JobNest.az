@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\ContentTranslationController;
 use App\Http\Controllers\Admin\LanguageController;
@@ -185,7 +186,22 @@ Route::prefix("admin")->name("admin.")->middleware(["custom_auth", "role:admin,d
     });
 
     //City
+    Route::prefix("cities")->name("cities.")->group(function(){
+        Route::get("/", [CityController::class, "index"])->name("list");
+        Route::get("/get-all", [CityController::class, "getAll"])->name("getAll");
+
+        Route::get("/create", [CityController::class, "create"])->name("create");
+        Route::post("/create", [CityController::class, "store"]);
+
+        Route::get("/{city}/edit", [CityController::class, "edit"])->name("edit");
+        Route::put("/{city}/edit", [CityController::class, "update"]);
+        Route::put("/{city}/change-status", [CityController::class, "changeStatus"])->name("change-status");
+
+        Route::delete("/{city}/delete", [CityController::class, "destroy"])->name("delete");
+    });
 });
+
+
 
 //Login
 Route::post("login", [LoginController::class, "index"])->name("login")->middleware("throttle:60,1");

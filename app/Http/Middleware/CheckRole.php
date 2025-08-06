@@ -16,15 +16,15 @@ class CheckRole
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
         $user = auth()->user();
-        if (!$user ||  !$user->hasRole($roles))
-        {
-            if (!$user->roles()->where('is_active', "1")->exists()) {
+
+        if (!$user || !$user->hasRole($roles)) {
+            if ($user && !$user->roles()->where('is_active', "1")->exists()) {
                 auth()->logout();
                 return redirect()->route("front.index")->with("error", __("text.check_deactivate_role"));
             }
-
             abort(404);
         }
+
         return $next($request);
     }
 }

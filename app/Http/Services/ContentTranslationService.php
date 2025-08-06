@@ -22,7 +22,7 @@ class ContentTranslationService extends BaseService
             ContentTranslationResource::class,
             [
                 "filter" =>  $params,
-                "width" => "language"
+                "with" => "language"
             ],
             "id",
             "desc"

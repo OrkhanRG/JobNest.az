@@ -15,12 +15,14 @@ $(function () {
     });
 
     const setFilter = () => {
+        offset = 0;
         keyword = $(`[data-role="keyword"]`).val()?.trim();
         status = $(`[data-role="status"]`).val()?.trim();
         role = $(`[data-role="role"]`).val()?.trim();
     }
 
     const resetFilter = () => {
+        offset = 0;
         keyword = "";
         status = "";
         role = "";

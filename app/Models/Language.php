@@ -24,9 +24,11 @@ class Language extends Model
         $query->select('*', DB::raw('COUNT(*) OVER() as total_count'));
 
         if (@$params["keyword"]) {
-            $query->where("name", "LIKE", "%{$params["keyword"]}%")
-                ->orWhere("code", "LIKE", "%{$params["keyword"]}%")
-                ->orWhere("native_name", "LIKE", "%{$params["keyword"]}%");
+            $query->where(function ($q) use ($params) {
+                $q->where("name", "LIKE", "%{$params["keyword"]}%")
+                    ->orWhere("code", "LIKE", "%{$params["keyword"]}%")
+                    ->orWhere("native_name", "LIKE", "%{$params["keyword"]}%");
+            });
         }
 
         if (isset($params["is_active"]) && in_array($params['is_active'], ['0', '1'])) {

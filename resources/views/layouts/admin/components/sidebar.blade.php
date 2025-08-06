@@ -87,7 +87,7 @@
                 <div class="collapse" id="Place">
                     <ul class="nav sub-navbar-nav">
                         <li class="sub-nav-item">
-                            <a class="sub-nav-link" href="#">
+                            <a class="sub-nav-link" href="{{ route("admin.cities.list") }}">
                                 Şəhərlər
                             </a>
                         </li>

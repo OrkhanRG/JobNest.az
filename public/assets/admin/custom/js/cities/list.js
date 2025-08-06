@@ -1,5 +1,7 @@
 $(function () {
     let keyword,
+        country_id,
+        lang_id,
         is_active;
 
     let offset = 0,
@@ -8,31 +10,85 @@ $(function () {
 
     const timer = new AjaxTimer(`[data-role="table-total-time"]`);
 
+    $(`[data-role="is_active"], [data-role="lang_id"], [data-role="country_id"]`).select2({
+        width: '100%',
+    });
+
+    const getCountries = (lang_id) => {
+        if (!lang_id) {
+            notify("Dil seçin!", "", "warning");
+            return false;
+        }
+
+        let h = `<option value="">Ölkə seçin</option>`,
+            data = {lang_id};
+
+        $(`[data-role="country_id"]`).prop("disabled", true).select2({
+            width: "100%"
+        });
+
+        $.get({
+            url: country_get_all_route,
+            data,
+            success: function (d) {
+                if (d.code === 200) {
+                    let data = d?.data?.list;
+                    h += data.map((v, i) => `<option value="${v.id}">${v.name}</option>`).join('');
+                }
+
+                $(`[data-role="country_id"]`).html(h);
+            },
+            error: function (err) {
+                // console.log(err)
+            },
+            complete: function () {
+                $(`[data-role="country_id"]`).prop("disabled", false);
+
+                if (+country_id && $('[data-role="country_id"] option').length > 1) {
+                    $(`[data-role="country_id"]`).val(country_id).trigger("change");
+                }
+            }
+        });
+    }
+
     const setFilter = () => {
         offset = 0;
         keyword = $(`[data-role="keyword"]`).val()?.trim();
+        country_id = $(`[data-role="country_id"]`).val()?.trim();
+        lang_id = $(`[data-role="lang_id"]`).val()?.trim();
         is_active = $(`[data-role="is_active"]`).val()?.trim();
     }
 
     const resetFilter = () => {
         offset = 0;
         keyword = "";
+        country_id = "";
+        lang_id = "";
         is_active = "";
 
         $(`[data-role="keyword"]`).val(keyword);
+        $(`[data-role="country_id"]`).val(country_id);
+        $(`[data-role="lang_id"]`).val(lang_id);
         $(`[data-role="is_active"]`).val(is_active);
     }
 
     const loadFilter = () => {
         keyword = getUrlParameter('keyword') ?? "";
+        country_id = getUrlParameter('country_id') ?? "";
+        lang_id = getUrlParameter('lang_id') ?? "";
         is_active = getUrlParameter('is_active') ?? "";
-
-        if (+is_active) {
-            $(`[data-role="is_active"]`).val(is_active).trigger("change");
-        }
 
         if (keyword) {
             $(`[data-role="keyword"]`).val(keyword);
+        }
+
+        if (+lang_id) {
+            $(`[data-role="lang_id"]`).val(lang_id).trigger("change");
+            getCountries(lang_id);
+        }
+
+        if (+is_active) {
+            $(`[data-role="is_active"]`).val(is_active).trigger("change");
         }
     }
 
@@ -43,30 +99,28 @@ $(function () {
                     <td>
                         ${++i + offset}
                     </td>
-                    <td data-row="name">
-                        <span>${d.name ?? ""}</span>
+                    <td data-row="key">
+                        <span>${d.name}</span>
                     </td>
                     <td>
-                        <span>${d.native_name ?? ""}</span>
+                        <span>${d.short_name}</span>
                     </td>
                     <td>
-                        <span>${d.code ?? ""}</span>
+                        <span>${d.region_code}</span>
                     </td>
                     <td>
-                        <span class="fi fi-${d.code === "en" ? "us" : d.code} fs-20"></span>
+                        <span class="fi fi-${d?.country?.short_name === "en" ? "us" : d?.country?.short_name} fs-20" title="${d?.country?.name ?? ""}"></span>
+                    </td>
+                    <td>
+                        <span class="fi fi-${d?.language?.code === "en" ? "us" : d?.language?.code} fs-20" title="${d?.language?.native_name ?? ""}"></span>
                     </td>
                     <td>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" role="switch" data-role="change-status" id="switch${d.id}" ${+d.is_active ? "checked" : ""}>
                         </div>
                     </td>
-                    <td>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" role="switch" data-role="change-default" id="switch-default${d.id}" ${+d.is_default ? "checked" : ""}>
-                        </div>
-                    </td>
                     <td width="100px" class="text-end">
-                        <a href="${languages_edit_route.replace('language_id', d.id)}">
+                        <a href="${cities_edit_route.replace('city_id', d.id)}">
                             <iconify-icon class="text-success fs-21 align-middle" icon="iconamoon:edit-duotone"></iconify-icon>
                         </a>
                         <iconify-icon data-role="btn-delete" class="text-danger fs-21 align-middle cursor-pointer" icon="iconamoon:trash-duotone"></iconify-icon>
@@ -79,6 +133,8 @@ $(function () {
 
         let data = {
             keyword,
+            country_id,
+            lang_id,
             is_active,
             offset
         };
@@ -86,6 +142,8 @@ $(function () {
         if (first_time) {
             filter_url({
                 keyword,
+                country_id,
+                lang_id,
                 is_active
             });
         }
@@ -97,7 +155,7 @@ $(function () {
         $(`[data-role="loader"]`).show();
 
         $.get({
-            url: languages_route,
+            url: cities_route,
             data,
             success: function (d) {
                 if (d.code === 200) {
@@ -139,18 +197,18 @@ $(function () {
 
     $(document).on("click", `[data-role="btn-delete"]`, function () {
         let tr = $(this).closest("tr"),
-            name = tr.find(`[data-row="name"]`).text()?.trim(),
+            key = tr.find(`[data-row="key"]`).text()?.trim(),
             id = tr.data("id");
 
         Swal.fire({
-            title: ` <b class="text-danger">${name}</b> dilini silmək istədiyinizə əminsiniz?`,
+            title: ` <b class="text-danger">${key}</b> ölkəsini silmək istədiyinizə əminsiniz?`,
             showDenyButton: true,
             confirmButtonText: "Sil",
             denyButtonText: `İmtina`
         }).then((result) => {
             if (result.isConfirmed) {
                 $.post({
-                    url: languages_delete_route.replace('language_id', id),
+                    url: cities_delete_route.replace('city_id', id),
                     data: {
                         id,
                         _method: "DELETE"
@@ -183,7 +241,7 @@ $(function () {
     $(document).on("change", `[data-role="change-status"]`, function () {
         let self = $(this),
             tr = self.closest("tr"),
-            name = tr.find(`[data-row="name"]`).text()?.trim(),
+            key = tr.find(`[data-row="key"]`).text()?.trim(),
             id = tr.data("id");
 
         let data = {
@@ -193,69 +251,18 @@ $(function () {
         };
 
         Swal.fire({
-            title: ` <b class="text-danger">${name}</b> dilinins statusunu dəyişmək istədiyinizə əminsiniz?`,
+            title: ` <b class="text-danger">${key}</b> statusunu dəyişmək istədiyinizə əminsiniz?`,
             showDenyButton: true,
             confirmButtonText: "Dəyişdir",
             denyButtonText: `İmtina`
         }).then((result) => {
             if (result.isConfirmed) {
                 $.post({
-                    url: languages_change_status_route.replace('language_id', id),
+                    url: cities_change_status_route.replace('city_id', id),
                     data,
                     success: function (d) {
                         if ([201, 202].includes(d.code)) {
                             notify(d.message, "", "success");
-                        } else if ([422].includes(d.code)) {
-                            notify("Xəta!", d.message, "error")
-                        } else {
-                            notify("Diqqət!", d.message, "warning");
-                        }
-                    },
-                    error: function (err) {
-                        if (err?.code === 500) {
-                            notify("Xəta!", err.message, "error");
-                        }
-                    },
-                    complete: function () {
-                    }
-                });
-            } else {
-                notify("İmtina edildi! 👍", null, "info");
-                self.prop("checked", !self.prop("checked"))
-            }
-        });
-    });
-
-    $(document).on("change", `[data-role="change-default"]`, function () {
-        let self = $(this),
-            tr = self.closest("tr"),
-            name = tr.find(`[data-row="name"]`).text()?.trim(),
-            id = tr.data("id");
-
-        let data = {
-            key: "is_default",
-            value: self.prop("checked") ? "1" : "0",
-            _method: "PUT"
-        };
-
-        Swal.fire({
-            title: ` <b class="text-danger">${name}</b> dilini default olaraq dəyişmək istədiyinizə əminsiniz?`,
-            showDenyButton: true,
-            confirmButtonText: "Dəyişdir",
-            denyButtonText: `İmtina`
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.post({
-                    url: languages_change_status_route.replace('language_id', id),
-                    data,
-                    success: function (d) {
-                        if ([201, 202].includes(d.code)) {
-                            notify(d.message, "", "success");
-
-                            $(`[data-role="change-default"]`).not(self).prop("checked", false);
-                        } else if ([400].includes(d.code)) {
-                            notify("Xəta!", d.message, "error");
-                            self.prop("checked", !self.prop("checked"));
                         } else if ([422].includes(d.code)) {
                             notify("Xəta!", d.message, "error")
                         } else {
@@ -278,9 +285,9 @@ $(function () {
     });
 
     $(document).on("click", `[data-role="filter-apply"]`, function () {
-       $(this).prop("disabled", true);
-       setFilter();
-       getAll();
+        $(this).prop("disabled", true);
+        setFilter();
+        getAll();
     });
 
     $(document).on("keyup", function (e) {
@@ -310,4 +317,9 @@ $(function () {
             getAll(false);
         }
     });
+
+    $(document).on("change", `[data-role="lang_id"]`, function (e) {
+        let lang_id = $(this).val()?.trim();
+        getCountries(lang_id);
+    })
 });

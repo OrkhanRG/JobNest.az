@@ -14,12 +14,14 @@ $(function () {
     });
 
     const setFilter = () => {
+        offset = 0
         keyword = $(`[data-role="keyword"]`).val()?.trim();
         lang_id = $(`[data-role="lang_id"]`).val()?.trim();
         is_active = $(`[data-role="is_active"]`).val()?.trim();
     }
 
     const resetFilter = () => {
+        offset = 0;
         keyword = "";
         lang_id = "";
         is_active = "";

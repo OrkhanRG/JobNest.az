@@ -13,4 +13,5 @@ class LoadLimit
     public const LANGUAGES = 100;
     public const CONTENT_TRANSLATIONS = 100;
     public const COUNTRIES = 100;
+    public const CITIES = 100;
 }

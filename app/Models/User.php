@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
@@ -54,26 +55,64 @@ class User extends Authenticatable
         ];
     }
 
+    protected ?Collection $cachedRoles = null;
+    protected ?Collection $cachedPermissions = null;
+    protected ?bool $isSuperAdminCache = null;
+
     public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class);
     }
 
+    public function getCachedRoles(): Collection
+    {
+        if (!isset($this->cachedRoles)) {
+            if (!$this->relationLoaded('roles')) {
+                $this->loadMissing('roles.permissions');
+            }
+
+            $this->cachedRoles = $this->roles->where("is_active", 1);
+        }
+
+        return $this->cachedRoles;
+    }
+
+    public function getCachedPermissions(): Collection
+    {
+        if (!isset($this->cachedPermissions)) {
+            $this->cachedPermissions = $this->getCachedRoles()
+                ->flatMap(function ($role) {
+                    if (!$role->relationLoaded('permissions')) {
+                        $role->loadMissing('permissions');
+                    }
+
+                    return $role->permissions->where("is_active", "1");
+                })
+                ->unique('id');
+        }
+
+        return $this->cachedPermissions;
+    }
+
+
     public function hasRole(string|array $roles): bool
     {
-        $query = $this->roles()->where("is_active", "1");
-        if (is_array($roles)) {
-            return $query->whereIn("name", $roles)->exists();
-        }
-        return $query->where("name", $roles)->exists();
+        $roleNames = is_array($roles) ? $roles : [$roles];
+        return $this->getCachedRoles()->pluck('name')->intersect($roleNames)->isNotEmpty();
     }
 
     public function isSuperAdmin(): bool
     {
-        return $this->roles()
-            ->whereIn("name", config("roles.super_admins", []))
-            ->where("is_active", "1")
-            ->exists();
+        if (!is_null($this->isSuperAdminCache)) {
+            return $this->isSuperAdminCache;
+        }
+
+        $this->isSuperAdminCache = $this->getCachedRoles()
+            ->pluck('name')
+            ->intersect(config("roles.super_admins", []))
+            ->isNotEmpty();
+
+        return $this->isSuperAdminCache;
     }
 
     public function hasPermission(string $permission): bool
@@ -82,12 +121,7 @@ class User extends Authenticatable
             return true;
         }
 
-        return $this->roles()
-            ->whereHas("permissions", function ($query) use ($permission) {
-                $query->where("name", $permission)
-                    ->where("is_active", "1");
-            })
-            ->exists();
+        return $this->getCachedPermissions()->pluck('name')->contains($permission);
     }
 
     public function assignRole(string $roleName, bool $update = false): void
@@ -110,8 +144,10 @@ class User extends Authenticatable
         $query->select('*', DB::raw('COUNT(*) OVER() as total_count'));
 
         if ($params["keyword"]) {
-            $query->where("name", "LIKE", "%{$params["keyword"]}%")
-            ->orWhere("email", "LIKE", "%{$params["keyword"]}%");
+            $query->where(function ($q) use ($params) {
+                $q->where("name", "LIKE", "%{$params["keyword"]}%")
+                    ->orWhere("email", "LIKE", "%{$params["keyword"]}%");
+            });
         }
 
         if (isset($params["status"]) && in_array($params['status'], ['0', '1', '2'])) {

@@ -2,78 +2,80 @@
 
 namespace App\Http\Services;
 
-use App\Http\Resources\CountryResource;
-use App\Models\Country;
+use App\Http\Resources\CityResource;
+use App\Models\City;
 use App\Traits\Loggable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-class CountryService extends BaseService
+class CityService extends BaseService
 {
     use Loggable;
 
-    protected Country $country;
+    protected City $city;
 
     public function getAll($params = null): array
     {
-        $query = Country::query();
+        $query = City::query();
         return $this->getListWithCount(
             $query,
-            CountryResource::class,
+            CityResource::class,
             [
                 "filter" =>  $params,
-                "with" => "language"
+                "with" => ["language", "country"]
             ],
-            "short_name"
+            "lang_id"
         );
     }
 
-    public function create($data): ?Country
+    public function create($data): ?City
     {
         DB::beginTransaction();
 
         $insert_data = [
             "name" => $data["name"],
-            "short_name" => Str::slug($data["short_name"], "_"),
-            "phone_prefix" => $data["phone_prefix"],
+            "short_name" => $data["short_name"],
+            "region_code" => $data["region_code"],
             "lang_id" => $data["lang_id"],
+            "country_id" => $data["country_id"],
             "is_active" => +$data["is_active"] ? "1" : "0"
         ];
 
         try {
-            $country = Country::query()->create($insert_data);
+            $city = City::query()->create($insert_data);
 
             DB::commit();
-            return $country;
+            return $city;
         } catch (\Exception $exception) {
             DB::rollBack();
-            $this->logErrorToFile($exception, "CountryService@create");
+            $this->logErrorToFile($exception, "CityService@create");
 
             return null;
         }
     }
 
-    public function setCountry(Country $country): self
+    public function setCity(City $city): self
     {
-        $this->country = $country;
+        $this->city = $city;
         return $this;
     }
 
     public function update(array $data): bool
     {
-        if (!$this->country) {
+        if (!$this->city) {
             return false;
         }
 
         $update_data = [
             "name" => $data["name"],
-            "short_name" => Str::slug($data["short_name"], "_"),
-            "phone_prefix" => $data["phone_prefix"],
+            "short_name" => $data["short_name"],
+            "region_code" => $data["region_code"],
             "lang_id" => $data["lang_id"],
+            "country_id" => $data["country_id"],
             "is_active" => +$data["is_active"] ? "1" : "0"
         ];
 
-        return $this->country->update($update_data);
+        return $this->city->update($update_data);
     }
 
     /**
@@ -81,20 +83,20 @@ class CountryService extends BaseService
      */
     public function remove(): bool
     {
-        if (!$this->country) {
+        if (!$this->city) {
             return false;
         }
 
-        return $this->country->delete() ;
+        return $this->city->delete() ;
     }
 
     public function changeField(array $data): bool
     {
-        if (!$this->country) {
+        if (!$this->city) {
             return false;
         }
 
-        return $this->country->update([
+        return $this->city->update([
             $data["key"] => $data["value"]
         ]);
     }
