@@ -16,7 +16,8 @@ $(function () {
 
     const getCountries = (lang_id) => {
         if (!lang_id) {
-            notify("Dil seçin!", "", "warning");
+            // notify("Dil seçin!", "", "warning");
+            $(`[data-role="country_id"]`).prop("disabled", true).val("").trigger("change");
             return false;
         }
 
@@ -67,8 +68,8 @@ $(function () {
         is_active = "";
 
         $(`[data-role="keyword"]`).val(keyword);
-        $(`[data-role="country_id"]`).val(country_id);
-        $(`[data-role="lang_id"]`).val(lang_id);
+        $(`[data-role="country_id"]`).val(country_id).trigger("change");
+        $(`[data-role="lang_id"]`).val(lang_id).trigger("change");
         $(`[data-role="is_active"]`).val(is_active);
     }
 
@@ -301,6 +302,7 @@ $(function () {
 
     $(document).on("click", `[data-role="filter-reset"]`, function () {
         $(this).prop("disabled", true);
+        $(`[data-role="country_id"]`).prop("disabled", true);
         resetFilter();
         getAll();
     });
