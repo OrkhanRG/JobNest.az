@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\ContentTranslationController;
+use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
@@ -200,6 +201,20 @@ Route::prefix("admin")->name("admin.")->middleware(["custom_auth", "role:admin,d
         Route::delete("/{city}/delete", [CityController::class, "destroy"])->name("delete");
     });
 
+    //Currency
+    Route::prefix("currencies")->name("currencies.")->group(function(){
+        Route::get("/", [CurrencyController::class, "index"])->name("list");
+        Route::get("/get-all", [CurrencyController::class, "getAll"])->name("getAll");
+
+        Route::get("/create", [CurrencyController::class, "create"])->name("create");
+        Route::post("/create", [CurrencyController::class, "store"]);
+
+        Route::get("/{currency}/edit", [CurrencyController::class, "edit"])->name("edit");
+        Route::put("/{currency}/edit", [CurrencyController::class, "update"]);
+        Route::put("/{currency}/change-status", [CurrencyController::class, "changeStatus"])->name("change-status");
+
+        Route::delete("/{currency}/delete", [CurrencyController::class, "destroy"])->name("delete");
+    });
 });
 
 

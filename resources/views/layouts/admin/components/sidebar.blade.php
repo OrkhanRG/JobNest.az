@@ -100,6 +100,17 @@
                 </div>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route("admin.currencies.list") }}">
+                                <span class="nav-icon">
+                                    <iconify-icon
+                                        icon="tabler:currency-dollar"
+                                    ></iconify-icon>
+                                </span>
+                    <span class="nav-text"> Valyutalar </span>
+                </a>
+            </li>
+
             <li class="menu-title">Manage</li>
 
             <li class="nav-item">

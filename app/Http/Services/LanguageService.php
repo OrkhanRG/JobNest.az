@@ -4,7 +4,6 @@ namespace App\Http\Services;
 
 use App\Http\Resources\LanguageResource;
 use App\Models\Language;
-use App\Models\Permission;
 use App\Traits\Loggable;
 use Illuminate\Support\Facades\DB;
 
