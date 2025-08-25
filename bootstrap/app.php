@@ -21,6 +21,9 @@ return Application::configure(basePath: dirname(__DIR__))
             "custom_auth" => CustomAuthenticate::class,
         ]);
     })
+    ->withSchedule(function ($schedule) {
+        $schedule->command('currencies:update-cba')->dailyAt('10:00');
+    })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (NotFoundHttpException $e, $request) {
             return response()->view("front.errors.404");
