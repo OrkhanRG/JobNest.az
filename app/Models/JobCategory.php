@@ -16,7 +16,12 @@ class JobCategory extends Model
         "description",
         "icon",
         "is_active",
-        "parent_id"
+        "is_featured",
+        "parent_id",
+        "sort_order",
+        "seo_title",
+        "seo_description",
+        "seo_keywords"
     ];
 
     public function parent(): BelongsTo

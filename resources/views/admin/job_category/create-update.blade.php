@@ -2,6 +2,7 @@
 @section("title", isset($category) && $category ? $category->name : "Yeni Kateqoriya")
 
 @push("css")
+    <link rel="stylesheet" href="{{ asset("assets/admin/custom/library/tagsinput/bootstrap-tagsinput.css") }}">
     <link rel="stylesheet" href="{{ asset("assets/admin/custom/css/job_category/create-update.css") }}" type="text/css">
 @endpush
 
@@ -73,7 +74,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-12">
+                    <div class="col-md-3">
                         <label for="is_active" class="d-block mb-1">Status</label>
                         <div class="form-check form-switch">
                             <input class="form-check-input" type="checkbox" role="switch" data-role="is_active" id=is_active {{ isset($category) && $category->is_active ? "checked" : "" }}>
@@ -81,7 +82,28 @@
                         </div>
                     </div>
 
-                    <div class="col-12 d-flex justify-content-end">
+                    <div class="col-md-9">
+                        <label for="is_featured" class="d-block mb-1">Önə çıxarılma</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" role="switch" data-role="is_featured" id=is_featured {{ isset($category) && $category->is_featured ? "checked" : "" }}>
+                            <label class="form-check-label" for="is_featured">Önə çıxarılsın?</label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="seo_title" class="form-label">Seo Başlıq</label>
+                        <input type="text" class="form-control" id="seo_title" name="seo_title" data-role="seo_title" value="{{ isset($category) ? $category->seo_title : "" }}"  placeholder="Seo Başlıq...">
+                    </div>
+
+                    <label for="seo_keywords" class="form-label">Seo Açar Sözlər
+                    <input type="text" class="form-control" id="seo_keywords" name="seo_keywords" data-role="seo_keywords" value="{{ isset($category) ? $category->seo_keywords : "" }}">
+
+                    <div class="col-md-12">
+                        <label for="seo_description" class="form-label">Seo Təsvir</label>
+                        <textarea class="form-control" id="seo_description" name="seo_description" data-role="seo_description" rows="4" placeholder="Seo Təsvir...">{{ isset($category) ? $category->seo_description : "" }}</textarea>
+                    </div>
+
+                    <div class="col-12 d-flex justify-content-end mt-3">
                         <button class="btn btn-primary" type="submit">
                             <iconify-icon class="fs-21 align-middle" icon="material-symbols:{{ isset($category) ? "save-as-outline" : "add" }}-rounded"></iconify-icon>
                             {{ isset($category) ? "Güncəllə" : "Əlavə Et" }}
@@ -95,6 +117,7 @@
 @endsection
 
 @push("js")
+    <script src="{{ asset("assets/admin/custom/library/tagsinput/bootstrap-tagsinput.js") }}"></script>
     <script>
         let job_categories_create_route = "{{ route("admin.job-categories.create") }}",
             job_categories_get_parents_route = "{{ route("admin.job-categories.getParents") }}";

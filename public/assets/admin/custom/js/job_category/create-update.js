@@ -4,6 +4,8 @@ $(function () {
         file_is_deleted = 0,
         edit_id = $(`[data-role="edit-id"]`).val()?.trim();
 
+    $(`[data-role="seo_keywords"]`).tagsinput()
+
     const getParents = () => {
         let h = `<option value="">Yoxdur</option>`,
             data = {
@@ -40,12 +42,19 @@ $(function () {
 
     getParents();
 
+    $(document).on("keydown", `[data-role="form"]`, function (e){
+        console.log("key: " + e.key);
+        if (e.key === "Enter") {
+            e.preventDefault();
+        }
+    });
+
     $(document).on("submit", `[data-role="form"]`, function (e) {
         e.preventDefault();
 
         let parent = $(this).closest(".row"),
             requiredFields = ["name"],
-            optionalFields = ["slug", "description", "icon", "parent_id", "is_active"],
+            optionalFields = ["slug", "description", "icon", "parent_id", "is_active", "is_featured", "seo_title", "seo_description", "seo_keywords"],
             data = validateInput(parent, requiredFields, optionalFields),
             route = $(this).attr("action"),
             request_type = $(this).attr("method"),

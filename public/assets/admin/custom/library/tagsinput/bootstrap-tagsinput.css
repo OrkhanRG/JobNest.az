@@ -1,0 +1,57 @@
+.bootstrap-tagsinput {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    min-height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border: 1px solid #ced4da;
+    border-radius: 0.375rem;
+    margin-bottom: 20px;
+}
+
+.bootstrap-tagsinput input {
+    width: auto !important;
+    max-width: 100% !important;
+    border: none !important;
+    outline: none !important;
+    background: transparent !important;
+    padding: 0;
+    margin: 0;
+    height: auto;
+}
+
+.col-md-6 .bootstrap-tagsinput {
+    width: 100% !important;
+}
+
+.bootstrap-tagsinput input::placeholder {
+    color: #6c757d;
+    opacity: 1;
+}
+
+.bootstrap-tagsinput .tag {
+    display: inline-block;
+    margin: 2px 4px 2px 0;
+    padding: 0.25em 0.6em;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #fff;
+    background-color: #0d6efd;
+    border-radius: 0.2rem;
+}
+
+.bootstrap-tagsinput .tag [data-role="remove"] {
+    margin-left: 6px;
+    cursor: pointer;
+}
+
+.bootstrap-tagsinput .tag [data-role="remove"]:after {
+    content: "×";
+    padding: 0 2px;
+}
+
+.bootstrap-tagsinput .tag [data-role="remove"]:hover {
+    opacity: 0.75;
+}

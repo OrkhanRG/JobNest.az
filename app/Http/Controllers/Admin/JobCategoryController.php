@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\JobCategoryCreateRequest;
 use App\Http\Requests\JobCategoryUpdateRequest;
 use App\Http\Services\JobCategoryService;
+use App\Http\Services\LanguageService;
 use App\Models\JobCategory;
 use App\Traits\Loggable;
 use Illuminate\Http\JsonResponse;
@@ -18,7 +19,8 @@ class JobCategoryController extends Controller
     use Loggable;
 
     public function __construct(
-        readonly JobCategoryService $jobCategoryService
+        readonly JobCategoryService $jobCategoryService,
+        readonly LanguageService $languageService
     ) {}
 
     public function index(Request $request): View|JsonResponse
@@ -43,13 +45,14 @@ class JobCategoryController extends Controller
 
     public function create(): View
     {
-        return view('admin.job_category.create-update');
+        $langs = $this->languageService->getAll(["is_active" => "1"]);
+        return view('admin.job_category.create-update', compact("langs"));
     }
 
     public function store(JobCategoryCreateRequest $request): JsonResponse
     {
         try {
-            $data = $request->only("name", "slug", "description", "parent_id", "is_active");
+            $data = $request->only("name", "slug", "description", "parent_id", "is_active", "is_featured", "seo_title", "seo_description", "seo_keywords");
 
             if ($request->hasFile('icon')) {
                 $data['icon'] = $request->file('icon');
@@ -66,13 +69,14 @@ class JobCategoryController extends Controller
 
     public function edit(JobCategory $category): View
     {
-        return view('admin.job_category.create-update', compact('category'));
+        $langs = $this->languageService->getAll(["is_active" => "1"]);
+        return view('admin.job_category.create-update', compact('category', 'langs'));
     }
 
     public function update(JobCategoryUpdateRequest $request, JobCategory $category): JsonResponse
     {
         try {
-            $data = $request->only("name", "slug", "description", "parent_id", "is_active", "file_is_deleted");
+            $data = $request->only("name", "slug", "description", "parent_id", "is_active", "is_featured", "seo_title", "seo_description", "seo_keywords", "file_is_deleted");
 
             if ($request->hasFile('icon')) {
                 $data['icon'] = $request->file('icon');

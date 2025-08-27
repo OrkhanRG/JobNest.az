@@ -46,13 +46,19 @@ class JobCategoryService
     public function create($data): JobCategory
     {
         $slug = slugify($data['slug'] ?? $data['name'], JobCategory::class);
+        $sort_order = (JobCategory::query()->max("sort_order") ?? 0) + 1;
 
         $insert_data = [
             "name" => $data['name'],
             "slug" => $slug,
             "description" => $data['description'],
             "is_active" => $data['is_active'],
+            "is_featured" => $data['is_featured'],
             "parent_id" => $data['parent_id'],
+            "seo_title" => $data['seo_title'],
+            "seo_keywords" => $data['seo_keywords'] && is_array($data['seo_keywords']) ? implode(',', $data['seo_keywords']) : $data['seo_keywords'],
+            "seo_description" => $data['seo_description'],
+            "sort_order" => $sort_order
         ];
 
         if (isset($data["icon"]) && $data["icon"]) {
@@ -80,7 +86,11 @@ class JobCategoryService
             "slug" => $slug,
             "description" => $data['description'],
             "is_active" => $data['is_active'],
+            "is_featured" => $data['is_featured'],
             "parent_id" => $data['parent_id'],
+            "seo_title" => $data['seo_title'],
+            "seo_keywords" => $data['seo_keywords'] && is_array($data['seo_keywords']) ? implode(',', $data['seo_keywords']) : $data['seo_keywords'],
+            "seo_description" => $data['seo_description'],
         ];
 
         $old_path = $this->category->icon;
