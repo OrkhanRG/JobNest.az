@@ -58,14 +58,35 @@
             <li class="menu-title">Apps</li>
 
             <li class="nav-item">
-                <a class="nav-link" href="{{ route("admin.job-categories.list") }}">
+                <a
+                    class="nav-link menu-arrow"
+                    href="#job_categories"
+                    data-bs-toggle="collapse"
+                    role="button"
+                    aria-expanded="false"
+                    aria-controls="job_categories"
+                >
                                 <span class="nav-icon">
                                     <iconify-icon
                                         icon="iconamoon:category-duotone"
                                     ></iconify-icon>
                                 </span>
-                    <span class="nav-text"> İş Kateqoriyalar </span>
+                    <span class="nav-text">Iş Kateqoriyalar</span>
                 </a>
+                <div class="collapse" id="job_categories">
+                    <ul class="nav sub-navbar-nav">
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="{{ route("admin.job-categories.list") }}">
+                                Kateqoriyalar
+                            </a>
+                        </li>
+                        <li class="sub-nav-item">
+                            <a class="sub-nav-link" href="{{ route("admin.job-categories.translations.list") }}">
+                                Tərcümələr
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </li>
 
             <li class="nav-item">

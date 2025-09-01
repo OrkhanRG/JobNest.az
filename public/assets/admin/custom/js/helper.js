@@ -18,6 +18,11 @@ const emptyInput = (parent) => {
             $(this).trigger("change");
         }
     });
+
+    if (parent.find(".bootstrap-tagsinput").length) {
+        parent.find(".bootstrap-tagsinput").html("");
+    }
+
     parent.find(".invalid-feedback").remove();
 }
 

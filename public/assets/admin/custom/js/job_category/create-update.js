@@ -43,7 +43,6 @@ $(function () {
     getParents();
 
     $(document).on("keydown", `[data-role="form"]`, function (e){
-        console.log("key: " + e.key);
         if (e.key === "Enter") {
             e.preventDefault();
         }

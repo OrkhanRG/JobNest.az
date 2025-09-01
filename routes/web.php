@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\ContentTranslationController;
 use App\Http\Controllers\Admin\CurrencyController;
+use App\Http\Controllers\Admin\JobCategoryTranslationController;
 use App\Http\Controllers\Admin\LanguageController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
@@ -86,16 +87,25 @@ Route::prefix("admin")->name("admin.")->middleware(["custom_auth", "role:admin,d
     Route::get("/", [DashboardController::class, "index"])->name("dashboard");
 
     //Job Categories
-    Route::prefix("job-categories")->group(function(){
-        Route::get("/", [JobCategoryController::class, "index"])->name("job-categories.list");
-        Route::get("/create", [JobCategoryController::class, "create"])->name("job-categories.create");
+    Route::prefix("job-categories")->name("job-categories.")->group(function(){
+        Route::get("/", [JobCategoryController::class, "index"])->name("list");
+        Route::get("/create", [JobCategoryController::class, "create"])->name("create");
         Route::post("/create", [JobCategoryController::class, "store"]);
-        Route::get("/{category}/edit", [JobCategoryController::class, "edit"])->name("job-categories.edit");
+        Route::get("/{category}/edit", [JobCategoryController::class, "edit"])->name("edit");
         Route::put("/{category}/edit", [JobCategoryController::class, "update"]);
-        Route::delete("/{category}/delete", [JobCategoryController::class, "destroy"])->name("job-categories.delete");
-        Route::delete("/{category}/change-status", [JobCategoryController::class, "changeStatus"])->name("job-categories.change-status");
+        Route::delete("/{category}/delete", [JobCategoryController::class, "destroy"])->name("delete");
+        Route::delete("/{category}/change-status", [JobCategoryController::class, "changeStatus"])->name("change-status");
 
-        Route::get("/get-parents", [JobCategoryController::class, "getParents"])->name("job-categories.getParents");
+        Route::get("/get-parents", [JobCategoryController::class, "getParents"])->name("getParents");
+
+        Route::prefix("translations")->name("translations.")->group(function(){
+            Route::get("/", [JobCategoryTranslationController::class, "index"])->name("list");
+            Route::get("/create", [JobCategoryTranslationController::class, "create"])->name("create");
+            Route::post("/create", [JobCategoryTranslationController::class, "store"]);
+            Route::get("/{jobCategoryTranslation}/edit", [JobCategoryTranslationController::class, "edit"])->name("edit");
+            Route::put("/{jobCategoryTranslation}/edit", [JobCategoryTranslationController::class, "update"]);
+            Route::delete("/{jobCategoryTranslation}/delete", [JobCategoryTranslationController::class, "destroy"])->name("delete");
+        });
     });
 
     //Users

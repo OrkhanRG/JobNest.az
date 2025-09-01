@@ -39,7 +39,7 @@ class JobCategory extends Model
     {
         $query->doesntHave("parent")->select('*', DB::raw('COUNT(*) OVER() as total_count'));
 
-        if (!!$params["with"]) {
+        if (!!@$params["with"]) {
             $with = is_array($params["with"]) ? $params["with"] : [$params["with"]];
             $withRelations = [];
 
@@ -50,7 +50,7 @@ class JobCategory extends Model
                             $query->where('is_active', $params['is_active']);
                         }
 
-                        if ($params["keyword"]) {
+                        if (@$params["keyword"]) {
                             $query->where('name', 'like', '%' . $params["keyword"] . '%')
                                 ->orWhere('slug', 'like', '%' . $params["keyword"] . '%')
                                 ->orWhere('description', 'like', '%' . $params["keyword"] . '%');
@@ -64,7 +64,7 @@ class JobCategory extends Model
             $query->with($withRelations);
         }
 
-        if ($params["keyword"]) {
+        if (@$params["keyword"]) {
             $query->where(function ($q) use ($params) {
                 $q->where('name', 'like', '%' . $params["keyword"] . '%')
                     ->orWhere('slug', 'like', '%' . $params["keyword"] . '%')
@@ -76,15 +76,15 @@ class JobCategory extends Model
             });
         }
 
-        if (in_array($params["is_active"], ["0", "1"])) {
+        if (in_array(@$params["is_active"], ["0", "1"])) {
             $query->where("is_active", $params["is_active"]);
         }
 
-        if ($params["limit"]) {
+        if (@$params["limit"]) {
             $query->limit($params["limit"]);
         }
 
-        if ($params["offset"]) {
+        if (@$params["offset"]) {
             $query->offset($params["offset"]);
         }
 

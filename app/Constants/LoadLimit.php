@@ -6,6 +6,8 @@ class LoadLimit
 {
     public const DEFAULT = 100;
     public const JOB_CATEGORY = 100;
+
+    public const JOB_CATEGORY_TRANSLATIONS = 100;
     public const USER = 100;
     public const ROLES = 100;
     public const PERMISSIONS = 100;
