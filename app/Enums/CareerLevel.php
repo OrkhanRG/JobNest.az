@@ -23,4 +23,12 @@ enum CareerLevel: string
             default => null
         };
     }
+
+    public function options(): array
+    {
+        return array_map(fn ($c) => [
+            "value" => $c->value,
+            "label" => self::getLabel($c->value)
+        ], self::cases());
+    }
 }

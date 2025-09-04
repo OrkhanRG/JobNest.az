@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ app()->getLocale() }}">
 <head>
 
 	<!-- META -->
@@ -37,6 +37,8 @@
     <link rel="stylesheet" type="text/css" href={{ asset("assets/front/css/swiper-bundle.min.css") }}><!-- Swiper Slider -->
     <link rel="stylesheet" type="text/css" href={{ asset("assets/front/css/style.css") }}><!-- MAIN STYLE SHEET -->
     <link rel="stylesheet" type="text/css" href={{ asset("assets/front/css/toastr.min.css") }}><!-- DASHBOARD select bootstrap  STYLE SHEET  -->
+    <link rel="stylesheet" href="{{ asset("assets/global/css/default.css") }}">
+    <link rel="stylesheet" href="{{ asset("assets/front/custom/css/default.css") }}">
     @stack("css")
 
 </head>

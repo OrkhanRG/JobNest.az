@@ -17,8 +17,8 @@
                     <!--Filter Short By-->
                     <div class="twm-right-section-panel site-bg-gray">
                         <div class="wt-admin-right-page-header">
-                            <h2>Randall Henderson</h2>
-                            <p>IT Contractor</p>
+                            <h2>{{ auth()->user()->name }} {{ auth()->user()->surname }}</h2>
+                            <p>{{ strtoupper(auth()->user()->roles[0]->name) }}</p>
                         </div>
 
                         <div class="twm-dash-b-blocks mb-5">

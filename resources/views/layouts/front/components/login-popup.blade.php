@@ -15,14 +15,14 @@
                             <div class="col-lg-12">
                                 <div class="form-group mb-3">
                                     <label for="email">Email</label><small class="text-danger">*</small>
-                                    <input name="email" id="email" data-role="email" type="text" required class="form-control" placeholder="XXXX@XXX.XX">
+                                    <input name="email" id="email1" data-role="email" type="text" required class="form-control" placeholder="XXXX@XXX.XX">
                                 </div>
                             </div>
 
                             <div class="col-lg-12">
                                 <div class="form-group mb-3">
                                     <label for="password">Şifrə</label><small class="text-danger">*</small>
-                                    <input name="password" id="password" data-role="password" type="password" required class="form-control" placeholder="********">
+                                    <input name="password" id="password1" data-role="password" type="password" required class="form-control" placeholder="********">
                                 </div>
                             </div>
 

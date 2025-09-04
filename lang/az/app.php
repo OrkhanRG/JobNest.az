@@ -11,5 +11,6 @@ return [
     "warning" => "Diqqət!",
     "success" => "Uğurlu!",
     "error" => "Xəta!",
-    "no_content" => "Məlumat tapılmadı!"
+    "no_content" => "Məlumat tapılmadı!",
+    "not_have_permission_this_operation" => "Bu əməliyyat üçün icazəniz yoxdur!"
 ];

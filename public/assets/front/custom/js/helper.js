@@ -38,19 +38,43 @@ const validateInput = (parent, requiredFields, optionalFields = []) => {
 
     const allFields = [...requiredFields, ...optionalFields];
 
-    allFields.forEach(field => {
+    for (let field of allFields) {
         let input = parent.find(`[data-role="${field}"]`),
             value = input.val()?.trim();
 
-        data[field] = value;
-        input.removeClass("is-invalid");
+        if (input.attr("type") === "checkbox") {
+            data[field] = input.prop("checked") ? 1 : 0;
+        } else {
+            data[field] = value;
+        }
+
+        if (input.hasClass("select2-hidden-accessible")) {
+            const selection = input.next('.select2').find('.select2-selection');
+            selection.removeAttr("style");
+        } else {
+            input.removeClass("is-invalid");
+        }
+
         input.siblings(".invalid-feedback").remove();
+
+
 
         if (requiredFields.includes(field) && !value) {
             isValid = false;
             input.addClass("is-invalid");
-            input.after(validationComponent());
-            return;
+
+            if (input.hasClass("select2-hidden-accessible")) {
+                const select2Container = input.next('.select2'),
+                    selection = select2Container.find('.select2-selection');
+
+                selection.css('border-color', '#f06060');
+                selection.css('border-width', '1px');
+
+                select2Container.after(validationComponent());
+            } else {
+                input.after(validationComponent());
+            }
+            continue;
         }
 
         if (field === "email") {
@@ -62,14 +86,14 @@ const validateInput = (parent, requiredFields, optionalFields = []) => {
             }
         }
 
-    });
+    }
 
     if (data["password"] && data["password_confirmation"]) {
         if (data["password"] !== data["password_confirmation"]) {
             isValid = false;
 
             const passInput = parent.find(`[data-role="password"]`),
-                  passConfInput = parent.find(`[data-role="password_confirmation"]`);
+                passConfInput = parent.find(`[data-role="password_confirmation"]`);
 
             [passInput, passConfInput].forEach(input => {
                 input.addClass("is-invalid");
@@ -104,3 +128,9 @@ const getUrlParameter = (sParam) => {
     }
     return false;
 };
+
+$('.selectpicker').selectpicker({
+    noneSelectedText: 'Heç nə seçilməyib',
+    noneResultsText: 'Uyğun nəticə tapılmadı'
+});
+

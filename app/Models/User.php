@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
@@ -64,6 +65,7 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
+
     public function getCachedRoles(): Collection
     {
         if (!isset($this->cachedRoles)) {
@@ -93,7 +95,6 @@ class User extends Authenticatable
 
         return $this->cachedPermissions;
     }
-
 
     public function hasRole(string|array $roles): bool
     {
@@ -136,6 +137,16 @@ class User extends Authenticatable
         } else {
             $this->roles()->syncWithoutDetaching([$role->id]);
         }
+    }
+
+    public function company(): HasOne
+    {
+        return $this->hasOne(Company::class);
+    }
+
+    public function candidate(): HasOne
+    {
+        return $this->hasOne(Candidate::class);
     }
 
     #[Scope]

@@ -21,7 +21,9 @@ class Company extends Model
         "city_id",
         "country_id",
         "address",
-        "location",
+        "latitude",
+        "longitude",
+        "map_address",
         "company_size",
         "industry",
         "founded_year",
@@ -30,9 +32,9 @@ class Company extends Model
         "vacancy_posts_limit",
         "vacancy_posts_used",
         "can_see_candidate_contacts",
-        "seo_title*",
-        "seo_description*",
-        "seo_keywords*"
+        "seo_title",
+        "seo_description",
+        "seo_keywords"
     ];
 
     public function socialLinks(): MorphMany

@@ -24,4 +24,13 @@ class CacheService
         $key = Str::slug($key, "_");
         Cache::forget("lang.{$lang}.{$group}.{$key}");
     }
+
+    public function clearLangConvertCache(int|string|null $key = null): void
+    {
+        if (!$key) {
+            return;
+        }
+
+        Cache::forget(str_replace("key", $key, config("jobnest.caches.lang_convert")["key"]));
+    }
 }

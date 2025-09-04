@@ -71,7 +71,12 @@ Route::name("front.")->group(function(){
         //Company Management
         Route::prefix("company")->name("company.")->middleware("role:company")->group(function(){
             Route::get("/", [CompanyController::class, "dashboard"])->name("dashboard");
-            Route::get("/profile", [CompanyController::class, "profile"])->name("profile");
+
+            Route::prefix("profile")->middleware("role:company")->group(function(){
+                Route::get("/", [CompanyController::class, "profile"])->name("profile");
+                Route::put("/update", [CompanyController::class, "profileUpdate"])->name("profile.update");
+            });
+
             Route::get("/resume", [CompanyController::class, "resume"])->name("resume");
             Route::get("/manage-jobs", [CompanyController::class, "manageJobs"])->name("manage-jobs");
             Route::get("/post-job", [CompanyController::class, "postJob"])->name("post-job");
@@ -184,7 +189,6 @@ Route::prefix("admin")->name("admin.")->middleware(["custom_auth", "role:admin,d
     //Country
     Route::prefix("countries")->name("countries.")->group(function(){
         Route::get("/", [CountryController::class, "index"])->name("list");
-        Route::get("/get-all", [CountryController::class, "getAll"])->name("getAll");
 
         Route::get("/create", [CountryController::class, "create"])->name("create");
         Route::post("/create", [CountryController::class, "store"]);
@@ -199,7 +203,6 @@ Route::prefix("admin")->name("admin.")->middleware(["custom_auth", "role:admin,d
     //City
     Route::prefix("cities")->name("cities.")->group(function(){
         Route::get("/", [CityController::class, "index"])->name("list");
-        Route::get("/get-all", [CityController::class, "getAll"])->name("getAll");
 
         Route::get("/create", [CityController::class, "create"])->name("create");
         Route::post("/create", [CityController::class, "store"]);
@@ -227,6 +230,14 @@ Route::prefix("admin")->name("admin.")->middleware(["custom_auth", "role:admin,d
     });
 });
 
+//Public
+Route::prefix("countries")->name("countries.")->group(function(){
+    Route::get("/get-all", [CountryController::class, "getAll"])->name("getAll");
+});
+
+Route::prefix("cities")->name("cities.")->group(function(){
+    Route::get("/get-all", [CityController::class, "getAll"])->name("getAll");
+});
 
 
 //Login

@@ -43,7 +43,8 @@ class CountryController extends Controller
     public function getAll(Request $request): JsonResponse
     {
         $params = [
-            ...$request->all(),
+            ...$request->except("lang_id"),
+            "lang_id" => langConvert($request->lang_id),
             "is_active" => Status::ACTIVE
         ];
 

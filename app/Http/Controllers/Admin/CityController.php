@@ -47,9 +47,15 @@ class CityController extends Controller
         return view('admin.cities.list', compact('langs', "countries"));
     }
 
-    public function getAll(): JsonResponse
+    public function getAll(Request $request): JsonResponse
     {
-        $data = $this->cityService->getAll(["is_active" => Status::ACTIVE]);
+        $params = [
+            ...$request->only("country_id"),
+            "lang_id" => langConvert($request->lang_id),
+            "is_active" => Status::ACTIVE
+        ];
+
+        $data = $this->cityService->getAll($params);
         return $data["list"]->isEmpty() ? json_response(__("app.no_content"), Response::HTTP_NO_CONTENT) : json_response(__("app.success"), Response::HTTP_OK, $data);
     }
 

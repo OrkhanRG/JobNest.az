@@ -15,14 +15,14 @@
                             <div class="col-lg-12">
                                 <div class="form-group mb-3">
                                     <label for="email">Şifrə</label><small class="text-danger">*</small>
-                                    <input name="password" id="password" data-role="password" type="password" required class="form-control" placeholder="***********">
+                                    <input name="password" id="password3" data-role="password" type="password" required class="form-control" placeholder="***********">
                                 </div>
                             </div>
 
                             <div class="col-lg-12">
                                 <div class="form-group mb-3">
                                     <label for="email">Şifrə Təkrar</label><small class="text-danger">*</small>
-                                    <input name="password_confirmation" id="password_confirmation" data-role="password_confirmation" type="password" required class="form-control" placeholder="***********">
+                                    <input name="password_confirmation" id="password_confirmation1" data-role="password_confirmation" type="password" required class="form-control" placeholder="***********">
                                 </div>
                             </div>
 

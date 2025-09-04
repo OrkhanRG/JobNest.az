@@ -202,6 +202,7 @@
 </script>
         <script  src="{{ asset("assets/front/custom/library/btn-loader.js") }}"></script>
         <script  src="{{ asset("assets/global/js/helper.js") }}"></script>
+        <script  src="{{ asset("assets/global/js/default.js") }}"></script>
         <script  src="{{ asset("assets/front/custom/js/helper.js") }}"></script>
         <script  src="{{ asset("assets/front/custom/js/app.js") }}"></script>
         <script  src="{{ asset("assets/front/custom/js/login.js") }}"></script>

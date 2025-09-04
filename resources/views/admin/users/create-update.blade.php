@@ -57,12 +57,12 @@
 
                     <div class="col-md-6">
                         <label for="password" class="form-label">Şifrə</label> <span class="text-danger">{{ isset($user) ? "" : "*" }}</span>
-                        <input type="password" class="form-control" id="password" name="password" data-role="password" value=""  placeholder="Şifrə...">
+                        <input type="password" class="form-control" id="password2" name="password" data-role="password" value=""  placeholder="Şifrə...">
                     </div>
 
                     <div class="col-md-6">
                         <label for="password_confirmation" class="form-label">Şifrə Təkrar</label> <span class="text-danger">{{ isset($user) ? "" : "*" }}</span>
-                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" data-role="password_confirmation" value="" placeholder="Şifrə Təkrar...">
+                        <input type="password" class="form-control" id="password_confirmation2" name="password_confirmation" data-role="password_confirmation" value="" placeholder="Şifrə Təkrar...">
                     </div>
 
                     <div class="col-md-6">

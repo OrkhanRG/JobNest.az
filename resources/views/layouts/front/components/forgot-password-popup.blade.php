@@ -15,7 +15,7 @@
                             <div class="col-lg-12">
                                 <div class="form-group mb-3">
                                     <label for="email">Email</label><small class="text-danger">*</small>
-                                    <input name="email" id="email" data-role="email" type="text" required class="form-control" placeholder="XXXX@XXX.XX">
+                                    <input name="email" id="email2" data-role="email" type="text" required class="form-control" placeholder="XXXX@XXX.XX">
                                 </div>
                             </div>
 

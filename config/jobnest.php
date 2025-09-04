@@ -19,6 +19,10 @@ return [
         "job_categories" => [
             "key" => "job_categories",
             "time" => 60*60*24
+        ],
+        "lang_convert" => [
+            "key" => "lang_convert_key",
+            "time" => 60*60*24*7
         ]
     ],
 

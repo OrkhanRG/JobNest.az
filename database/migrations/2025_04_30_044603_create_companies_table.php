@@ -19,7 +19,9 @@ return new class extends Migration
             $table->string("website")->nullable();
             $table->unsignedBigInteger("city_id")->nullable();
             $table->string("address")->nullable();
-            $table->string("location")->nullable();
+            $table->decimal('latitude', 10, 8)->nullable();
+            $table->decimal('longitude', 11, 8)->nullable();
+            $table->text('map_address')->nullable();
             $table->text("description")->nullable();
             $table->string("logo")->nullable();
             $table->string("background_image")->nullable();

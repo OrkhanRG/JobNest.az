@@ -4,6 +4,7 @@ use App\Constants\Status;
 use App\Http\Services\LanguageService;
 use App\Models\ContentTranslation;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Cache;
 
 if (!function_exists("json_response")) {
     function json_response($message, $code = 200, $data = null)
@@ -88,5 +89,36 @@ if (!function_exists("lang")) {
                 ->where("key", $key)
                 ->value("value") ?? $default;
         });
+    }
+}
+
+if (!function_exists("langConvert")) {
+    function langConvert(string|int|null $key = null) {
+        $key = $key ?? app()->getLocale();
+
+        return Cache::remember(str_replace("key", $key, config("jobnest.caches.lang_convert")["key"]), config("jobnest.caches.lang_convert")["time"], function () use ($key) {
+            $langService = new LanguageService();
+
+            if (is_numeric($key)) {
+                return $langService->getById($key)?->code;
+            }
+            return $langService->getByCode($key)?->id;
+        });
+
+    }
+}
+
+if (!function_exists("getFileSize")) {
+    function getFileSize(string $filePath): ?string
+    {
+        if (file_exists(public_path($filePath))) {
+            $bytes = filesize($filePath);
+            $units = ['B', 'KB', 'MB', 'GB'];
+            for ($i = 0; $bytes > 1024; $i++) {
+                $bytes /= 1024;
+            }
+            return round($bytes, 2) . ' ' . $units[$i];
+        }
+        return null;
     }
 }
