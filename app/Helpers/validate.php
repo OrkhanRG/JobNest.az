@@ -7,7 +7,7 @@ if (!function_exists("hasPermission")) {
 }
 
 if (!function_exists("hasRole")) {
-    function hasRole(string $role): bool {
+    function hasRole(string|array $role): bool {
         return auth()->user()->hasRole($role);
     }
 }

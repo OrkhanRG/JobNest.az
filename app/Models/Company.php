@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Company extends Model
@@ -37,8 +38,13 @@ class Company extends Model
         "seo_keywords"
     ];
 
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function socialLinks(): MorphMany
     {
-        return $this->morphMany(SocialLink::class, 'social_linkable');
+        return $this->morphMany(SocialLink::class, 'linkable');
     }
 }

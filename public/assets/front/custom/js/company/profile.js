@@ -201,6 +201,74 @@ $(() => {
        }
     });
 
+    $(document).on("submit", `[data-role="social-networks-form"]`, function (e) {
+        e.preventDefault();
+
+        let parent = $(this).closest(".row"),
+            requiredFields = [],
+            optionalFields = ["facebook", "twitter", "linkedin", "whatsapp", "instagram", "youtube"],
+            data = validateInput(parent, requiredFields, optionalFields),
+            route = $(this).attr("action"),
+            request_type = $(this).attr("method"),
+            btnLoader = new SmartButton(),
+            btn = $(`[data-role="btn-save-social-networks"]`);
+
+        btnLoader.setLoading(btn);
+        if (!data) {
+            btnLoader.setError(btn, "Xəta!");
+            return;
+        }
+
+        let formData = new FormData();
+        for (let key in data) {
+            formData.append(key, data[key] ?? null);
+        }
+
+        if (request_type === "PUT") {
+            formData.append('_method', 'PUT')
+        }
+
+        $.post({
+            url: route,
+            contentType: false,
+            processData: false,
+            data: formData,
+            success: function (d) {
+
+                if ([201, 202].includes(d.code)) {
+                    btnLoader.setSuccess(btn, "Güncəlləndi!");
+                    if (request_type === "POST") {
+                        // emptyInput(parent);
+                    }
+                } else {
+                    notify("Diqqət!", d.message, "warning");
+                    btnLoader.setWarning(btn, "Diqqət!");
+                }
+
+            },
+            error: function (err) {
+                if (err.status === 422) {
+                    err = err.responseJSON;
+                    let errors = err.errors;
+                    validateByRequest(parent, errors);
+                }
+
+                if (err?.code === 500) {
+                    Swal.fire({
+                        title: 'Xəta!',
+                        text: err.message,
+                        icon: "error",
+                        confirmButtonText: 'Ok'
+                    })
+                }
+
+                btnLoader.setError(btn, "Xəta!");
+            },
+            complete: function () {
+            }
+        });
+    });
+
 });
 
 //--------------------------Google Map Codes--------------------------

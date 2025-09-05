@@ -18,7 +18,7 @@
             <a href="candidate-detail.html" class="twm-job-title">
                 <h4>{{ auth()->user()->name }} {{ auth()->user()->surname }}</h4>
             </a>
-            <p>{{ strtoupper(auth()->user()->roles[0]->name) }}</p>
+            <p>{{ strtoupper(auth()->user()->roles[0]->label) }}</p>
         </div>
 
         <div class="twm-nav-list-1">

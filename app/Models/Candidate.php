@@ -43,6 +43,6 @@ class Candidate extends Model
 
     public function socialLinks(): MorphMany
     {
-        return $this->morphMany(SocialLink::class, 'social_linkable');
+        return $this->morphMany(SocialLink::class, 'linkable');
     }
 }

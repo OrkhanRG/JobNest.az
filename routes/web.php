@@ -21,6 +21,7 @@ use App\Http\Controllers\Front\CompanyController;
 use App\Http\Controllers\Front\ContactUsController;
 use App\Http\Controllers\Front\FaqController;
 use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\Front\SocialLinkController;
 use App\Http\Controllers\Front\VacancyController;
 use Illuminate\Support\Facades\Route;
 
@@ -72,7 +73,7 @@ Route::name("front.")->group(function(){
         Route::prefix("company")->name("company.")->middleware("role:company")->group(function(){
             Route::get("/", [CompanyController::class, "dashboard"])->name("dashboard");
 
-            Route::prefix("profile")->middleware("role:company")->group(function(){
+            Route::prefix("profile")->group(function(){
                 Route::get("/", [CompanyController::class, "profile"])->name("profile");
                 Route::put("/update", [CompanyController::class, "profileUpdate"])->name("profile.update");
             });
@@ -82,6 +83,10 @@ Route::name("front.")->group(function(){
             Route::get("/post-job", [CompanyController::class, "postJob"])->name("post-job");
             Route::get("/transaction", [CompanyController::class, "transaction"])->name("transaction");
             Route::get("/change-password", [CompanyController::class, "changePassword"])->name("change-password");
+        });
+
+        Route::prefix("social-networks")->name("social-networks.")->middleware("custom_auth")->group(function(){
+            Route::post("/create", [SocialLinkController::class, "store"])->name("create");
         });
     });
 });

@@ -8,6 +8,7 @@ use App\Enums\CompanyType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CompanyProfileUpdateRequest;
 use App\Http\Services\CompanyService;
+use App\Models\SocialLink;
 use App\Traits\Loggable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,10 +35,13 @@ class CompanyController extends Controller
 
     public function profile()
     {
-        $user = Auth::user()->load("company");
+        $user = Auth::user()->load("company.socialLinks");
         $companySizes = CompanySize::options();
         $companyIndustries = CompanyIndustry::options();
         $companyTypes = CompanyType::options();
+        $socialLinks = $user?->company?->socialLinks
+            ? $user->company->socialLinks->pluck("url", "platform")->toArray()
+            : [];
         $imagesData = [
             'logo' => [
                 'path' => $user?->company->logo,
@@ -53,7 +57,14 @@ class CompanyController extends Controller
             ]
         ];
 
-        return view("front.company.profile", compact("user","companySizes", "companyIndustries", "companyTypes", "imagesData"));
+        return view("front.company.profile", compact(
+            "user",
+            "companySizes",
+            "companyIndustries",
+            "companyTypes",
+            "imagesData",
+            "socialLinks"
+        ));
     }
 
     public function profileUpdate(CompanyProfileUpdateRequest $request)
