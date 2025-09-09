@@ -212,14 +212,15 @@ class SmartInfinityScroll {
     checkScrollPosition() {
         if (this.isLoading || !this.hasMore) return;
 
-        const scrollMetrics = this.getScrollMetrics();
-        const distanceFromBottom = scrollMetrics.scrollHeight -
-            (scrollMetrics.scrollTop + scrollMetrics.clientHeight);
 
-        if (distanceFromBottom <= this.config.triggerDistance) {
+        const { bottom } = this.container.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+
+        if (bottom <= windowHeight + this.config.triggerDistance) {
             this.log('🔄 Scroll trigger activated - loading more data');
             this.loadMoreData();
         }
+
     }
 
     /**
@@ -322,7 +323,7 @@ class SmartInfinityScroll {
             await this.delay(1000 * this.retryCount);
             await this.performLoad();
         } else {
-            this.showErrorMessage();
+            // this.showErrorMessage();
 
             if (this.config.onError) {
                 this.config.onError(error, this.retryCount);
@@ -432,6 +433,7 @@ class SmartInfinityScroll {
 
         items.forEach((item, index) => {
             const element = this.createItemElement(item, this.loadedCount + index);
+            element.classList.add("col-lg-3", "col-md-3");
 
             // Animation preparation
             if (this.config.enableAnimation) {
@@ -498,7 +500,7 @@ class SmartInfinityScroll {
             this.skeletonContainer.innerHTML = this.getDefaultSkeleton();
         }
 
-        this.skeletonContainer.style.display = 'block';
+        this.skeletonContainer.style.display = 'flex';
         setTimeout(() => this.skeletonContainer.classList.add('show'), 50);
     }
 
@@ -755,6 +757,8 @@ class SmartInfinityScroll {
         .infinity-skeleton-container.show {
             opacity: 1;
             transform: translateY(0);
+            display: flex;
+            flex-wrap: wrap;
         }
 
         .skeleton-grid {

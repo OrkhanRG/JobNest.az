@@ -34,19 +34,19 @@ class CompanyResource extends JsonResource
             "latitude" => $this->latitude,
             "longitude" => $this->longitude,
             "map_address" => $this->map_address,
-            "company_size" => [
+            "company_size" => $this->company_size ? [
                 "value" => $this->company_size,
                 "label" => CompanySize::getLabel($this->company_size)
-            ],
-            "industry" => [
+            ] : null,
+            "industry" => $this->industry ? [
                 "value" => $this->industry,
                 "label" => CompanyIndustry::getLabel($this->industry)
-            ],
+            ] : null,
             "founded_year" => $this->founded_year,
-            "company_type" => [
+            "company_type" => $this->company_type ? [
                 "value" => $this->company_type,
                 "label" => CompanyType::getLabel($this->company_type)
-            ],
+            ] : null,
             "seo_title" => $this->seo_title,
             "seo_description" => $this->seo_description,
             "seo_keywords" => $this->seo_keywords
