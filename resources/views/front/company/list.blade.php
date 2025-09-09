@@ -6,7 +6,6 @@
 @endpush
 
 @section("contents")
-    <!-- INNER PAGE BANNER -->
     @include("layouts.front.components.breadcrumb", [
         "title" => "Şirkətlər",
         "links" => [
@@ -20,16 +19,13 @@
             ]
         ]
     ])
-    <!-- INNER PAGE BANNER END -->
 
 
-    <!-- Employer Grid START -->
     <div class="section-full p-t120  p-b90 site-bg-white">
         <div class="container">
             <div class="row">
 
                 <div class="col-lg-12 col-md-12">
-                    <!--Filter Short By-->
                     <div class="product-filter-wrap d-flex justify-content-between align-items-center m-b30">
 
                         <div class="ls-inputicon-box">
@@ -53,12 +49,11 @@
                             </select>
                         </div>
 
-
-
                     </div>
 
                     <div class="twm-employer-list-wrap">
                         <div class="row">
+
                              <div class="col-lg-3 col-md-3">
                                  <div class="twm-employer-grid-style1 mb-5">
                                      <div class="twm-media">
@@ -77,151 +72,6 @@
                                  </div>
                              </div>
 
-                             <div class="col-lg-3 col-md-3">
-                                 <div class="twm-employer-grid-style1 mb-5">
-                                     <div class="twm-media">
-                                         <img src="{{ asset("assets/front/images/jobs-company/pic2.jpg") }}" alt="#">
-                                     </div>
-                                     <div class="twm-mid-content">
-                                         <a href="employer-detail.html" class="twm-job-title">
-                                             <h4>Artistre Studio PVT Ltd</h4>
-                                         </a>
-                                         <p class="twm-job-address">1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
-                                         <a href="employer-detail.html" class="twm-job-websites site-text-primary">IT Contractor</a>
-                                     </div>
-                                     <div class="twm-right-content">
-                                        <div class="twm-jobs-vacancies"><span>30</span>Vacancies</div>
-                                     </div>
-                                 </div>
-                             </div>
-
-                             <div class="col-lg-3 col-md-3">
-                                 <div class="twm-employer-grid-style1 mb-5">
-                                     <div class="twm-media">
-                                         <img src="{{ asset("assets/front/images/jobs-company/pic3.jpg") }}" alt="#">
-                                     </div>
-                                     <div class="twm-mid-content">
-                                         <a href="employer-detail.html" class="twm-job-title">
-                                             <h4 class="twm-job-title">Wins Developers</h4>
-                                         </a>
-                                         <p class="twm-job-address">1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
-                                         <a href="employer-detail.html" class="twm-job-websites site-text-primary">Banking</a>
-                                     </div>
-                                     <div class="twm-right-content">
-                                        <div class="twm-jobs-vacancies"><span>32</span>Vacancies</div>
-                                     </div>
-                                 </div>
-                             </div>
-
-                             <div class="col-lg-3 col-md-3">
-                                 <div class="twm-employer-grid-style1 mb-5">
-                                     <div class="twm-media">
-                                         <img src="{{ asset("assets/front/images/jobs-company/pic4.jpg") }}" alt="#">
-                                     </div>
-                                     <div class="twm-mid-content">
-                                         <a href="employer-detail.html" class="twm-job-title">
-                                             <h4 class="twm-job-title">Thewebmax PVT Ltd</h4>
-                                         </a>
-                                         <p class="twm-job-address">1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
-                                         <a href="employer-detail.html" class="twm-job-websites site-text-primary">Digital & Creative</a>
-                                     </div>
-                                     <div class="twm-right-content">
-                                        <div class="twm-jobs-vacancies"><span>38</span>Vacancies</div>
-                                     </div>
-                                 </div>
-                             </div>
-
-                             <div class="col-lg-3 col-md-3">
-                                 <div class="twm-employer-grid-style1 mb-5">
-                                     <div class="twm-media">
-                                         <img src="{{ asset("assets/front/images/jobs-company/pic5.jpg") }}" alt="#">
-                                     </div>
-                                     <div class="twm-mid-content">
-                                         <a href="employer-detail.html" class="twm-job-title">
-                                             <h4 class="twm-job-title">Robo Tech</h4>
-                                         </a>
-                                         <p class="twm-job-address">1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
-                                         <a href="employer-detail.html" class="twm-job-websites site-text-primary">Sales & Marketing</a>
-                                     </div>
-                                     <div class="twm-right-content">
-                                        <div class="twm-jobs-vacancies"><span>40</span>Vacancies</div>
-                                     </div>
-                                 </div>
-                             </div>
-
-                             <div class="col-lg-3 col-md-3">
-                                <div class="twm-employer-grid-style1 mb-5">
-                                    <div class="twm-media">
-                                        <img src="{{ asset("assets/front/images/jobs-company/pic1.jpg") }}" alt="#">
-                                    </div>
-                                    <div class="twm-mid-content">
-                                        <a href="employer-detail.html" class="twm-job-title">
-                                            <h4>Galaxy IT Solution</h4>
-                                        </a>
-                                        <p class="twm-job-address">1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
-                                        <a href="employer-detail.html" class="twm-job-websites site-text-primary">Leisure & Tourismm</a>
-                                    </div>
-                                    <div class="twm-right-content">
-                                        <div class="twm-jobs-vacancies"><span>38</span>Vacancies</div>
-                                    </div>
-                                </div>
-                             </div>
-
-                             <div class="col-lg-3 col-md-3">
-                                <div class="twm-employer-grid-style1 mb-5">
-                                    <div class="twm-media">
-                                        <img src="{{ asset("assets/front/images/jobs-company/pic2.jpg") }}" alt="#">
-                                    </div>
-                                    <div class="twm-mid-content">
-                                        <a href="employer-detail.html" class="twm-job-title">
-                                            <h4>Coderbotics solutions</h4>
-                                        </a>
-                                        <p class="twm-job-address">1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
-                                        <a href="employer-detail.html" class="twm-job-websites site-text-primary">Consultancy</a>
-                                    </div>
-                                    <div class="twm-right-content">
-                                        <div class="twm-jobs-vacancies"><span>35</span>Vacancies</div>
-                                    </div>
-                                </div>
-                             </div>
-
-                             <div class="col-lg-3 col-md-3">
-                                <div class="twm-employer-grid-style1 mb-5">
-                                    <div class="twm-media">
-                                        <img src="{{ asset("assets/front/images/jobs-company/pic3.jpg") }}" alt="#">
-                                    </div>
-                                    <div class="twm-mid-content">
-                                        <a href="employer-detail.html" class="twm-job-title">
-                                            <h4 class="twm-job-title">Microsoft solution</h4>
-                                        </a>
-                                        <p class="twm-job-address">1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
-                                        <a href="employer-detail.html" class="twm-job-websites site-text-primary">Technologies</a>
-                                    </div>
-                                    <div class="twm-right-content">
-                                        <div class="twm-jobs-vacancies"><span>65</span>Vacancies</div>
-                                    </div>
-                                </div>
-                             </div>
-
-                             <div class="col-lg-3 col-md-3">
-                                <div class="twm-employer-grid-style1 mb-5">
-                                    <div class="twm-media">
-                                        <img src="{{ asset("assets/front/images/jobs-company/pic4.jpg") }}" alt="#">
-                                    </div>
-                                    <div class="twm-mid-content">
-                                        <a href="employer-detail.html" class="twm-job-title">
-                                            <h4 class="twm-job-title">Dot Circle PVT Ltd</h4>
-                                        </a>
-                                        <p class="twm-job-address">1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
-                                        <a href="employer-detail.html" class="twm-job-websites site-text-primary">Sales & Marketing</a>
-                                    </div>
-                                    <div class="twm-right-content">
-                                        <div class="twm-jobs-vacancies"><span>50</span>Vacancies</div>
-                                    </div>
-                                </div>
-                             </div>
-
-
                         </div>
                     </div>
 
@@ -238,15 +88,14 @@
                             </ul>
                         </div>
                     </div>
-
                 </div>
 
             </div>
         </div>
     </div>
-    <!-- Employer Grid END -->
 @endsection
 
 @push("js")
-
+    <script src="{{ asset("assets/front/custom/library/smartInfinityScroll.js") }}"></script>
+    <script src="{{ asset("assets/front/custom/js/company/list.js") }}"></script>
 @endpush

@@ -8,7 +8,6 @@ use App\Enums\CompanyType;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CompanyProfileUpdateRequest;
 use App\Http\Services\CompanyService;
-use App\Models\SocialLink;
 use App\Traits\Loggable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +21,13 @@ class CompanyController extends Controller
 
     public function index(){
         return view("front.company.list");
+    }
+
+    public function list(Request $request)
+    {
+        $params = $request->only('page', "limit");
+        $data = $this->companyService->getAll($params);
+        return $data["list"]->isEmpty() ? json_response(__("app.no_content"), Response::HTTP_NO_CONTENT) : json_response(__("app.success"), Response::HTTP_OK, $data);
     }
 
     public function getBySlug(string $slug){

@@ -44,8 +44,12 @@ Route::name("front.")->group(function(){
     Route::get("/vacancy/{slug}", [VacancyController::class, "getBySlug"])->name("vacancy");
 
     //Company
-    Route::get("/companies", [CompanyController::class, "index"])->name("companies");
-    Route::get("/company/{slug}", [CompanyController::class, "getBySlug"])->name("company");
+    Route::prefix("companies")->group(function(){
+        Route::get("/", [CompanyController::class, "index"])->name("companies");
+        Route::get("/list", [CompanyController::class, "list"])->name("companies.list");
+    });
+    Route::get("company/{slug}", [CompanyController::class, "getBySlug"])->name("company");
+
 
     //Candidate
     Route::get("/candidates", [CandidateController::class, "index"])->name("candidates");

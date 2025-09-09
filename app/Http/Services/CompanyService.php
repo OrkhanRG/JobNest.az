@@ -3,6 +3,8 @@
 namespace App\Http\Services;
 
 use App\Constants\App;
+use App\Constants\LoadLimit;
+use App\Http\Resources\CompanyResource;
 use App\Models\Company;
 use App\Models\User;
 use App\Traits\Loggable;
@@ -14,6 +16,22 @@ class CompanyService extends BaseService
     protected User $user;
 
     public function __construct(readonly ImageService $imageService){}
+
+    public function getAll($params = null): array
+    {
+        $query = Company::query();
+        return $this->getListWithCount(
+            $query,
+            CompanyResource::class,
+            [
+                "filter" =>  $params,
+                "with" =>  ["city", "country", "user"]
+            ],
+            "name",
+            paginate: true,
+            perPage: $params["limit"] ?? LoadLimit::DEFAULT
+        );
+    }
 
     public function setCompany(User $user): self
     {

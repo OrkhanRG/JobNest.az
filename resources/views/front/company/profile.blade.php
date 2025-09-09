@@ -398,7 +398,6 @@
     </script>
     <script src="{{ asset("assets/front/custom/library/imask.js") }}"></script>
     <script src="{{ asset("assets/front/custom/library/imgPreview.js") }}"></script>
-    <script src="{{ asset("assets/front/custom/library/smartButton.js") }}"></script>
     <script src="{{ asset("assets/front/custom/js/company/profile.js") }}"></script>
 
     <script>

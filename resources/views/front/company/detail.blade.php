@@ -207,103 +207,106 @@
 
                             </ul>
 
-                            <div class="twm-two-part-section">
-                                <div class="row">
+                            @if(false)
+                                <div class="twm-two-part-section">
+                                    <div class="row">
 
-                                    <div class="col-lg-12 col-md-12 m-b30">
-                                        <h4 class="twm-s-title">Video</h4>
-                                        <div class="video-section-first" style="background-image: url({{ asset("assets/front/images/video-bg.jpg") }});">
-                                            <a href="https://www.youtube.com/watch?v=c1XNqw2gSbU" class="mfp-video play-now-video">
-                                                <i class="icon feather-play"></i>
-                                                <span class="ripple"></span>
-                                            </a>
+                                        <div class="col-lg-12 col-md-12 m-b30">
+                                            <h4 class="twm-s-title">Video</h4>
+                                            <div class="video-section-first" style="background-image: url({{ asset("assets/front/images/video-bg.jpg") }});">
+                                                <a href="https://www.youtube.com/watch?v=c1XNqw2gSbU" class="mfp-video play-now-video">
+                                                    <i class="icon feather-play"></i>
+                                                    <span class="ripple"></span>
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="col-lg-12 col-md-12">
-                                        <h4 class="twm-s-title">Office Photos</h4>
-                                        <div class="tw-sidebar-gallery-2">
-                                            <div class="row">
-                                                <div class="col-lg-3 col-md-3">
-                                                    <div class="tw-service-gallery-thumb">
-                                                        <a class="elem" href="{{ asset("assets/front/images/gallery/pic1.jpg") }}" title="Title 1" data-lcl-author="" data-lcl-thumb="{{ asset("assets/front/images/gallery/thumb/pic1.jpg") }}">
-                                                            <img src="{{ asset("assets/front/images/gallery/thumb/pic1.jpg") }}" alt="">
-                                                            <i class="fa fa-file-image"></i>
-                                                        </a>
+
+                                        <div class="col-lg-12 col-md-12">
+                                            <h4 class="twm-s-title">Office Photos</h4>
+                                            <div class="tw-sidebar-gallery-2">
+                                                <div class="row">
+                                                    <div class="col-lg-3 col-md-3">
+                                                        <div class="tw-service-gallery-thumb">
+                                                            <a class="elem" href="{{ asset("assets/front/images/gallery/pic1.jpg") }}" title="Title 1" data-lcl-author="" data-lcl-thumb="{{ asset("assets/front/images/gallery/thumb/pic1.jpg") }}">
+                                                                <img src="{{ asset("assets/front/images/gallery/thumb/pic1.jpg") }}" alt="">
+                                                                <i class="fa fa-file-image"></i>
+                                                            </a>
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-lg-3 col-md-3">
-                                                    <div class="tw-service-gallery-thumb">
-                                                        <a class="elem" href="{{ asset("assets/front/images/gallery/pic2.jpg") }}" title="Title 2" data-lcl-author="" data-lcl-thumb="{{ asset("assets/front/images/gallery/thumb/pic2.jpg") }}">
-                                                            <img src="{{ asset("assets/front/images/gallery/thumb/pic2.jpg") }}" alt="">
-                                                            <i class="fa fa-file-image"></i>
-                                                        </a>
+                                                    <div class="col-lg-3 col-md-3">
+                                                        <div class="tw-service-gallery-thumb">
+                                                            <a class="elem" href="{{ asset("assets/front/images/gallery/pic2.jpg") }}" title="Title 2" data-lcl-author="" data-lcl-thumb="{{ asset("assets/front/images/gallery/thumb/pic2.jpg") }}">
+                                                                <img src="{{ asset("assets/front/images/gallery/thumb/pic2.jpg") }}" alt="">
+                                                                <i class="fa fa-file-image"></i>
+                                                            </a>
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-lg-3 col-md-3">
-                                                    <div class="tw-service-gallery-thumb ">
-                                                        <a class="elem" href="{{ asset("assets/front/images/gallery/pic3.jpg") }}" title="Title 3"  data-lcl-author="" data-lcl-thumb="{{ asset("assets/front/images/gallery/thumb/pic3.jpg") }}">
-                                                            <img src="{{ asset("assets/front/images/gallery/thumb/pic3.jpg") }}" alt="">
-                                                            <i class="fa fa-file-image"></i>
-                                                        </a>
+                                                    <div class="col-lg-3 col-md-3">
+                                                        <div class="tw-service-gallery-thumb ">
+                                                            <a class="elem" href="{{ asset("assets/front/images/gallery/pic3.jpg") }}" title="Title 3"  data-lcl-author="" data-lcl-thumb="{{ asset("assets/front/images/gallery/thumb/pic3.jpg") }}">
+                                                                <img src="{{ asset("assets/front/images/gallery/thumb/pic3.jpg") }}" alt="">
+                                                                <i class="fa fa-file-image"></i>
+                                                            </a>
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-lg-3 col-md-3">
-                                                    <div class="tw-service-gallery-thumb">
-                                                        <a class="elem" href="{{ asset("assets/front/images/gallery/pic4.jpg") }}" title="Title 4"  data-lcl-author="" data-lcl-thumb="{{ asset("assets/front/images/gallery/thumb/pic4.jpg") }}">
-                                                            <img src="{{ asset("assets/front/images/gallery/thumb/pic4.jpg") }}" alt="">
-                                                            <i class="fa fa-file-image"></i>
-                                                        </a>
+                                                    <div class="col-lg-3 col-md-3">
+                                                        <div class="tw-service-gallery-thumb">
+                                                            <a class="elem" href="{{ asset("assets/front/images/gallery/pic4.jpg") }}" title="Title 4"  data-lcl-author="" data-lcl-thumb="{{ asset("assets/front/images/gallery/thumb/pic4.jpg") }}">
+                                                                <img src="{{ asset("assets/front/images/gallery/thumb/pic4.jpg") }}" alt="">
+                                                                <i class="fa fa-file-image"></i>
+                                                            </a>
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-lg-3 col-md-3">
-                                                    <div class="tw-service-gallery-thumb">
-                                                        <a class="elem" href="{{ asset("assets/front/images/gallery/pic5.jpg") }}" title="Title 5"  data-lcl-author="" data-lcl-thumb="{{ asset("assets/front/images/gallery/thumb/pic5.jpg") }}">
-                                                            <img src="{{ asset("assets/front/images/gallery/thumb/pic5.jpg") }}" alt="">
-                                                            <i class="fa fa-file-image"></i>
-                                                        </a>
+                                                    <div class="col-lg-3 col-md-3">
+                                                        <div class="tw-service-gallery-thumb">
+                                                            <a class="elem" href="{{ asset("assets/front/images/gallery/pic5.jpg") }}" title="Title 5"  data-lcl-author="" data-lcl-thumb="{{ asset("assets/front/images/gallery/thumb/pic5.jpg") }}">
+                                                                <img src="{{ asset("assets/front/images/gallery/thumb/pic5.jpg") }}" alt="">
+                                                                <i class="fa fa-file-image"></i>
+                                                            </a>
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-lg-3 col-md-3">
-                                                    <div class="tw-service-gallery-thumb">
-                                                        <a class="elem" href="{{ asset("assets/front/images/gallery/pic6.jpg") }}" title="Title 6"  data-lcl-author="" data-lcl-thumb="{{ asset("assets/front/images/gallery/thumb/pic6.jpg") }}">
-                                                            <img src="{{ asset("assets/front/images/gallery/thumb/pic6.jpg") }}" alt="">
-                                                            <i class="fa fa-file-image"></i>
-                                                        </a>
+                                                    <div class="col-lg-3 col-md-3">
+                                                        <div class="tw-service-gallery-thumb">
+                                                            <a class="elem" href="{{ asset("assets/front/images/gallery/pic6.jpg") }}" title="Title 6"  data-lcl-author="" data-lcl-thumb="{{ asset("assets/front/images/gallery/thumb/pic6.jpg") }}">
+                                                                <img src="{{ asset("assets/front/images/gallery/thumb/pic6.jpg") }}" alt="">
+                                                                <i class="fa fa-file-image"></i>
+                                                            </a>
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-lg-3 col-md-3">
-                                                    <div class="tw-service-gallery-thumb">
-                                                        <a class="elem" href="{{ asset("assets/front/images/gallery/pic7.jpg") }}" title="Title 7" data-lcl-author="" data-lcl-thumb="{{ asset("assets/front/images/gallery/thumb/pic1.jpg") }}">
-                                                            <img src="{{ asset("assets/front/images/gallery/thumb/pic7.jpg") }}" alt="">
-                                                            <i class="fa fa-file-image"></i>
-                                                        </a>
+                                                    <div class="col-lg-3 col-md-3">
+                                                        <div class="tw-service-gallery-thumb">
+                                                            <a class="elem" href="{{ asset("assets/front/images/gallery/pic7.jpg") }}" title="Title 7" data-lcl-author="" data-lcl-thumb="{{ asset("assets/front/images/gallery/thumb/pic1.jpg") }}">
+                                                                <img src="{{ asset("assets/front/images/gallery/thumb/pic7.jpg") }}" alt="">
+                                                                <i class="fa fa-file-image"></i>
+                                                            </a>
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-lg-3 col-md-3">
-                                                    <div class="tw-service-gallery-thumb">
-                                                        <a class="elem" href="{{ asset("assets/front/images/gallery/pic8.jpg") }}" title="Title 8" data-lcl-author="" data-lcl-thumb="{{ asset("assets/front/images/gallery/thumb/pic2.jpg") }}">
-                                                            <img src="{{ asset("assets/front/images/gallery/thumb/pic8.jpg") }}" alt="">
-                                                            <i class="fa fa-file-image"></i>
-                                                        </a>
+                                                    <div class="col-lg-3 col-md-3">
+                                                        <div class="tw-service-gallery-thumb">
+                                                            <a class="elem" href="{{ asset("assets/front/images/gallery/pic8.jpg") }}" title="Title 8" data-lcl-author="" data-lcl-thumb="{{ asset("assets/front/images/gallery/thumb/pic2.jpg") }}">
+                                                                <img src="{{ asset("assets/front/images/gallery/thumb/pic8.jpg") }}" alt="">
+                                                                <i class="fa fa-file-image"></i>
+                                                            </a>
+                                                        </div>
                                                     </div>
-                                                </div>
 
+
+                                                </div>
 
                                             </div>
-
                                         </div>
-                                    </div>
 
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
 
                             <h4 class="twm-s-title">Available Jobs</h4>
                             <div class="twm-jobs-list-wrap">

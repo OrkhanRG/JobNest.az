@@ -13,14 +13,19 @@ $(function () {
     $(document).on("click", `[data-role="btn-login"]`, function (e) {
         let parent = $(this).closest(".row"),
             requiredFields = ["email", "password"],
-            data = validateInput(parent, requiredFields);
+            data = validateInput(parent, requiredFields),
+            btnLoader = new SmartButton(),
+            btn = $(this);
 
+        btnLoader.setLoading(btn);
         if (!data) {
+            btnLoader.setError(btn, "Xəta!");
             return;
         }
 
         data["remember_me"] = $(`[data-role="remember_me"]`).prop("checked") ? 1 : 0;
         last_entered_email = data["email"];
+
 
         $.post({
             url: loginRoute,
@@ -36,6 +41,7 @@ $(function () {
                     })
                     emptyInput(parent)
                     $(`${modal_id}`).modal('toggle');
+                    btnLoader.setSuccess(btn, "Daxil Oldunuz!");
                 } else if (d.code === 403){
                     Swal.fire({
                         title: d.message,
@@ -49,15 +55,16 @@ $(function () {
                         showCancelButton: true,
                         confirmButtonText: "Yenidən göndər",
                         didOpen: () => {
-                            // Input'a odaklanıyoruz
                             const input = Swal.getInput();
                             if (input) {
-                                input.focus();  // Input'a focus veriyoruz
+                                input.focus();
                             }
                         },
                     });
+                    btnLoader.setWarning(btn, "Diqqət!");
                 } else {
                     notify("Diqqət!", d.message, "warning")
+                    btnLoader.setWarning(btn, "Diqqət!");
                 }
 
             },
@@ -76,6 +83,8 @@ $(function () {
                         confirmButtonText: 'Ok'
                     })
                 }
+
+                btnLoader.setError(btn, "Xəta!");
             },
             complete: function () {
                 //
