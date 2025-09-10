@@ -10,9 +10,19 @@ const advancedScroller = new SmartInfinityScroll({
     scrollContainer: window,
 
     page: 1,
-    perPage: 4,
+    perPage: 24,
     pageParam: 'page',
     limitParam: 'limit',
+
+    extraParams: {
+        keyword: 'test'
+    },
+
+    dynamicParams: () => {
+        return {
+            keyword: document.querySelector('#search-input')?.value || ''
+        };
+    },
 
     dataPath: 'data.list',
     countPath: 'data.count',
@@ -30,21 +40,25 @@ const advancedScroller = new SmartInfinityScroll({
 
     itemTemplate: (company, index) => {
         return `
-                 <div class="twm-employer-grid-style1 mb-5">
-                     <div class="twm-media">
-                         <img src="${public_path(company.logo ?? "assets/front/custom/images/companies/default.png")}" alt="#">
-                     </div>
-                     <div class="twm-mid-content">
-                         <a href="" class="twm-job-title">
-                             <h4>${company.name}</h4>
-                         </a>
-                         <p class="twm-job-address">${company.map_address ?? company.address ?? ""}</p>
-                         <a href="" class="twm-job-websites site-text-primary">${company.industry ? company.industry.label : ""}</a>
-                     </div>
-                     <div class="twm-right-content">
-                         <div class="twm-jobs-vacancies"><span>0</span>Vakansiyalar</div>
-                     </div>
-                 </div>
+            <div class="twm-employer-grid-style1 mb-5">
+                <div class="twm-media">
+                    <img src="${public_path(company.logo ?? "assets/front/custom/images/companies/default.png")}" alt="#">
+                </div>
+                <div class="twm-mid-content">
+                    <a href="" class="twm-job-title">
+                        <h4>${company.name}</h4>
+                    </a>
+                    <p class="twm-job-address">
+                        ${company.map_address || company.address ? `<i class="fas fa-location-arrow text-danger"></i>` : ``}
+                        ${company.map_address ?? company.address ?? ""}
+                    </p>
+                    ${company.industry ? `<i class="fas fa-industry text-primary"></i>` : ``}
+                    <a href="" class="twm-job-websites site-text-primary">${company.industry ? company.industry.label : ""}</a>
+                </div>
+                <div class="twm-right-content">
+                    <div class="twm-jobs-vacancies"><span>${Math.floor(Math.random() * 100) + 1}</span>Vakansiyalar</div>
+                </div>
+            </div>
         `;
     },
 
@@ -92,12 +106,15 @@ const advancedScroller = new SmartInfinityScroll({
 
     onProgress: (item, currentIndex, totalCount) => {
         const progress = (currentIndex / totalCount) * 100;
+        const progressBar = document.querySelector('#loading-progress');
+        if (progressBar) {
+            progressBar.style.width = `${progress}%`;
+        }
     },
 
     onSuccess: (items, loadedCount, totalCount) => {
         console.log(`✅ ${items.length} şirkət yükləndi. Cəmi: ${loadedCount}/${totalCount}`);
         document.body.classList.remove('infinity-loading');
-
     },
 
     onError: (error, retryCount) => {

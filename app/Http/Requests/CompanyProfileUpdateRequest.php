@@ -38,7 +38,7 @@ class CompanyProfileUpdateRequest extends FormRequest
             'industry' => ["sometimes", "nullable", new Enum(CompanyIndustry::class)],
             'company_type' => ["sometimes", "nullable", new Enum(CompanyType::class)],
             'company_size' => ["sometimes", "nullable", new Enum(CompanySize::class)],
-            'description' => ["sometimes", "nullable", "string", "max:500"],
+            'description' => ["sometimes", "nullable", "string", "max:4000"],
             'logo' => ["sometimes", "nullable", "image", "mimes:jpeg,png,jpg,webp", "max:5120"],
             'background_image' => ["sometimes", "nullable", "image", "mimes:jpeg,png,jpg,webp", "max:5120"],
         ];

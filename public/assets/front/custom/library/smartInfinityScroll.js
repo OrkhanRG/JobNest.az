@@ -1,9 +1,13 @@
 /**
- * Smart Infinity Scroll Library
+ * Smart Infinity Scroll Library - Fixed Version
  * Universal infinity scroll kütüphanəsi - hər cür data üçün
  * Backend formatınıza uygun: {message:"", code:"", data: {list:[], count:""}}
  * Author: Assistant
- * Version: 2.0.0
+ * Version: 2.1.0
+ *
+ * Fixes:
+ * 1. Loading state protection - ajax bitmədən yeni sorğu getməz
+ * 2. Extra parameters support - filter və digər parametrlər
  */
 
 class SmartInfinityScroll {
@@ -18,6 +22,9 @@ class SmartInfinityScroll {
             perPage: 8,
             pageParam: 'page',
             limitParam: 'limit',
+
+            extraParams: {},
+            dynamicParams: null,
 
             dataPath: 'data.list',
             countPath: 'data.count',
@@ -43,7 +50,6 @@ class SmartInfinityScroll {
                 empty: 'Məlumat tapılmadı'
             },
 
-            // Callbacks
             onStart: null,
             onProgress: null,
             onSuccess: null,
@@ -67,6 +73,11 @@ class SmartInfinityScroll {
         this.allData = [];
         this.retryCount = 0;
         this.cache = new Map();
+
+        this.loadingPromise = null;
+        this.lastScrollTime = 0;
+        this.scrollCooldown = 100;
+        this.newItemElements = null;
 
         this.container = null;
         this.skeletonContainer = null;
@@ -146,7 +157,6 @@ class SmartInfinityScroll {
      */
     bindEvents() {
         this.bindScrollEvent();
-
         this.setupResizeObserver();
 
         document.addEventListener('visibilitychange', () => {
@@ -203,6 +213,13 @@ class SmartInfinityScroll {
      * Handle scroll event
      */
     handleScroll() {
+        const now = Date.now();
+
+        if (now - this.lastScrollTime < this.scrollCooldown) {
+            return;
+        }
+
+        this.lastScrollTime = now;
         this.checkScrollPosition();
     }
 
@@ -210,8 +227,14 @@ class SmartInfinityScroll {
      * Check scroll position and trigger load
      */
     checkScrollPosition() {
-        if (this.isLoading || !this.hasMore) return;
-
+        if (this.isLoading || !this.hasMore || this.loadingPromise) {
+            this.log('🚫 Loading blocked:', {
+                isLoading: this.isLoading,
+                hasMore: this.hasMore,
+                loadingPromise: !!this.loadingPromise
+            });
+            return;
+        }
 
         const { bottom } = this.container.getBoundingClientRect();
         const windowHeight = window.innerHeight;
@@ -219,26 +242,6 @@ class SmartInfinityScroll {
         if (bottom <= windowHeight + this.config.triggerDistance) {
             this.log('🔄 Scroll trigger activated - loading more data');
             this.loadMoreData();
-        }
-
-    }
-
-    /**
-     * Get scroll metrics
-     */
-    getScrollMetrics() {
-        if (this.scrollContainer === window) {
-            return {
-                scrollTop: window.pageYOffset || document.documentElement.scrollTop,
-                scrollHeight: document.documentElement.scrollHeight,
-                clientHeight: window.innerHeight
-            };
-        } else {
-            return {
-                scrollTop: this.scrollContainer.scrollTop,
-                scrollHeight: this.scrollContainer.scrollHeight,
-                clientHeight: this.scrollContainer.clientHeight
-            };
         }
     }
 
@@ -255,25 +258,35 @@ class SmartInfinityScroll {
     }
 
     /**
-     * Main infinity scroll function
+     * Main infinity scroll function - FİXED VERSION
      */
     async loadMoreData() {
-        if (this.isLoading || !this.hasMore) return;
+        if (this.isLoading || !this.hasMore || this.loadingPromise) {
+            this.log('🚫 Load more blocked - already loading or no more data');
+            return;
+        }
 
         this.log(`📥 Loading page ${this.currentPage}...`);
 
         this.isLoading = true;
         this.retryCount = 0;
 
+        this.loadingPromise = this.performLoad();
+
         if (this.config.onStart) {
             this.config.onStart(this.currentPage, this.loadedCount);
         }
 
-        await this.performLoad();
+        try {
+            await this.loadingPromise;
+        } finally {
+            this.loadingPromise = null;
+            this.isLoading = false;
+        }
     }
 
     /**
-     * Perform the actual loading with retry logic
+     * Perform the actual loading with retry logic - IMPROVED
      */
     async performLoad() {
         try {
@@ -282,7 +295,7 @@ class SmartInfinityScroll {
             const startTime = Date.now();
 
             let response;
-            const cacheKey = `page_${this.currentPage}`;
+            const cacheKey = this.getCacheKey();
 
             if (this.config.enableCache && this.cache.has(cacheKey)) {
                 this.log('📦 Loading from cache');
@@ -308,8 +321,30 @@ class SmartInfinityScroll {
             await this.handleLoadError(error);
         } finally {
             this.hideSkeleton();
-            this.isLoading = false;
         }
+    }
+
+    /**
+     * Generate cache key including extra parameters
+     */
+    getCacheKey() {
+        const extraParams = this.buildExtraParams();
+        const paramsString = JSON.stringify(extraParams);
+        return `page_${this.currentPage}_${btoa(paramsString)}`;
+    }
+
+    /**
+     * Build extra parameters - YENİ METOD
+     */
+    buildExtraParams() {
+        let params = { ...this.config.extraParams };
+
+        if (this.config.dynamicParams && typeof this.config.dynamicParams === 'function') {
+            const dynamicParams = this.config.dynamicParams();
+            params = { ...params, ...dynamicParams };
+        }
+
+        return params;
     }
 
     /**
@@ -323,8 +358,6 @@ class SmartInfinityScroll {
             await this.delay(1000 * this.retryCount);
             await this.performLoad();
         } else {
-            // this.showErrorMessage();
-
             if (this.config.onError) {
                 this.config.onError(error, this.retryCount);
             }
@@ -332,12 +365,23 @@ class SmartInfinityScroll {
     }
 
     /**
-     * Fetch data from API
+     * Fetch data from API - IMPROVED with extra params
      */
     async fetchData() {
         const params = new URLSearchParams({
             [this.config.pageParam]: this.currentPage,
             [this.config.limitParam]: this.config.perPage
+        });
+
+        const extraParams = this.buildExtraParams();
+        Object.entries(extraParams).forEach(([key, value]) => {
+            if (value !== null && value !== undefined && value !== '') {
+                if (Array.isArray(value)) {
+                    value.forEach(item => params.append(`${key}[]`, item));
+                } else {
+                    params.append(key, value);
+                }
+            }
         });
 
         const url = `${this.config.apiUrl}?${params.toString()}`;
@@ -435,7 +479,6 @@ class SmartInfinityScroll {
             const element = this.createItemElement(item, this.loadedCount + index);
             element.classList.add("col-lg-3", "col-md-3");
 
-            // Animation preparation
             if (this.config.enableAnimation) {
                 element.style.opacity = '0';
                 element.style.transform = 'translateY(30px) scale(0.95)';
@@ -448,7 +491,6 @@ class SmartInfinityScroll {
 
         this.container.appendChild(fragment);
 
-        // Animate items in with stagger
         if (this.config.enableAnimation) {
             await this.staggerAnimation(itemElements);
         }
@@ -489,14 +531,12 @@ class SmartInfinityScroll {
      */
     showSkeleton() {
         if (this.config.skeletonTemplate) {
-            // Custom skeleton
             let html = '';
             for (let i = 0; i < this.config.skeletonCount; i++) {
                 html += this.config.skeletonTemplate(i);
             }
             this.skeletonContainer.innerHTML = html;
         } else {
-            // Default skeleton
             this.skeletonContainer.innerHTML = this.getDefaultSkeleton();
         }
 
@@ -565,7 +605,6 @@ class SmartInfinityScroll {
     showErrorMessage() {
         const errorEl = this.createStatusElement('error', this.config.messages.error, 'exclamation-triangle');
 
-        // Add retry button
         const retryBtn = document.createElement('button');
         retryBtn.className = 'infinity-retry-btn';
         retryBtn.innerHTML = `<i class="fa fa-refresh"></i> ${this.config.messages.retry}`;
@@ -589,7 +628,7 @@ class SmartInfinityScroll {
         if (type === 'complete') {
             const stats = document.createElement('p');
             stats.className = 'infinity-stats';
-            stats.textContent = `${this.loadedCount} məlumat yükləndi`;
+            stats.textContent = `yüklənən məlumat sayı: ${this.loadedCount}`;
             statusEl.querySelector('.infinity-status-content').appendChild(stats);
         }
 
@@ -617,38 +656,116 @@ class SmartInfinityScroll {
      */
 
     /**
+     * YENİ: Set extra parameters və refresh
+     */
+    setExtraParams(params, refresh = true) {
+        this.config.extraParams = { ...params };
+        this.log('⚙️ Extra params updated:', params);
+
+        if (refresh) {
+            this.refresh();
+        }
+    }
+
+    /**
+     * YENİ: Add single extra parameter
+     */
+    setParam(key, value, refresh = true) {
+        this.config.extraParams[key] = value;
+        this.log(`⚙️ Param updated: ${key} = ${value}`);
+
+        if (refresh) {
+            this.refresh();
+        }
+    }
+
+    /**
+     * YENİ: Remove extra parameter
+     */
+    removeParam(key, refresh = true) {
+        delete this.config.extraParams[key];
+        this.log(`⚙️ Param removed: ${key}`);
+
+        if (refresh) {
+            this.refresh();
+        }
+    }
+
+    /**
+     * YENİ: Set dynamic params function
+     */
+    setDynamicParams(fn) {
+        if (typeof fn === 'function') {
+            this.config.dynamicParams = fn;
+            this.log('⚙️ Dynamic params function set');
+        }
+    }
+
+    /**
+     * YENİ: Get current parameters (static + dynamic)
+     */
+    getCurrentParams() {
+        return this.buildExtraParams();
+    }
+
+    /**
+     * YENİ: Refresh - parametr dəyişiklikləri üçün
+     */
+    refresh() {
+        this.log('🔄 Refreshing with new parameters...');
+
+        this.isLoading = false;
+        this.loadingPromise = null;
+
+        this.container.innerHTML = '';
+
+        this.container.parentNode.querySelectorAll('.infinity-status').forEach(el => el.remove());
+
+        this.currentPage = this.config.page;
+        this.loadedCount = 0;
+        this.totalCount = 0;
+        this.allData = [];
+        this.hasMore = true;
+        this.retryCount = 0;
+
+        this.cache.clear();
+
+        this.preloadData();
+    }
+
+    /**
      * Reset and start over
      */
     reset() {
         this.log('🔄 Resetting infinity scroll...');
 
-        // Clear container
         this.container.innerHTML = '';
 
-        // Clear status messages
         this.container.parentNode.querySelectorAll('.infinity-status').forEach(el => el.remove());
 
-        // Reset state
         this.currentPage = this.config.page;
         this.loadedCount = 0;
         this.totalCount = 0;
         this.allData = [];
         this.hasMore = true;
         this.isLoading = false;
+        this.loadingPromise = null;
         this.retryCount = 0;
 
-        // Clear cache
         this.cache.clear();
 
-        // Restart preload if configured
         this.preloadData();
     }
 
     /**
-     * Force load more (manual trigger)
+     * Force load more (manual trigger) - IMPROVED
      */
     forceLoad() {
         this.log('🔥 Force loading triggered');
+        if (!this.hasMore) {
+            this.log('🚫 Force load cancelled - no more data');
+            return;
+        }
         this.loadMoreData();
     }
 
@@ -669,7 +786,8 @@ class SmartInfinityScroll {
             currentPage: this.currentPage,
             hasMore: this.hasMore,
             isLoading: this.isLoading,
-            cacheSize: this.cache.size
+            cacheSize: this.cache.size,
+            currentParams: this.getCurrentParams()
         };
     }
 
@@ -702,20 +820,19 @@ class SmartInfinityScroll {
      * Destroy instance and cleanup
      */
     destroy() {
-        // Remove event listeners
+        this.isLoading = false;
+        this.loadingPromise = null;
+
         if (this.resizeObserver) {
             this.resizeObserver.disconnect();
         }
 
-        // Clear cache
         this.cache.clear();
 
-        // Remove skeleton container
         if (this.skeletonContainer) {
             this.skeletonContainer.remove();
         }
 
-        // Clear status messages
         this.container.parentNode.querySelectorAll('.infinity-status').forEach(el => el.remove());
 
         this.log('🗑️ SmartInfinityScroll destroyed');
@@ -945,10 +1062,8 @@ class SmartInfinityScroll {
     }
 }
 
-// Export for global use
 window.SmartInfinityScroll = SmartInfinityScroll;
 
-// Auto-initialize if data attributes are present
 document.addEventListener('DOMContentLoaded', function() {
     const autoElements = document.querySelectorAll('[data-infinity-scroll]');
 
@@ -960,7 +1075,6 @@ document.addEventListener('DOMContentLoaded', function() {
             triggerDistance: parseInt(element.dataset.triggerDistance) || 200
         };
 
-        // Auto-initialize with basic config
         if (config.apiUrl) {
             console.log('🔄 Auto-initializing SmartInfinityScroll for:', element);
             new SmartInfinityScroll(config);

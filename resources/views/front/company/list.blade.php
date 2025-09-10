@@ -54,7 +54,7 @@
                     </div>
 
                     <div class="twm-employer-list-wrap">
-                        <div class="row infinity-container" id="companies-container">
+                        <div class="row" id="companies-container">
 
                              @if(false)
                                 <div class="col-lg-3 col-md-3">
