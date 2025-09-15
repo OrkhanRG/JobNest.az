@@ -10,7 +10,7 @@ const notify = (title, text = null, icon = "success", btn_confirm_text = "Ok", s
     });
 }
 
-function getBase64FromSelector(selector) {
+const getBase64FromSelector = (selector) => {
     return new Promise((resolve, reject) => {
         const input = document.querySelector(`[${selector}]`);
         if (!input || !input.files || !input.files[0]) {
@@ -28,7 +28,7 @@ function getBase64FromSelector(selector) {
     });
 }
 
-function public_path(url) {
+const public_path = (url) => {
     return "../../../" + url;
 }
 
@@ -39,3 +39,19 @@ $(document).ajaxError(function(event, jqxhr, settings, thrownError) {
         window.location.href = '/';
     }
 });
+
+const route = (name, params = {}) => {
+    const routes = window.LaravelRoutes || {};
+
+    if (!routes[name]) {
+        throw new Error(`Route "${name}" not found`);
+    }
+
+    let url = routes[name];
+
+    for (const [key, value] of Object.entries(params)) {
+        url = url.replace(`{${key}}`, value);
+    }
+
+    return url;
+}

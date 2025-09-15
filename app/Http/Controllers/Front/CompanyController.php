@@ -25,13 +25,16 @@ class CompanyController extends Controller
 
     public function list(Request $request)
     {
-        $params = $request->only('page', "limit");
+        $params = $request->only('page', "limit", "keyword");
         $data = $this->companyService->getAll($params);
         return $data["list"]->isEmpty() ? json_response(__("app.no_content"), Response::HTTP_NO_CONTENT) : json_response(__("app.success"), Response::HTTP_OK, $data);
     }
 
     public function getBySlug(string $slug){
-        return view("front.company.detail");
+        $company = $this->companyService->getBySlug($slug, ["socialLinks", "city", "country", "user"]);
+        $social_links = $company["socialLinks"]?->pluck("url", "platform")->toArray() ?? [];
+
+        return view("front.company.detail", compact("company", "social_links"));
     }
 
     public function dashboard()

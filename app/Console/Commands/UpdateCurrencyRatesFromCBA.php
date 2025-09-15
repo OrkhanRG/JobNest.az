@@ -32,6 +32,7 @@ class UpdateCurrencyRatesFromCBA extends Command
         $xmlContent = @simplexml_load_file($url);
 
         if (!$xmlContent) {
+            \Log::info("Can not load currency rates from {$url}");
             $this->error("Could not load currency data from AMB");
             return;
         }
@@ -46,10 +47,12 @@ class UpdateCurrencyRatesFromCBA extends Command
                     $currency->exchange_rate = $rate;
                     $currency->save();
                     $this->info("Updated: {$code} -> {$rate}");
+                    \Log::info("Currency Update: {$code} -> {$rate}");
                 }
             }
         }
 
         $this->info("All currency rates updated from AMB.");
+        \Log::info("All currency rates updated from AMB.");
     }
 }

@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Enums\CompanyIndustry;
+use App\Enums\CompanySize;
+use App\Enums\CompanyType;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -39,6 +42,33 @@ class Company extends Model
         "seo_description",
         "seo_keywords"
     ];
+
+    public function getIndustryLabelAttribute(): ?array
+    {
+        $industry = $this->industry;
+        return !is_null($industry) ? [
+            'value' => $industry,
+            'label' => CompanyIndustry::getLabel($industry)
+        ] : null;
+    }
+
+    public function getCompanySizeLabelAttribute(): ?array
+    {
+        $company_size = $this->company_size;
+        return !is_null($company_size) ? [
+            'value' => $company_size,
+            'label' => CompanySize::getLabel($company_size)
+        ] : null;
+    }
+
+    public function getCompanyTypeLabelAttribute(): ?array
+    {
+        $company_type = $this->company_type;
+        return !is_null($company_type) ? [
+            'value' => $company_type,
+            'label' => CompanyType::getLabel($company_type)
+        ] : null;
+    }
 
     public function user(): BelongsTo
     {

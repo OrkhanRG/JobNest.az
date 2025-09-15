@@ -157,6 +157,14 @@
 @include('sweetalert::alert')
 
 <script>
+    window.LaravelRoutes = @json(
+        collect(\Illuminate\Support\Facades\Route::getRoutes())
+            ->filter(fn($r) => $r->getName())
+            ->mapWithKeys(fn($r) => [$r->getName() => url($r->uri())])
+    );
+</script>
+
+<script>
     let registerRoute = "{{ route("register") }}",
         forgotPasswordRoute = "{{ route("forgot-password") }}",
         loginRoute = "{{ route("login") }}",

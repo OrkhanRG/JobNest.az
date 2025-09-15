@@ -4,6 +4,7 @@ namespace App\Http\Services;
 
 use App\Constants\App;
 use App\Constants\LoadLimit;
+use App\Constants\Status;
 use App\Http\Resources\CompanyResource;
 use App\Models\Company;
 use App\Models\User;
@@ -19,7 +20,9 @@ class CompanyService extends BaseService
 
     public function getAll($params = null): array
     {
-        $query = Company::query();
+        $query = Company::query()->whereHas('user', function ($q) {
+            $q->where('status', Status::ACTIVE);
+        });
         return $this->getListWithCount(
             $query,
             CompanyResource::class,
@@ -31,6 +34,17 @@ class CompanyService extends BaseService
             paginate: true,
             perPage: $params["limit"] ?? LoadLimit::DEFAULT
         );
+    }
+
+    public function getBySlug(string $slug, array $with = [])
+    {
+        return new CompanyResource(Company::query()
+            ->with($with)
+            ->whereHas('user', function ($q) {
+                $q->where('status', Status::ACTIVE);
+            })
+            ->where("slug", $slug)
+            ->first());
     }
 
     public function setCompany(User $user): self

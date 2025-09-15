@@ -16143,6 +16143,24 @@ strong {
 .twm-social-btns .btn.skype:before {
   background-color: #00aff0;
 }
+.twm-social-btns .btn.youtube .fab {
+    color: #FF0000;
+}
+.twm-social-btns .btn.youtube:before {
+    background-color: #FF0000;
+}
+.twm-social-btns .btn.whatsapp .fab {
+    color: #25D366;
+}
+.twm-social-btns .btn.whatsapp:before {
+    background-color: #25D366;
+}
+.twm-social-btns .btn.instagram .fab {
+    color: #E4405F;
+}
+.twm-social-btns .btn.instagram:before {
+    background-color: #E4405F;
+}
 .twm-social-btns .btn:focus:before, .twm-social-btns .btn:hover:before {
   top: -20%;
   left: -20%;

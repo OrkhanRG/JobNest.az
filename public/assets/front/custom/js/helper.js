@@ -113,6 +113,11 @@ const show_modal = (modal_id) => {
     myModal.show();
 }
 
+$('.selectpicker').selectpicker({
+    noneSelectedText: 'Heç nə seçilməyib',
+    noneResultsText: 'Uyğun nəticə tapılmadı'
+});
+
 const getUrlParameter = (sParam) => {
     let sPageURL = window.location.search.substring(1),
         sURLVariables = sPageURL.split('&'),
@@ -126,11 +131,32 @@ const getUrlParameter = (sParam) => {
             return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
         }
     }
-    return false;
+    return undefined;
 };
 
-$('.selectpicker').selectpicker({
-    noneSelectedText: 'Heç nə seçilməyib',
-    noneResultsText: 'Uyğun nəticə tapılmadı'
-});
+const filter_url = (obj, reload = true) => {
+    const url = new URL(window.location.href);
 
+    const params = new URLSearchParams(url.search);
+
+    Object.entries(obj).forEach(([key, value]) => {
+        if (value === null || value === undefined || value === '') {
+            params.delete(key);
+        } else {
+            const safeValue = decodeURIComponent(value.toString());
+            params.set(key, safeValue);
+        }
+    });
+
+    const encodedParams = Array.from(params.entries())
+        .map(([key, val]) => `${encodeURIComponent(key)}=${encodeURIComponent(val)}`)
+        .join('&');
+
+    const newUrl = url.origin + url.pathname + (encodedParams ? `?${encodedParams}` : '');
+
+    if (reload) {
+        window.history.pushState({}, '', newUrl);
+    }
+
+    return newUrl;
+}

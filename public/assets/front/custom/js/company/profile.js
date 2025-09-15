@@ -40,7 +40,7 @@ $(() => {
             data,
             success: function(d) {
                 let data = d.data?.list ?? [];
-                h += data.map((v) => `<option value="${v.id}">${v.name}</option>`).join('');
+                h += data.map((v) => `<option value="${v.id}">${v.short_name}</option>`).join('');
 
                 $select.html(h);
 

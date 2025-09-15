@@ -1,13 +1,14 @@
 /**
- * Smart Infinity Scroll Library - Fixed Version
+ * Smart Infinity Scroll Library - Fixed Reset Version
  * Universal infinity scroll kütüphanəsi - hər cür data üçün
  * Backend formatınıza uygun: {message:"", code:"", data: {list:[], count:""}}
  * Author: Assistant
- * Version: 2.1.0
+ * Version: 2.2.0
  *
  * Fixes:
  * 1. Loading state protection - ajax bitmədən yeni sorğu getməz
  * 2. Extra parameters support - filter və digər parametrlər
+ * 3. YENI: Reset race condition fix - tez-tez reset çağırılsa da problem olmaz
  */
 
 class SmartInfinityScroll {
@@ -40,7 +41,7 @@ class SmartInfinityScroll {
             enableAnimation: true,
             itemDelay: 120,
 
-            preloadPages: 0,
+            preloadPages: 1,
 
             messages: {
                 loading: 'Yüklənir...',
@@ -78,6 +79,14 @@ class SmartInfinityScroll {
         this.lastScrollTime = 0;
         this.scrollCooldown = 100;
         this.newItemElements = null;
+
+        // YENI: Reset race condition üçün
+        this.resetId = 0;
+        this.currentResetId = 0;
+        this.isResetting = false;
+
+        // YENI: Abort controller parallel request-lər üçün
+        this.currentAbortController = null;
 
         this.container = null;
         this.skeletonContainer = null;
@@ -210,7 +219,7 @@ class SmartInfinityScroll {
     }
 
     /**
-     * Handle scroll event
+     * Handle scroll event - ULTRA SAFE
      */
     handleScroll() {
         const now = Date.now();
@@ -220,6 +229,12 @@ class SmartInfinityScroll {
         }
 
         this.lastScrollTime = now;
+
+        // ƏLAVƏ yoxlama - reset zamanı scroll-u ignore et
+        if (this.isResetting || this.isLoading) {
+            return;
+        }
+
         this.checkScrollPosition();
     }
 
@@ -227,11 +242,12 @@ class SmartInfinityScroll {
      * Check scroll position and trigger load
      */
     checkScrollPosition() {
-        if (this.isLoading || !this.hasMore || this.loadingPromise) {
+        if (this.isLoading || !this.hasMore || this.loadingPromise || this.isResetting) {
             this.log('🚫 Loading blocked:', {
                 isLoading: this.isLoading,
                 hasMore: this.hasMore,
-                loadingPromise: !!this.loadingPromise
+                loadingPromise: !!this.loadingPromise,
+                isResetting: this.isResetting
             });
             return;
         }
@@ -252,7 +268,7 @@ class SmartInfinityScroll {
         if (this.config.preloadPages > 0) {
             for (let i = 0; i < this.config.preloadPages; i++) {
                 await this.loadMoreData();
-                if (!this.hasMore) break;
+                if (!this.hasMore || this.isResetting) break;
             }
         }
     }
@@ -261,7 +277,7 @@ class SmartInfinityScroll {
      * Main infinity scroll function - FİXED VERSION
      */
     async loadMoreData() {
-        if (this.isLoading || !this.hasMore || this.loadingPromise) {
+        if (this.isLoading || !this.hasMore || this.loadingPromise || this.isResetting) {
             this.log('🚫 Load more blocked - already loading or no more data');
             return;
         }
@@ -271,7 +287,10 @@ class SmartInfinityScroll {
         this.isLoading = true;
         this.retryCount = 0;
 
-        this.loadingPromise = this.performLoad();
+        // Reset zamanı yeni loading-i dayandır
+        const currentResetId = this.currentResetId;
+
+        this.loadingPromise = this.performLoad(currentResetId);
 
         if (this.config.onStart) {
             this.config.onStart(this.currentPage, this.loadedCount);
@@ -286,10 +305,16 @@ class SmartInfinityScroll {
     }
 
     /**
-     * Perform the actual loading with retry logic - IMPROVED
+     * Perform the actual loading with retry logic - IMPROVED with reset check
      */
-    async performLoad() {
+    async performLoad(resetId) {
         try {
+            // Reset check - əgər reset edilib isə dayandır
+            if (resetId !== this.currentResetId || this.isResetting) {
+                this.log('🚫 Loading cancelled - reset occurred');
+                return;
+            }
+
             this.showSkeleton();
 
             const startTime = Date.now();
@@ -302,6 +327,12 @@ class SmartInfinityScroll {
                 response = this.cache.get(cacheKey);
                 await this.delay(500);
             } else {
+                // Reset check before API call
+                if (resetId !== this.currentResetId || this.isResetting) {
+                    this.log('🚫 Loading cancelled before API call - reset occurred');
+                    return;
+                }
+
                 response = await this.fetchData();
 
                 if (this.config.enableCache) {
@@ -309,16 +340,34 @@ class SmartInfinityScroll {
                 }
             }
 
+            // Reset check after API call
+            if (resetId !== this.currentResetId || this.isResetting) {
+                this.log('🚫 Loading cancelled after API call - reset occurred');
+                return;
+            }
+
             const elapsed = Date.now() - startTime;
             if (elapsed < this.config.minLoadTime) {
                 await this.delay(this.config.minLoadTime - elapsed);
             }
 
-            await this.processResponse(response);
+            // Final reset check before processing
+            if (resetId !== this.currentResetId || this.isResetting) {
+                this.log('🚫 Loading cancelled before processing - reset occurred');
+                return;
+            }
+
+            await this.processResponse(response, resetId);
 
         } catch (error) {
+            // Reset check for error handling
+            if (resetId !== this.currentResetId || this.isResetting) {
+                this.log('🚫 Error handling cancelled - reset occurred');
+                return;
+            }
+
             this.log('❌ Load error:', error);
-            await this.handleLoadError(error);
+            await this.handleLoadError(error, resetId);
         } finally {
             this.hideSkeleton();
         }
@@ -333,6 +382,33 @@ class SmartInfinityScroll {
         return `page_${this.currentPage}_${btoa(paramsString)}`;
     }
 
+    setParamsToUrl = (obj, reload = true) => {
+        const url = new URL(window.location.href);
+
+        const params = new URLSearchParams(url.search);
+
+        Object.entries(obj).forEach(([key, value]) => {
+            if (value === null || value === undefined || value === '') {
+                params.delete(key);
+            } else {
+                const safeValue = decodeURIComponent(value.toString());
+                params.set(key, safeValue);
+            }
+        });
+
+        const encodedParams = Array.from(params.entries())
+            .map(([key, val]) => `${encodeURIComponent(key)}=${encodeURIComponent(val)}`)
+            .join('&');
+
+        const newUrl = url.origin + url.pathname + (encodedParams ? `?${encodedParams}` : '');
+
+        if (reload) {
+            window.history.pushState({}, '', newUrl);
+        }
+
+        return newUrl;
+    }
+
     /**
      * Build extra parameters - YENİ METOD
      */
@@ -344,19 +420,32 @@ class SmartInfinityScroll {
             params = { ...params, ...dynamicParams };
         }
 
+        this.setParamsToUrl(params);
         return params;
     }
 
     /**
-     * Handle load error with retry logic
+     * Handle load error with retry logic - IMPROVED with reset check
      */
-    async handleLoadError(error) {
+    async handleLoadError(error, resetId) {
+        if (resetId !== this.currentResetId || this.isResetting) {
+            this.log('🚫 Error retry cancelled - reset occurred');
+            return;
+        }
+
         this.retryCount++;
 
         if (this.retryCount < this.config.retryAttempts) {
             this.log(`🔄 Retrying... Attempt ${this.retryCount + 1}/${this.config.retryAttempts}`);
             await this.delay(1000 * this.retryCount);
-            await this.performLoad();
+
+            // Reset check before retry
+            if (resetId !== this.currentResetId || this.isResetting) {
+                this.log('🚫 Retry cancelled - reset occurred');
+                return;
+            }
+
+            await this.performLoad(resetId);
         } else {
             if (this.config.onError) {
                 this.config.onError(error, this.retryCount);
@@ -408,9 +497,15 @@ class SmartInfinityScroll {
     }
 
     /**
-     * Process API response
+     * Process API response - IMPROVED with reset check
      */
-    async processResponse(response) {
+    async processResponse(response, resetId) {
+        // Reset check at start
+        if (resetId !== this.currentResetId || this.isResetting) {
+            this.log('🚫 Response processing cancelled - reset occurred');
+            return;
+        }
+
         const items = this.getNestedValue(response, this.config.dataPath) || [];
         const totalCount = this.getNestedValue(response, this.config.countPath) || 0;
 
@@ -422,11 +517,18 @@ class SmartInfinityScroll {
         this.checkHasMore(items);
 
         if (items.length === 0 && this.loadedCount === 0) {
+            if (resetId !== this.currentResetId || this.isResetting) return;
             this.handleEmpty();
             return;
         }
 
         if (items.length > 0) {
+            // Reset check before rendering
+            if (resetId !== this.currentResetId || this.isResetting) {
+                this.log('🚫 Rendering cancelled - reset occurred');
+                return;
+            }
+
             await this.renderItemsWithAnimation(items);
             this.loadedCount += items.length;
             this.currentPage++;
@@ -442,12 +544,20 @@ class SmartInfinityScroll {
             }
         }
 
+        // Final reset check
+        if (resetId !== this.currentResetId || this.isResetting) {
+            this.log('🚫 Final processing cancelled - reset occurred');
+            return;
+        }
+
         if (!this.hasMore) {
             this.handleComplete();
         }
 
         setTimeout(() => {
-            this.checkScrollPosition();
+            if (resetId === this.currentResetId && !this.isResetting) {
+                this.checkScrollPosition();
+            }
         }, 100);
     }
 
@@ -576,14 +686,16 @@ class SmartInfinityScroll {
     }
 
     /**
-     * Handle empty data
+     * Handle empty data - CALLBACK SAFE
      */
     handleEmpty() {
+        if (this.isResetting) {
+            return;
+        }
+
         this.showStatusMessage('empty', this.config.messages.empty, 'info-circle');
 
-        if (this.config.onEmpty) {
-            this.config.onEmpty();
-        }
+        this.safeCallback('onEmpty', this.config.onEmpty);
     }
 
     /**
@@ -734,27 +846,49 @@ class SmartInfinityScroll {
     }
 
     /**
-     * Reset and start over
+     * FIXED Reset - race condition problemi həll edildi
      */
     reset() {
         this.log('🔄 Resetting infinity scroll...');
 
+        // Reset ID-ni artır - köhnə əməliyyatlar dayandırılsın
+        this.resetId++;
+        this.currentResetId = this.resetId;
+        this.isResetting = true;
+
+        // Loading state-ni təmizlə
+        this.isLoading = false;
+        this.loadingPromise = null;
+
+        // DOM-u təmizlə
         this.container.innerHTML = '';
 
+        // Status mesajlarını sil
         this.container.parentNode.querySelectorAll('.infinity-status').forEach(el => el.remove());
 
+        // Skeleton-u gizlət
+        this.hideSkeleton();
+
+        // State-i sıfırla
         this.currentPage = this.config.page;
         this.loadedCount = 0;
         this.totalCount = 0;
         this.allData = [];
         this.hasMore = true;
-        this.isLoading = false;
-        this.loadingPromise = null;
         this.retryCount = 0;
 
+        // Cache-i təmizlə
         this.cache.clear();
 
-        this.preloadData();
+        // Reset bitdi
+        this.isResetting = false;
+
+        this.log('✅ Reset completed with ID:', this.currentResetId);
+
+        // Yeni data yüklə
+        setTimeout(() => {
+            this.preloadData();
+        }, 100);
     }
 
     /**
@@ -786,6 +920,8 @@ class SmartInfinityScroll {
             currentPage: this.currentPage,
             hasMore: this.hasMore,
             isLoading: this.isLoading,
+            isResetting: this.isResetting,
+            resetId: this.currentResetId,
             cacheSize: this.cache.size,
             currentParams: this.getCurrentParams()
         };
@@ -822,6 +958,7 @@ class SmartInfinityScroll {
     destroy() {
         this.isLoading = false;
         this.loadingPromise = null;
+        this.isResetting = true;
 
         if (this.resizeObserver) {
             this.resizeObserver.disconnect();
@@ -1081,3 +1218,4 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+

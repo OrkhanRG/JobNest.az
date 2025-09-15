@@ -24,7 +24,7 @@ class CityService extends BaseService
                 "filter" =>  $params,
                 "with" => ["language", "country"]
             ],
-            "lang_id"
+            "name"
         );
     }
 

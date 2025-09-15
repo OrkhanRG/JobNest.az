@@ -9,7 +9,7 @@
 
     <div class="section-full p-t60 p-b90 bg-white">
         <!--Top Wide banner Start-->
-        <div class="twm-top-wide-banner overlay-wraper" style="background-image:url({{ asset("assets/front/images/detail-pic/company-bnr1.jpg") }});">
+        <div class="twm-top-wide-banner overlay-wraper" style="background-image:url({{ asset($company["background_image"] ?? "assets/front/images/detail-pic/company-bnr1.jpg") }});">
             <div class="overlay-main site-bg-primary opacity-09"></div>
 
             <div class="twm-top-wide-banner-content container ">
@@ -17,36 +17,49 @@
                 <div class="twm-mid-content">
                     <div class="twm-employer-self-top">
                         <div class="twm-media">
-                            <img src="{{ asset("assets/front/images/jobs-company/pic1.jpg") }}" alt="#">
+                            <img src="{{ asset($company["logo"] ?? "assets/front/custom/images/companies/default.png") }}" alt="#">
                         </div>
 
-                        <h3 class="twm-job-title">Galaxy Software Development</h3>
-                        <p class="twm-employer-address"><i class="feather-map-pin"></i>1363-1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
+                        <h3 class="twm-job-title">{{ $company["name"] ?? "" }}</h3>
+                        @if(isset($company) && ($company["address"] || $company["map_address"]))
+                            <p class="twm-employer-address"><i class="feather-map-pin"></i>{{ $company["address"] ?? $company["map_address"] ?? "" }}{{ $company?->city ? ", " . $company->city->short_name : "" }}{{ $company?->country ? ", " . $company->country->name : "" }}</p>
+                        @endif
 
-                        <a href="https://themeforest.net/user/thewebmax/portfolio" class="twm-employer-websites">https://thewebmax.com</a>
+                        @if(isset($company) && $company["website"])
+                            <a href="{{ $company["website"] }}" class="twm-employer-websites" target="_blank">
+                                <i class="fas fa-link me-2"></i>
+                                {{ $company["website"] }}
+                            </a>
+                        @endif
 
-                        <div class="twm-ep-detail-tags">
-                            <button class="de-info twm-bg-green"><i class="fa fa-check"></i> Verified</button>
-                            <button class="de-info twm-bg-brown"><i class="fa fa-heart"></i> Add To Favorite</button>
-                            <button class="de-info twm-bg-purple"><i class="fa fa-hand-o-right"></i> Add Review</button>
-                            <button class="de-info twm-bg-sky"><i class="fa fa-eye"></i> Viewed</button>
-                        </div>
+                        @if(false)
+                            <div class="twm-ep-detail-tags">
+                                <button class="de-info twm-bg-green"><i class="fa fa-check"></i> Verified</button>
+                                <button class="de-info twm-bg-brown"><i class="fa fa-heart"></i> Add To Favorite</button>
+                                <button class="de-info twm-bg-purple"><i class="fa fa-hand-o-right"></i> Add Review</button>
+                                <button class="de-info twm-bg-sky"><i class="fa fa-eye"></i> Viewed</button>
+                            </div>
 
+                        @endif
 
                     </div>
 
                     <div class="twm-employer-self-bottom">
                         <div class="twm-social-btns">
-                            <a class="btn facebook" href="javascript:void(0)"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn twitter" href="javascript:void(0)"><i class="fab fa-twitter"></i></a>
-                            <a class="btn google" href="javascript:void(0)"><i class="fab fa-google"></i></a>
-                            <a class="btn linkedin" href="javascript:void(0)"><i class="fab fa-linkedin-in"></i></a>
-                            <a class="btn skype" href="javascript:void(0)"><i class="fab fa-skype"></i></a>
+                            @if(isset($social_links) && !!$social_links)
+                                @foreach($social_links as $platform => $link)
+                                    <a class="btn {{ $platform }}" href="{{ $link }}" target="_blank">
+                                        <i class="fab fa-{{ $platform }}{{ in_array($platform, ["facebook"]) ? "-$platform[0]" : ""}}"></i>
+                                    </a>
+                                @endforeach
+                            @endif
                         </div>
-                        <div class="twm-employer-btn-controls">
-                            <a href="javascript:;" class="site-button outline-white">Add Review</a>
-                            <a href="javascript:;" class="site-button secondry">Follow Us</a>
-                        </div>
+                        @if(false)
+                            <div class="twm-employer-btn-controls">
+                                <a href="javascript:;" class="site-button outline-white">Add Review</a>
+                                <a href="javascript:;" class="site-button secondry">Follow Us</a>
+                            </div>
+                        @endif
                     </div>
 
                 </div>
@@ -63,149 +76,17 @@
             <div class="section-content">
                 <div class="row d-flex justify-content-center">
 
-                    <div class="col-lg-4 col-md-12 rightSidebar">
 
-                        <div class="side-bar-2">
-
-                            <div class="twm-s-info-wrap mb-5">
-                                <h4 class="section-head-small mb-4">Profile Info</h4>
-                                <div class="twm-s-info-3">
-                                    <ul>
-
-                                        <li>
-                                            <div class="twm-s-info-inner">
-                                                <i class="fas fa-money-bill-wave"></i>
-                                                <span class="twm-title">Offered Salary</span>
-                                                <div class="twm-s-info-discription">$20 / Day</div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="twm-s-info-inner">
-                                                <i class="fas fa-clock"></i>
-                                                <span class="twm-title">Experience</span>
-                                                <div class="twm-s-info-discription">6 Year</div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="twm-s-info-inner">
-                                                <i class="fas fa-venus-mars"></i>
-                                                <span class="twm-title">Gender</span>
-                                                <div class="twm-s-info-discription">Male</div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="twm-s-info-inner">
-                                                <i class="fas fa-mobile-alt"></i>
-                                                <span class="twm-title">Phone</span>
-                                                <div class="twm-s-info-discription">+291  560 56456</div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="twm-s-info-inner">
-                                                <i class="fas fa-at"></i>
-                                                <span class="twm-title">Email</span>
-                                                <div class="twm-s-info-discription">thewebmaxdemo@gmail.com</div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="twm-s-info-inner">
-                                                <i class="fas fa-book-reader"></i>
-                                                <span class="twm-title">Qualification</span>
-                                                <div class="twm-s-info-discription">Developer</div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="twm-s-info-inner">
-
-                                                <i class="fas fa-map-marker-alt"></i>
-                                                <span class="twm-title">Address</span>
-                                                <div class="twm-s-info-discription">1363-1385 Sunset Blvd Angeles, CA 90026 ,USA</div>
-                                            </div>
-                                        </li>
-
-                                    </ul>
-
-                                </div>
-                            </div>
-
-                            <div class="twm-s-map mb-5">
-                                <h4 class="section-head-small mb-4">Location</h4>
-                                <div class="twm-s-map-iframe twm-s-map-iframe-2">
-                                    <iframe height="270" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3304.8534521658976!2d-118.2533646842856!3d34.073270780600225!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c6fd9829c6f3%3A0x6ecd11bcf4b0c23a!2s1363%20Sunset%20Blvd%2C%20Los%20Angeles%2C%20CA%2090026%2C%20USA!5e0!3m2!1sen!2sin!4v1620815366832!5m2!1sen!2sin"></iframe>
-                                </div>
-                            </div>
-
-                            <div class="twm-s-contact-wrap mb-5">
-                                <h4 class="section-head-small mb-4">Contact us</h4>
-                                <div class="twm-s-contact twm-s-contact-2">
-                                    <div class="row">
-
-                                        <div class="col-lg-12">
-                                            <div class="form-group mb-3">
-                                                <input name="username" type="text" required class="form-control" placeholder="Name">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-12">
-                                            <div class="form-group mb-3">
-                                                <input name="email" type="text" class="form-control" required placeholder="Email">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-12">
-                                            <div class="form-group mb-3">
-                                                <input name="phone" type="text" class="form-control" required placeholder="Phone">
-                                            </div>
-                                        </div>
-
-
-                                        <div class="col-lg-12">
-                                            <div class="form-group mb-3">
-                                                <textarea name="message" class="form-control" rows="3" placeholder="Message"></textarea>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-12">
-                                            <button type="submit" class="site-button">Submit Now</button>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
 
                     <div class="col-lg-8 col-md-12">
                         <!-- Candidate detail START -->
                         <div class="cabdidate-de-info">
 
-                            <h4 class="twm-s-title m-t0">About Company</h4>
+                            <h4 class="twm-s-title m-t0">Şirkət Haqqında</h4>
 
-                            <p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae
-                            consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? </p>
-
-                            <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui  officia deserunt mollitia animi.</p>
-                            <p>Opossum but dramatically despite expeditiously that jeepers loosely yikes that as or eel underneath kept and slept compactly far purred sure abidingly up above fitting to strident wiped set waywardly far the and pangolin horse approving paid chuckled cassowary oh above a much opposite far much hypnotically more therefore wasp less that  hey apart well like while superbly orca and far hence one.Far much that one rank beheld bluebird after outside ignobly  allegedly more when oh arrogantly vehement irresistibly fussy.? </p>
-
-                            <h4 class="twm-s-title">Responsabilities</h4>
-                            <ul class="description-list-2">
-                                <li>
-                                    <i class="feather-check"></i>
-                                    Establish and promote design guidelines, best practices and standards.
-                                </li>
-                                <li>
-                                    <i class="feather-check"></i>
-                                    Accurately estimate design tickets during planning sessions.
-                                </li>
-                                <li>
-                                    <i class="feather-check"></i>
-                                    Partnering with product and engineering to translate business and user goals.
-                                </li>
-
-                            </ul>
+                            @if(isset($company) && $company["description"])
+                                {{ $company["description"] }}
+                            @endif
 
                             @if(false)
                                 <div class="twm-two-part-section">
@@ -308,7 +189,7 @@
                                 </div>
                             @endif
 
-                            <h4 class="twm-s-title">Available Jobs</h4>
+                            <h4 class="twm-s-title">Aktiv vakansiyalar</h4>
                             <div class="twm-jobs-list-wrap">
                                 <ul>
                                      <li>
@@ -373,6 +254,146 @@
                                 </ul>
                             </div>
                         </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-12 ">
+
+                        <div class="side-bar-2">
+
+                            <div class="twm-s-info-wrap mb-5">
+                                <h4 class="section-head-small mb-4">Məlumat</h4>
+                                <div class="twm-s-info-3">
+                                    <ul>
+
+                                        @if(isset($company) && $company->phone)
+                                            <li>
+                                                <div class="twm-s-info-inner">
+                                                    <i class="fas fa-mobile-alt"></i>
+                                                    <span class="twm-title">Telefon</span>
+                                                    <div class="twm-s-info-discription">{{ $company->phone }}</div>
+                                                </div>
+                                            </li>
+                                        @endif
+                                        @if(isset($company) && $company?->user->email)
+                                            <li>
+                                                <div class="twm-s-info-inner">
+                                                    <i class="fas fa-at"></i>
+                                                    <span class="twm-title">E-mail</span>
+                                                    <div class="twm-s-info-discription">{{ $company->user->email }}</div>
+                                                </div>
+                                            </li>
+                                        @endif
+                                        @if(isset($company) && ($company["address"] || $company["map_address"]))
+                                            <li>
+                                                <li>
+                                                    <div class="twm-s-info-inner">
+                                                        <i class="fas fa-map-marker-alt"></i>
+                                                        <span class="twm-title">Ünvan</span>
+                                                        <div class="twm-s-info-discription">{{ $company["address"] ?? $company["map_address"] ?? "" }}{{ $company?->city ? ", " . $company->city->short_name : "" }}{{ $company?->country ? ", " . $company->country->name : "" }}</div>
+                                                    </div>
+                                                </li>
+                                            </li>
+                                        @endif
+                                        @if(isset($company) && $company->company_type)
+                                            <li>
+                                                <div class="twm-s-info-inner">
+                                                    <i class="fas fa-building"></i>
+                                                    <span class="twm-title">Şirkət Növü</span>
+                                                    <div class="twm-s-info-discription">{{ $company->company_type_label["label"] }}</div>
+                                                </div>
+                                            </li>
+                                        @endif
+                                        @if(isset($company) && $company->industry)
+                                            <li>
+                                                <div class="twm-s-info-inner">
+                                                    <i class="fas fa-industry"></i>
+                                                    <span class="twm-title">Fəaliyyət Sahəsi</span>
+                                                    <div class="twm-s-info-discription">{{ $company->industry_label['label']}}</div>
+                                                </div>
+                                            </li>
+                                        @endif
+                                        @if(isset($company) && $company->company_size)
+                                            <li>
+                                                <div class="twm-s-info-inner">
+                                                    <i class="fas fa-users"></i>
+                                                    <span class="twm-title">İşçi Sayı</span>
+                                                    <div class="twm-s-info-discription">{{ $company->company_size_label["label"] }}</div>
+                                                </div>
+                                            </li>
+                                        @endif
+                                        @if(isset($company) && $company->founded_year)
+                                            <li>
+                                                <div class="twm-s-info-inner">
+                                                    <i class="fas fa-calendar-day"></i>
+                                                    <span class="twm-title">Təsis ili</span>
+                                                    <div class="twm-s-info-discription">{{ $company->founded_year }}</div>
+                                                </div>
+                                            </li>
+                                        @endif
+
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                            @if(isset($company) && $company->latitude && $company->longitude)
+                                <div class="twm-s-map mb-5">
+                                    <h4 class="section-head-small mb-4">Ünvan</h4>
+                                    <div class="twm-s-map-iframe twm-s-map-iframe-2">
+                                            <iframe
+                                                height="270"
+                                                style="border:0; width: 100%;"
+                                                loading="lazy"
+                                                allowfullscreen
+                                                src="https://maps.google.com/maps?q={{ $company->latitude }},{{ $company->longitude }}&z=15&output=embed">
+                                            </iframe>
+                                    </div>
+                                </div>
+                            @endif
+
+
+
+                            <div class="twm-s-contact-wrap mb-5">
+                                <h4 class="section-head-small mb-4">{{ lang("contact", "app") }}</h4>
+                                <div class="twm-s-contact twm-s-contact-2">
+                                    <div class="row">
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group mb-3">
+                                                <input name="name" type="text" required class="form-control" placeholder="Ad">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group mb-3">
+                                                <input name="email" type="text" class="form-control" required placeholder="E-mail">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group mb-3">
+                                                <input name="phone" type="text" class="form-control" required placeholder="Telefon">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-lg-12">
+                                            <div class="form-group mb-3">
+                                                <textarea name="message" class="form-control" rows="3" placeholder="Mesaj"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <button type="submit" class="site-button">Göndər</button>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
                     </div>
 
                 </div>

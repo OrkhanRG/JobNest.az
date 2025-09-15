@@ -30,6 +30,7 @@ class CompanyResource extends JsonResource
             "contact_email" => $this->contact_email,
             "city" => new CityResource($this->city),
             "country" => new CountryResource($this->country),
+            "socialLinks" => $this->socialLinks,
             "address" => $this->address,
             "latitude" => $this->latitude,
             "longitude" => $this->longitude,

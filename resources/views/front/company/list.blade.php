@@ -29,7 +29,7 @@
                     <div class="product-filter-wrap d-flex justify-content-between align-items-center m-b30">
 
                         <div class="ls-inputicon-box">
-                            <input class="form-control" name="company_Email" type="text" placeholder="Type Address">
+                            <input class="form-control" name="keyword" data-role="keyword" type="text" placeholder="Açar söz..." value="{{ request()->get("keyword", "") }}">
                             <i class="fs-input-icon fa fa-search"></i>
                         </div>
 
@@ -41,7 +41,7 @@
 
                         <div class="woocommerce-ordering twm-filter-select">
                             <span class="woocommerce-result-count">Sort By</span>
-                            <select class="wt-select-bar-2 selectpicker"  data-live-search="true" data-bv-field="size">
+                            <select class="wt-select-bar-2 selectpicker" data-role=""  data-live-search="true" data-bv-field="size">
                                 <option>Most Recent</option>
                                 <option>Freelance</option>
                                 <option>Full Time</option>

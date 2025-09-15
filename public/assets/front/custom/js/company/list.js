@@ -1,51 +1,53 @@
-const advancedScroller = new SmartInfinityScroll({
-    apiUrl: '/companies/list',
-    method: 'GET',
-    headers: {
-        'Authorization': 'Bearer your-token',
-        'X-Custom-Header': 'value'
-    },
+$(() => {
 
-    container: '#companies-container',
-    scrollContainer: window,
+    const advancedScroller = new SmartInfinityScroll({
+        apiUrl: '/companies/list',
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer your-token',
+            'X-Custom-Header': 'value'
+        },
 
-    page: 1,
-    perPage: 24,
-    pageParam: 'page',
-    limitParam: 'limit',
+        container: '#companies-container',
+        scrollContainer: window,
 
-    extraParams: {
-        keyword: 'test'
-    },
+        page: 1,
+        perPage: 24,
+        pageParam: 'page',
+        limitParam: 'limit',
 
-    dynamicParams: () => {
-        return {
-            keyword: document.querySelector('#search-input')?.value || ''
-        };
-    },
+        extraParams: {
+            //keyword: 'test' //-- səhifə ilk yüklənəndə işləyir
+        },
 
-    dataPath: 'data.list',
-    countPath: 'data.count',
+        dynamicParams: () => {
+            return {
+                keyword: $(`[data-role="keyword"]`).val() || '' //--input dəyişəndə dinamik dəyişir
+            };
+        },
 
-    triggerDistance: 100,
-    minLoadTime: 1200,
-    throttleDelay: 100,
-    enableAnimation: true,
-    itemDelay: 120,
-    skeletonCount: 4,
+        dataPath: 'data.list',
+        countPath: 'data.count',
 
-    preloadPages: 1,
-    enableCache: false,
-    retryAttempts: 3,
+        triggerDistance: 100,
+        minLoadTime: 1200,
+        throttleDelay: 100,
+        enableAnimation: true,
+        itemDelay: 120,
+        skeletonCount: 4,
 
-    itemTemplate: (company, index) => {
-        return `
+        preloadPages: 1,
+        enableCache: false,
+        retryAttempts: 3,
+
+        itemTemplate: (company, index) => {
+            return `
             <div class="twm-employer-grid-style1 mb-5">
                 <div class="twm-media">
                     <img src="${public_path(company.logo ?? "assets/front/custom/images/companies/default.png")}" alt="#">
                 </div>
                 <div class="twm-mid-content">
-                    <a href="" class="twm-job-title">
+                    <a href="${route('front.company', {slug: company.slug})}" class="twm-job-title">
                         <h4>${company.name}</h4>
                     </a>
                     <p class="twm-job-address">
@@ -60,10 +62,10 @@ const advancedScroller = new SmartInfinityScroll({
                 </div>
             </div>
         `;
-    },
+        },
 
-    skeletonTemplate: (index) => {
-        return `
+        skeletonTemplate: (index) => {
+            return `
             <div class="col-lg-3 col-md-3 mb-4" style="padding-inline: 12px">
                 <div class="company-skeleton-card">
                     <div class="skeleton-header">
@@ -89,45 +91,60 @@ const advancedScroller = new SmartInfinityScroll({
                 </div>
             </div>
         `;
-    },
+        },
 
-    messages: {
-        loading: 'Şirkətlər yüklənir...',
-        finished: 'Bütün şirkətlər yükləndi',
-        error: 'Şirkətlər yüklənərkən xəta baş verdi',
-        retry: 'Yenidən cəhd et',
-        empty: 'Heç bir şirkət tapılmadı'
-    },
+        messages: {
+            loading: 'Şirkətlər yüklənir...',
+            finished: 'Bütün şirkətlər yükləndi',
+            error: 'Şirkətlər yüklənərkən xəta baş verdi',
+            retry: 'Yenidən cəhd et',
+            empty: 'Heç bir şirkət tapılmadı'
+        },
 
-    onStart: (page, loadedCount) => {
-        console.log(`📥 Səhifə ${page} yüklənir. Hazırda yüklənmiş: ${loadedCount}`);
-        document.body.classList.add('infinity-loading');
-    },
+        onStart: (page, loadedCount) => {
+            $(this).prop("disabled", true);
 
-    onProgress: (item, currentIndex, totalCount) => {
-        const progress = (currentIndex / totalCount) * 100;
-        const progressBar = document.querySelector('#loading-progress');
-        if (progressBar) {
-            progressBar.style.width = `${progress}%`;
-        }
-    },
+            console.log(`📥 Səhifə ${page} yüklənir. Hazırda yüklənmiş: ${loadedCount}`);
+            document.body.classList.add('infinity-loading');
+        },
 
-    onSuccess: (items, loadedCount, totalCount) => {
-        console.log(`✅ ${items.length} şirkət yükləndi. Cəmi: ${loadedCount}/${totalCount}`);
-        document.body.classList.remove('infinity-loading');
-    },
+        onProgress: (item, currentIndex, totalCount) => {
+            const progress = (currentIndex / totalCount) * 100;
+            const progressBar = document.querySelector('#loading-progress');
+            if (progressBar) {
+                progressBar.style.width = `${progress}%`;
+            }
+        },
 
-    onError: (error, retryCount) => {
-        console.error(`❌ Xəta: ${error.message}. Retry: ${retryCount}`);
-    },
+        onSuccess: (items, loadedCount, totalCount) => {
+            console.log(`✅ ${items.length} şirkət yükləndi. Cəmi: ${loadedCount}/${totalCount}`);
+            document.body.classList.remove('infinity-loading');
+        },
 
-    onComplete: (loadedCount, totalCount) => {
-        console.log(`🎉 Hamısı yükləndi: ${loadedCount}/${totalCount}`);
-    },
+        onError: (error, retryCount) => {
+            console.error(`❌ Xəta: ${error.message}. Retry: ${retryCount}`);
+        },
 
-    onEmpty: () => {
-        console.log('📭 Heç bir şirkət tapılmadı');
-    },
+        onComplete: (loadedCount, totalCount) => {
+            $(this).prop("disabled", false);
 
-    debug: false
+            console.log(`🎉 Hamısı yükləndi: ${loadedCount}/${totalCount}`);
+        },
+
+        onEmpty: () => {
+            console.log('📭 Heç bir şirkət tapılmadı');
+        },
+
+        debug: false
+    });
+
+    let keywordTimer;
+    $(document).on('input', '[data-role="keyword"]', function () {
+        clearTimeout(keywordTimer);
+        keywordTimer = setTimeout(() => {
+            // if (!advancedScroller.isLoading) {
+                advancedScroller.reset();
+            // }
+        }, 1000);
+    });
 });
