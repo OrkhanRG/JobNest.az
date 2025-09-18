@@ -40,14 +40,12 @@
                         @endif
 
                         <div class="woocommerce-ordering twm-filter-select">
-                            <span class="woocommerce-result-count">Sort By</span>
-                            <select class="wt-select-bar-2 selectpicker" data-role=""  data-live-search="true" data-bv-field="size">
-                                <option>Most Recent</option>
-                                <option>Freelance</option>
-                                <option>Full Time</option>
-                                <option>Internship</option>
-                                <option>Part Time</option>
-                                <option>Temporary</option>
+                            <span class="woocommerce-result-count">Sıralama</span>
+                            <select class="wt-select-bar-2 selectpicker" data-role="order"  data-live-search="true" data-bv-field="size">
+                                <option value="name_asc" {{ request()->get("order") === "name_asc" ? "selected" : "" }}>A-dan Z-yə</option>
+                                <option value="name_desc" {{ request()->get("order") === "name_desc" ? "selected" : "" }}>Z-dən A-ya</option>
+                                <option value="created_at_desc" {{ request()->get("order") === "created_at_desc" ? "selected" : "" }}>Son əlavə olunmuşlar</option>
+                                <option value="created_at_asc" {{ request()->get("order") === "created_at_asc" ? "selected" : "" }}>İlk əlavə olunmuşlar</option>
                             </select>
                         </div>
 
@@ -77,6 +75,12 @@
                              @endif
 
                         </div>
+
+                        <div id="no-results-message" class="text-center p-5" style="display: none;">
+                            <img src="{{ asset('assets/front/custom/images/undraw/no-result.svg') }}" alt="Nəticə tapılmadı" class="no-result-image">
+                            <h4 class="mt-4">Axtarışa uyğun şirkət tapılmadı.</h4>
+                            <p class="text-muted">Fərqli açar sözlərlə axtarış etməyi yoxlayın.</p>
+                        </div>
                     </div>
 
                     @if(false)
@@ -102,6 +106,5 @@
 @endsection
 
 @push("js")
-    <script src="{{ asset("assets/front/custom/library/smartInfinityScroll.js") }}"></script>
     <script src="{{ asset("assets/front/custom/js/company/list.js") }}"></script>
 @endpush

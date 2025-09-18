@@ -1,4 +1,4 @@
-        <footer class="footer-dark" style="background-image: url({{ asset("assets/front/images/f-bg.jpg") }});">
+        <footer class="footer-dark" style="background-image: url({{ asset("assets/front/images/f-bg.jpg") }});" id="page-footer">
             <div class="container">
                 <input type="hidden" data-role="show-reset-password-modal" value="{{ $show_forgot_password ?? 0 }}">
                 <!-- NEWS LETTER SECTION START -->

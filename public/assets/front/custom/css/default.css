@@ -258,3 +258,53 @@
         font-size: 16px;
     }
 }
+
+/* Skeleton Loader Stilləri */
+.skeleton-card {
+    background-color: #fff;
+    border: 1px solid #e9e9e9;
+}
+
+.skeleton {
+    opacity: 0.7;
+    animation: shimmer 1.5s infinite linear;
+    background: linear-gradient(to right, #e0e0e0 8%, #f0f0f0 18%, #e0e0e0 33%);
+    background-size: 1200px 100%;
+    border-radius: 4px;
+}
+
+.skeleton-img {
+    width: 100%;
+    height: 150px; /* Şəkil hündürlüyünə uyğunlaşdırın */
+}
+
+.skeleton-title {
+    height: 24px;
+    width: 70%;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.skeleton-text {
+    height: 16px;
+    width: 90%;
+    margin-bottom: 8px;
+}
+
+.skeleton-text-short {
+    width: 50%;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -1200px 0;
+    }
+    100% {
+        background-position: 1200px 0;
+    }
+}
+
+.no-result-image {
+    max-width: 250px;
+    opacity: 0.8;
+}

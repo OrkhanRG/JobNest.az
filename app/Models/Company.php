@@ -105,6 +105,16 @@ class Company extends Model
             });
         }
 
+        if (@$params["order"]) {
+            match ($params["order"]) {
+                'name_asc' => $query->orderBy('name', 'asc'),
+                'name_desc' => $query->orderBy('name', 'desc'),
+                'created_at_asc' => $query->orderBy('created_at', 'asc'),
+                'created_at_desc' => $query->orderBy('created_at', 'desc'),
+                default => $query->orderBy('name', 'asc'),
+            };
+        }
+
 
         if (@$params["limit"]) {
             $query->limit($params["limit"]);

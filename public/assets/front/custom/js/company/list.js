@@ -1,150 +1,176 @@
 $(() => {
+    let page = 1,
+        limit = 24,
+        isLoading = false,
+        hasMore = true,
+        keyword = $('[data-role="keyword"]').val().trim(),
+        order = $('[data-role="order"]').val().trim();
 
-    const advancedScroller = new SmartInfinityScroll({
-        apiUrl: '/companies/list',
-        method: 'GET',
-        headers: {
-            'Authorization': 'Bearer your-token',
-            'X-Custom-Header': 'value'
-        },
+    const container = $('#companies-container');
+    const noResultsMessage = $('#no-results-message');
 
-        container: '#companies-container',
-        scrollContainer: window,
+    const resetInitialParameters = () => {
+        container.empty();
+        noResultsMessage.hide();
+        page = 1;
+        hasMore = true;
+        isLoading = false;
+    }
 
-        page: 1,
-        perPage: 24,
-        pageParam: 'page',
-        limitParam: 'limit',
-
-        extraParams: {
-            //keyword: 'test' //-- səhifə ilk yüklənəndə işləyir
-        },
-
-        dynamicParams: () => {
-            return {
-                keyword: $(`[data-role="keyword"]`).val() || '' //--input dəyişəndə dinamik dəyişir
-            };
-        },
-
-        dataPath: 'data.list',
-        countPath: 'data.count',
-
-        triggerDistance: 100,
-        minLoadTime: 1200,
-        throttleDelay: 100,
-        enableAnimation: true,
-        itemDelay: 120,
-        skeletonCount: 4,
-
-        preloadPages: 1,
-        enableCache: false,
-        retryAttempts: 3,
-
-        itemTemplate: (company, index) => {
-            return `
-            <div class="twm-employer-grid-style1 mb-5">
-                <div class="twm-media">
-                    <img src="${public_path(company.logo ?? "assets/front/custom/images/companies/default.png")}" alt="#">
-                </div>
-                <div class="twm-mid-content">
-                    <a href="${route('front.company', {slug: company.slug})}" class="twm-job-title">
-                        <h4>${company.name}</h4>
-                    </a>
-                    <p class="twm-job-address">
-                        ${company.map_address || company.address ? `<i class="fas fa-location-arrow text-danger"></i>` : ``}
-                        ${company.map_address ?? company.address ?? ""}
-                    </p>
-                    ${company.industry ? `<i class="fas fa-industry text-primary"></i>` : ``}
-                    <a href="" class="twm-job-websites site-text-primary">${company.industry ? company.industry.label : ""}</a>
-                </div>
-                <div class="twm-right-content">
-                    <div class="twm-jobs-vacancies"><span>${Math.floor(Math.random() * 100) + 1}</span>Vakansiyalar</div>
-                </div>
-            </div>
-        `;
-        },
-
-        skeletonTemplate: (index) => {
-            return `
-            <div class="col-lg-3 col-md-3 mb-4" style="padding-inline: 12px">
-                <div class="company-skeleton-card">
-                    <div class="skeleton-header">
-                        <div class="skeleton-logo shimmer"></div>
-                        <div class="skeleton-rating shimmer"></div>
+    const createCompanyCard = (company) => {
+        const logoUrl = public_path(company.logo ?? "assets/front/custom/images/companies/default.png");
+        const detailUrl = route("front.company", {slug: company.slug});
+        return `
+            <div class="col-lg-3 col-md-3">
+                <div class="twm-employer-grid-style1 mb-5">
+                    <div class="twm-media">
+                        <img src="${logoUrl}" alt="${company.name}">
                     </div>
-                    <div class="skeleton-body">
-                        <div class="skeleton-line skeleton-title shimmer"></div>
-                        <div class="skeleton-line skeleton-address shimmer"></div>
-                        <div class="skeleton-meta">
-                            <div class="skeleton-badge shimmer"></div>
-                            <div class="skeleton-size shimmer"></div>
-                        </div>
-                        <div class="skeleton-description">
-                            <div class="skeleton-line shimmer"></div>
-                            <div class="skeleton-line shimmer"></div>
-                        </div>
+                    <div class="twm-mid-content">
+                        <a href="${detailUrl}" class="twm-job-title">
+                            <h4>${company.name}</h4>
+                        </a>
+                        <p class="twm-job-address">
+                            ${company.map_address || company.address ? `<i class="fas fa-location-arrow text-danger"></i>` : ``}
+                            ${company.address || company.map_address || 'Ünvan qeyd edilməyib'}
+                        </p>
+                         ${company.industry ? `<i class="fas fa-industry text-primary"></i>` : ``}
+                        <a href="${detailUrl}" class="twm-job-websites site-text-primary">${company.industry ? company.industry.label : 'Sənaye yoxdur'}</a>
                     </div>
-                    <div class="skeleton-footer">
-                        <div class="skeleton-vacancies shimmer"></div>
-                        <div class="skeleton-actions shimmer"></div>
+                    <div class="twm-right-content">
+                        <div class="twm-jobs-vacancies"><span>${ Math.floor(Math.random() * 101) }</span>Vakansiya</div>
                     </div>
                 </div>
             </div>
         `;
-        },
+    };
 
-        messages: {
-            loading: 'Şirkətlər yüklənir...',
-            finished: 'Bütün şirkətlər yükləndi',
-            error: 'Şirkətlər yüklənərkən xəta baş verdi',
-            retry: 'Yenidən cəhd et',
-            empty: 'Heç bir şirkət tapılmadı'
-        },
+    const createSkeleton = () => {
+        return `
+            <div class="col-lg-3 col-md-3">
+                <div class="twm-employer-grid-style1 mb-5 skeleton-card">
+                    <div class="twm-media skeleton skeleton-img"></div>
+                    <div class="twm-mid-content">
+                        <div class="skeleton skeleton-title"></div>
+                        <div class="skeleton skeleton-text"></div>
+                        <div class="skeleton skeleton-text-short"></div>
+                    </div>
+                </div>
+            </div>
+        `;
+    };
 
-        onStart: (page, loadedCount) => {
-            $(this).prop("disabled", true);
+    const showSkeletons = () => {
+        let skeletons = '';
+        for (let i = 0; i < limit; i++) {
+            skeletons += createSkeleton();
+        }
+        container.append(skeletons);
+    };
 
-            console.log(`📥 Səhifə ${page} yüklənir. Hazırda yüklənmiş: ${loadedCount}`);
-            document.body.classList.add('infinity-loading');
-        },
+    const hideSkeletons = () => {
+        container.find('.skeleton-card').parent().remove();
+    };
 
-        onProgress: (item, currentIndex, totalCount) => {
-            const progress = (currentIndex / totalCount) * 100;
-            const progressBar = document.querySelector('#loading-progress');
-            if (progressBar) {
-                progressBar.style.width = `${progress}%`;
+    const loadCompanies = () => {
+        if (isLoading || !hasMore) return;
+
+        isLoading = true;
+        noResultsMessage.hide();
+        showSkeletons();
+
+        $.ajax({
+            url: route("front.companies.list"),
+            type: 'GET',
+            data: { page, limit, keyword, order },
+            success: function(response) {
+                hideSkeletons();
+                if (response.data && response.data.list.length > 0) {
+                    const companies = response.data.list;
+                    companies.forEach(company => {
+                        container.append(createCompanyCard(company));
+                    });
+
+                    const pagination = response.data.pagination;
+                    if (pagination.current_page >= pagination.last_page) {
+                        hasMore = false;
+                    }
+                    page++;
+                } else {
+                    hasMore = false;
+                    if (page === 1) {
+                        noResultsMessage.show();
+                    }
+                }
+            },
+            error: function(xhr) {
+                hideSkeletons();
+                if (xhr.status === 204) {
+                    hasMore = false;
+                    if (page === 1) {
+                        noResultsMessage.show();
+                    }
+                } else {
+                    console.error("Xəta baş verdi:", xhr.responseText);
+                }
+            },
+            complete: function() {
+                isLoading = false;
+                checkPositionAndLoad();
             }
-        },
+        });
+    };
 
-        onSuccess: (items, loadedCount, totalCount) => {
-            console.log(`✅ ${items.length} şirkət yükləndi. Cəmi: ${loadedCount}/${totalCount}`);
-            document.body.classList.remove('infinity-loading');
-        },
+    let searchTimeout;
+    $('[data-role="keyword"]').on('keyup', function() {
+        clearTimeout(searchTimeout);
+        const currentKeyword = $(this).val()?.trim();
 
-        onError: (error, retryCount) => {
-            console.error(`❌ Xəta: ${error.message}. Retry: ${retryCount}`);
-        },
-
-        onComplete: (loadedCount, totalCount) => {
-            $(this).prop("disabled", false);
-
-            console.log(`🎉 Hamısı yükləndi: ${loadedCount}/${totalCount}`);
-        },
-
-        onEmpty: () => {
-            console.log('📭 Heç bir şirkət tapılmadı');
-        },
-
-        debug: false
+        searchTimeout = setTimeout(() => {
+            if (keyword !== currentKeyword) {
+                keyword = currentKeyword;
+                resetInitialParameters();
+                filter_url({keyword})
+                loadCompanies();
+            }
+        }, 500);
     });
 
-    let keywordTimer;
-    $(document).on('input', '[data-role="keyword"]', function () {
-        clearTimeout(keywordTimer);
-        keywordTimer = setTimeout(() => {
-            // if (!advancedScroller.isLoading) {
-                advancedScroller.reset();
-            // }
-        }, 1000);
-    });
+    let orderTimeout;
+    $(`[data-role="order"]`).on('change', function() {
+        clearTimeout(orderTimeout);
+        const currentOrder = $(this).val()?.trim();
+
+        orderTimeout = setTimeout(() => {
+            if (order !== currentOrder) {
+                order = currentOrder;
+                resetInitialParameters();
+                filter_url({order})
+                loadCompanies();
+            }
+        })
+    })
+
+    function checkPositionAndLoad() {
+        if (isLoading || !hasMore) {
+            return;
+        }
+
+        const footer = $('#page-footer');
+        if (footer.length === 0) {
+            return;
+        }
+
+        const footerTopPosition = footer.offset().top;
+        const windowBottomPosition = $(window).scrollTop() + $(window).height();
+
+        if (windowBottomPosition >= footerTopPosition - 200) {
+            loadCompanies();
+        }
+    }
+
+    $(window).on('scroll', checkPositionAndLoad);
+    $(window).on('load', checkPositionAndLoad);
+
+    loadCompanies();
 });

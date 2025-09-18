@@ -25,7 +25,7 @@ class CompanyController extends Controller
 
     public function list(Request $request)
     {
-        $params = $request->only('page', "limit", "keyword");
+        $params = $request->only('page', "limit", "keyword", "order");
         $data = $this->companyService->getAll($params);
         return $data["list"]->isEmpty() ? json_response(__("app.no_content"), Response::HTTP_NO_CONTENT) : json_response(__("app.success"), Response::HTTP_OK, $data);
     }
