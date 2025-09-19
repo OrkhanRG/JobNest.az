@@ -53,27 +53,6 @@
 
                     <div class="twm-employer-list-wrap">
                         <div class="row" id="companies-container">
-
-                             @if(false)
-                                <div class="col-lg-3 col-md-3">
-                                    <div class="twm-employer-grid-style1 mb-5">
-                                        <div class="twm-media">
-                                            <img src="{{ asset("assets/front/images/jobs-company/pic1.jpg") }}" alt="#">
-                                        </div>
-                                        <div class="twm-mid-content">
-                                            <a href="{{ route("front.company", "test") }}" class="twm-job-title">
-                                                <h4>Herbal Ltd</h4>
-                                            </a>
-                                            <p class="twm-job-address">1385 Sunset Blvd Los Angeles, CA 90026, USA</p>
-                                            <a href="{{ route("front.company", "test") }}" class="twm-job-websites site-text-primary">Accountancy</a>
-                                        </div>
-                                        <div class="twm-right-content">
-                                            <div class="twm-jobs-vacancies"><span>25</span>Vacancies</div>
-                                        </div>
-                                    </div>
-                                </div>
-                             @endif
-
                         </div>
 
                         <div id="no-results-message" class="text-center p-5" style="display: none;">

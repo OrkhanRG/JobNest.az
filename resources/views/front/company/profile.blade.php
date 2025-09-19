@@ -136,7 +136,7 @@
                                                         <div class="twm-s-map mb-5">
                                                             <h4 class="section-head-small mb-4">{{ ucwords(lang("location", "app")) }}</h4>
                                                             <div class="twm-s-map-iframe">
-                                                                <div id="company-map" style="width: 100%; height: 350px; border: 0;"></div>
+                                                                <div id="map-div" style="width: 100%; height: 350px; border: 0;"></div>
                                                             </div>
                                                             <div class="selected-location-info mt-3" id="selected-location-info" style="display: none;">
                                                                 <div class="alert alert-info">
@@ -419,5 +419,7 @@
         ]);
     </script>
 
+
+    <script src="{{ asset("assets/front/custom/library/location-picker.js") }}"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ config('secrets.google_map_api_key') }}&callback=initMap&libraries=geometry"></script>
 @endpush
