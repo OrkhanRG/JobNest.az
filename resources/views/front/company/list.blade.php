@@ -33,11 +33,11 @@
                             <i class="fs-input-icon fa fa-search"></i>
                         </div>
 
-                        @if(false)
-                            <div>
-                                <span class="woocommerce-result-count-left" data-role="total-show-count"><small>x nəticədən y-i göstərilir</small></span>
-                            </div>
-                        @endif
+                        <div style="display: none;">
+                            <span class="woocommerce-result-count-left" data-role="total-show-count">
+                                <small>x nəticədən y-i göstərilir</small>
+                            </span>
+                        </div>
 
                         <div class="woocommerce-ordering twm-filter-select">
                             <span class="woocommerce-result-count">Sıralama</span>

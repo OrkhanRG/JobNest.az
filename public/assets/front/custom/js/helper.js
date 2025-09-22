@@ -160,3 +160,51 @@ const filter_url = (obj, reload = true) => {
 
     return newUrl;
 }
+
+const formatNumberWithSuffix = (number) => {
+    if (typeof number !== 'number' || isNaN(number)) {
+        return number;
+    }
+
+    const numStr = number.toString();
+    const lastDigit = numStr.slice(-1);
+    let suffix;
+
+    switch (lastDigit) {
+        case '1':
+        case '5':
+        case '8':
+            suffix = 'i';
+            break;
+        case '2':
+        case '7':
+            suffix = 'si';
+            break;
+        case '3':
+        case '4':
+            suffix = 'ü';
+            break;
+        case '6':
+            suffix = 'sı';
+            break;
+        case '9':
+            suffix = 'u';
+            break;
+        case '0':
+            if (numStr.endsWith('10') || numStr.endsWith('30')) {
+                suffix = 'u';
+            } else if (numStr.endsWith('40') || numStr.endsWith('60') || numStr.endsWith('90')) {
+                suffix = 'ı';
+            } else if (numStr.endsWith('100')) {
+                suffix = 'ü';
+            } else {
+                suffix = 'ı';
+            }
+            break;
+        default:
+            suffix = 'i';
+            break;
+    }
+
+    return `${number}-${suffix}`;
+}

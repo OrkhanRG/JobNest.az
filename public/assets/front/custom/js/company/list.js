@@ -4,10 +4,22 @@ $(() => {
         isLoading = false,
         hasMore = true,
         keyword = $('[data-role="keyword"]').val().trim(),
-        order = $('[data-role="order"]').val().trim();
+        order = $('[data-role="order"]').val().trim(),
+        loadedCount = 0,
+        totalCount = 0;
 
-    const container = $('#companies-container');
-    const noResultsMessage = $('#no-results-message');
+    const container = $('#companies-container'),
+          noResultsMessage = $('#no-results-message');
+
+    function updateCounterUI() {
+        const counterElement = $('[data-role="total-show-count"]');
+        if (counterElement.length > 0 && totalCount > 0) {
+            counterElement.html(`<small>${totalCount} nəticədən ${formatNumberWithSuffix(loadedCount)} göstərilir</small>`);
+            counterElement.parent().show();
+        } else {
+            counterElement.parent().hide();
+        }
+    }
 
     const resetInitialParameters = () => {
         container.empty();
@@ -15,6 +27,7 @@ $(() => {
         page = 1;
         hasMore = true;
         isLoading = false;
+        loadedCount = 0;
     }
 
     const createCompanyCard = (company) => {
@@ -87,6 +100,9 @@ $(() => {
                 hideSkeletons();
                 if (response.data && response.data.list.length > 0) {
                     const companies = response.data.list;
+                    loadedCount += companies.length;
+                    totalCount = response.data?.count ?? 0;
+
                     companies.forEach(company => {
                         container.append(createCompanyCard(company));
                     });
@@ -96,6 +112,8 @@ $(() => {
                         hasMore = false;
                     }
                     page++;
+
+                    updateCounterUI();
                 } else {
                     hasMore = false;
                     if (page === 1) {

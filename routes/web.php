@@ -77,6 +77,7 @@ Route::name("front.")->group(function(){
         Route::prefix("company")->name("company.")->middleware("role:company")->group(function(){
             Route::get("/", [CompanyController::class, "dashboard"])->name("dashboard");
 
+            //--profile
             Route::prefix("profile")->group(function(){
                 Route::get("/", [CompanyController::class, "profile"])->name("profile");
                 Route::put("/update", [CompanyController::class, "profileUpdate"])->name("profile.update");
@@ -84,7 +85,13 @@ Route::name("front.")->group(function(){
 
             Route::get("/resume", [CompanyController::class, "resume"])->name("resume");
             Route::get("/manage-jobs", [CompanyController::class, "manageJobs"])->name("manage-jobs");
-            Route::get("/post-job", [CompanyController::class, "postJob"])->name("post-job");
+
+            //--post-job
+            Route::prefix("profile")->group(function(){
+                Route::get("/", [CompanyController::class, "postJob"])->name("post-job");
+                Route::put("/update", [CompanyController::class, "profileUpdate"])->name("profile.update");
+            });
+
             Route::get("/transaction", [CompanyController::class, "transaction"])->name("transaction");
             Route::get("/change-password", [CompanyController::class, "changePassword"])->name("change-password");
         });
