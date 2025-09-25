@@ -16,6 +16,103 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `application_answers`
+--
+
+DROP TABLE IF EXISTS `application_answers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `application_answers` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `application_id` bigint unsigned NOT NULL,
+  `form_field_template_id` bigint unsigned NOT NULL,
+  `answer` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `application_answers_application_id_foreign` (`application_id`),
+  KEY `application_answers_form_field_template_id_foreign` (`form_field_template_id`),
+  CONSTRAINT `application_answers_application_id_foreign` FOREIGN KEY (`application_id`) REFERENCES `applications` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `application_answers_form_field_template_id_foreign` FOREIGN KEY (`form_field_template_id`) REFERENCES `form_field_templates` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `application_answers`
+--
+
+LOCK TABLES `application_answers` WRITE;
+/*!40000 ALTER TABLE `application_answers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `application_answers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `applications`
+--
+
+DROP TABLE IF EXISTS `applications`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `applications` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `vacancy_id` bigint unsigned NOT NULL,
+  `candidate_id` bigint unsigned NOT NULL,
+  `company_id` bigint unsigned NOT NULL,
+  `company_form_id` bigint unsigned DEFAULT NULL,
+  `resume_id` bigint unsigned DEFAULT NULL,
+  `cover_letter` text COLLATE utf8mb4_unicode_ci,
+  `custom_answers` json DEFAULT NULL,
+  `attachments` json DEFAULT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
+  `rejection_reason` text COLLATE utf8mb4_unicode_ci,
+  `company_notes` text COLLATE utf8mb4_unicode_ci,
+  `candidate_notes` text COLLATE utf8mb4_unicode_ci,
+  `interview_scheduled_at` timestamp NULL DEFAULT NULL,
+  `interview_location` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `interview_link` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `interview_notes` text COLLATE utf8mb4_unicode_ci,
+  `interview_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `interview_status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `last_contacted_at` timestamp NULL DEFAULT NULL,
+  `candidate_viewed` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `company_viewed` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `candidate_viewed_at` timestamp NULL DEFAULT NULL,
+  `company_viewed_at` timestamp NULL DEFAULT NULL,
+  `company_rating` int DEFAULT NULL,
+  `company_feedback` text COLLATE utf8mb4_unicode_ci,
+  `candidate_rating` int DEFAULT NULL,
+  `candidate_feedback` text COLLATE utf8mb4_unicode_ci,
+  `source` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `utm_source` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `utm_medium` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `utm_campaign` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `applications_vacancy_id_foreign` (`vacancy_id`),
+  KEY `applications_candidate_id_foreign` (`candidate_id`),
+  KEY `applications_company_id_foreign` (`company_id`),
+  KEY `applications_resume_id_foreign` (`resume_id`),
+  KEY `applications_company_form_id_foreign` (`company_form_id`),
+  CONSTRAINT `applications_candidate_id_foreign` FOREIGN KEY (`candidate_id`) REFERENCES `candidates` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `applications_company_form_id_foreign` FOREIGN KEY (`company_form_id`) REFERENCES `company_forms` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `applications_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `applications_resume_id_foreign` FOREIGN KEY (`resume_id`) REFERENCES `resumes` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `applications_vacancy_id_foreign` FOREIGN KEY (`vacancy_id`) REFERENCES `vacancies` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `applications`
+--
+
+LOCK TABLES `applications` WRITE;
+/*!40000 ALTER TABLE `applications` DISABLE KEYS */;
+/*!40000 ALTER TABLE `applications` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `cache`
 --
 
@@ -215,8 +312,73 @@ CREATE TABLE `companies` (
 
 LOCK TABLES `companies` WRITE;
 /*!40000 ALTER TABLE `companies` DISABLE KEYS */;
-INSERT INTO `companies` VALUES (3,71,'JobNest MMC','jobnest-mmc','JobNest Sizin İş yuvanız','+994-(55)-878-37-00','http://jobnest.az/','cv@jobnest.az',735,12,'Baku Rashid Behbudov',40.40284312,49.87063408,'Nariman Narimanov, Bakı, Azerbaijan','0','telecom_it','individual_entrepreneur','1',5,0,'0','JobNest','JobNest - Karyera bizimlə başlayır!','JobNest, telecom_it, JobNest Sizin İş yuvanız',2025,'JobNest - Karyera bizimlə başlayır!','assets/front/custom/images/companies/jobnest-logo-1756982528.png','assets/front/custom/images/companies/jobnest-background-image-1756971351.jpg','2025-05-02 07:15:38','2025-09-04 10:48:35'),(4,74,'Risk Company','risk-company',NULL,NULL,'https://risk.az/','riskcompany@jobnest.az',735,12,'111 Azadlıq Prospekti, Bakı 1007, Azerbaijan',40.38731728,49.84318242,'111 Azadlıq Prospekti, Bakı 1007, Azerbaijan','4','bank_finance','non_profit','1',5,0,'0','Risk Company','Established in 1993, R.I.S.K. Company is one of the leading IT companies in the Central Asia and Caucasus markets providing solutions in IT consultancy, System Integration, IT-outsourcing, Application Development and Geographical Information Systems. R.I.S.K. offers a broad range of innovative solutions for telecom, oil & gas, government & defense, banking & finance and transport sectors.\r\nR.I.S.K. focuses on implementation of large-scale projects of public importance in building ICT Infrastructure, Information Security Systems and Application Platforms. IBM, Dell, Cisco, EMC, Avaya, Oracle, Microsoft, Emerson and other ICT industry leaders are the Company’s official partners.\r\nR.I.S.K. Company’s quality management system is certified according to the international quality standard ISO 9001:2015. R.I.S.K. Company has an active sales operation in more than 20 countries all over the world with registered offices in Azerbaijan, Tajikistan, Georgia.','Risk Company, bank_finance',1999,'Established in 1993, R.I.S.K. Company is one of the leading IT companies in the Central Asia and Caucasus markets providing solutions in IT consultancy, System Integration, IT-outsourcing, Application Development and Geographical Information Systems. R.I.S.K. offers a broad range of innovative solutions for telecom, oil & gas, government & defense, banking & finance and transport sectors.\r\nR.I.S.K. focuses on implementation of large-scale projects of public importance in building ICT Infrastructure, Information Security Systems and Application Platforms. IBM, Dell, Cisco, EMC, Avaya, Oracle, Microsoft, Emerson and other ICT industry leaders are the Company’s official partners.\r\nR.I.S.K. Company’s quality management system is certified according to the international quality standard ISO 9001:2015. R.I.S.K. Company has an active sales operation in more than 20 countries all over the world with registered offices in Azerbaijan, Tajikistan, Georgia.','assets/front/custom/images/companies/risk-company-logo-1757487600.jpg','assets/front/custom/images/companies/risk-company-background-image-1757487600.png','2025-05-02 08:24:05','2025-09-10 07:00:00'),(12,102,'Simbrella','simbrella','First Company in the world to launch Mobile Fintech Services','+994-(12)-404-31-32','https://www.simbrella.com/','baku@simbrella.com',735,12,'Jalil Mammadguluzadeh st. 102 A, City Point Business Centre, AZ1022, Baku, Azerbaijan',40.38261007,49.87013326,'44 Xocalı prospekti, Bakı, Azerbaijan','5','telecom_it','non_profit','1',5,0,'0','Simbrella',NULL,'Simbrella, telecom_it, First Company in the world to launch Mobile Fintech Services',1998,NULL,'assets/front/custom/images/companies/simbrella-logo-1757487890.jpg','assets/front/custom/images/companies/simbrella-background-image-1757487890.png','2025-05-08 07:04:28','2025-09-10 07:04:50'),(14,132,'BestComp Group','bestcomp-group','Trusted by the world’s leading tech companies','+994-(12)-541-47-47','https://bestcomp.net/','bestcomp@jobnest.az',735,12,'31 Hüseyn Cavid Prospekti, Bakı, Azerbaijan',40.37518991,49.81492996,'31 Hüseyn Cavid Prospekti, Bakı, Azerbaijan','5','telecom_it','non_profit','1',5,0,'0','BestComp Group','Our Integrated Management Systems (IMS) at Bestcomp Group CJSC is more than just combining different management systems; it’s a strategic approach that integrates quality, health and safety, information security, and anti-bribery into one unified system.','BestComp Group, telecom_it, Trusted by the world’s leading tech companies',2025,'Our Integrated Management Systems (IMS) at Bestcomp Group CJSC is more than just combining different management systems; it’s a strategic approach that integrates quality, health and safety, information security, and anti-bribery into one unified system.','assets/front/custom/images/companies/bestcomp-group-logo-1757486655.png','assets/front/custom/images/companies/bestcomp-group-background-image-1757486655.jpg','2025-05-30 07:10:48','2025-09-10 06:44:15'),(22,131,'Azerimed LLC','azerimed-llc','Düzgün seçim, sizin sağlamlığınızdır!',NULL,'https://azerimed.com/','azerimedllc@jobnest.az',735,12,'42a Əhməd Rəcəbli, Bakı 1075, Azerbaijan',40.41117964,49.86369500,'42a Əhməd Rəcəbli, Bakı 1075, Azerbaijan','4','telecom_it','qsc','1',5,0,'0','Azerimed LLC','Azəri Med QSC Azərbaycanın ən sürətlə inkişaf edən aparıcı tibbi tədarükçülərindən biridir. Biz xəstəxanalar, apteklər və distribyutorları yüksək keyfiyyətli əczaçılıq məhsulları, qida əlavələri, tibbi cihazlar, sərf materialları və s.ilə təmin edirik. Fəaliyyətimizin mərkəzində insan sağlamlığı dayandığı üçün, böyük məsuliyyət tələb edir və biz peşəkar kadrlarımızın köməyi ilə nəinki Bakıda, həm də Azərbaycanın müxtəlif regionlarında bunun öhdəsindən məharətlə gəlirik. Azəri Med QSC-nin sadə və aydın məqsədi var: insanlara daha yaxşı sağlamlıq yolunda kömək etmək.\r\n\r\n       Qlobal tərəfdaşlarımız və təcrübəli logistik komandamızın köməyi ilə müştərilərimizin ən yüksək keyfiyyət və sərfəli qiymətlərdən faydalanmasını təmin edirik. Həmçinin, tibbi tələblərin yerli, milli və beynəlxalq səviyyələrdə hər zaman vaxtında qarşılanmasına təminat veririk. Azəri Med QSC Roche Diagnostics, Pfizer Export B.V, Novartis Pharma Services AG, Medtronic Trading NL B.V, Sanofi-Aventis SPA, Nature’s Bounty və başqa  dünyada tanınan istehsalçılar ilə əməkdaşlıq edir.\r\n\r\n       Milli apteklər zənciri ilə qabaqcıl müştəri-yönümlü sağlamlıq şirkəti olmaq kimi ortaq bir hədəf ətrafında birləşmişik. Dəyişən istehlakçı ehtiyaclarına əsaslanaraq inkişaf edir və 170-ə yaxın apteklərimiz sayəsində vətəndaşlarımıza olduqları hər yerdə xidmət göstəririk .\r\n\r\n       İnnovasiya və inkişaf, etibarlılıq, humanizm Azəri Med QSC-nin əsas dəyərləridir və məqsədimiz hər kəsin rahat şəkildə əldə edə biləcəyi yüksək keyfiyyətli yeni və çoxşaxəli tibbi məhsullar təklif etməkdir.','Azerimed LLC, telecom_it, Düzgün seçim, sizin sağlamlığınızdır!',2000,'Azəri Med QSC Azərbaycanın ən sürətlə inkişaf edən aparıcı tibbi tədarükçülərindən biridir. Biz xəstəxanalar, apteklər və distribyutorları yüksək keyfiyyətli əczaçılıq məhsulları, qida əlavələri, tibbi cihazlar, sərf materialları və s.ilə təmin edirik. Fəaliyyətimizin mərkəzində insan sağlamlığı dayandığı üçün, böyük məsuliyyət tələb edir və biz peşəkar kadrlarımızın köməyi ilə nəinki Bakıda, həm də Azərbaycanın müxtəlif regionlarında bunun öhdəsindən məharətlə gəlirik. Azəri Med QSC-nin sadə və aydın məqsədi var: insanlara daha yaxşı sağlamlıq yolunda kömək etmək.\r\n\r\n       Qlobal tərəfdaşlarımız və təcrübəli logistik komandamızın köməyi ilə müştərilərimizin ən yüksək keyfiyyət və sərfəli qiymətlərdən faydalanmasını təmin edirik. Həmçinin, tibbi tələblərin yerli, milli və beynəlxalq səviyyələrdə hər zaman vaxtında qarşılanmasına təminat veririk. Azəri Med QSC Roche Diagnostics, Pfizer Export B.V, Novartis Pharma Services AG, Medtronic Trading NL B.V, Sanofi-Aventis SPA, Nature’s Bounty və başqa  dünyada tanınan istehsalçılar ilə əməkdaşlıq edir.\r\n\r\n       Milli apteklər zənciri ilə qabaqcıl müştəri-yönümlü sağlamlıq şirkəti olmaq kimi ortaq bir hədəf ətrafında birləşmişik. Dəyişən istehlakçı ehtiyaclarına əsaslanaraq inkişaf edir və 170-ə yaxın apteklərimiz sayəsində vətəndaşlarımıza olduqları hər yerdə xidmət göstəririk .\r\n\r\n       İnnovasiya və inkişaf, etibarlılıq, humanizm Azəri Med QSC-nin əsas dəyərləridir və məqsədimiz hər kəsin rahat şəkildə əldə edə biləcəyi yüksək keyfiyyətli yeni və çoxşaxəli tibbi məhsullar təklif etməkdir.','assets/front/custom/images/companies/azerimed-llc-logo-1757486137.webp','assets/front/custom/images/companies/azerimed-llc-background-image-1757486137.jpg','2025-09-09 12:02:50','2025-09-10 06:35:37'),(23,129,'Flup Agency','flup-agency','\"FLUP\"-Rəqəmsal trendləri o diqtə edir','+994-(99)-450-70-36','https://flup.agency/','info@flup.az',735,12,'89a Fətəli Xan Xoyski, Bakı, Azerbaijan',40.40261345,49.85468373,'89a Fətəli Xan Xoyski, Bakı, Azerbaijan','1','non_profit','mmc','1',5,0,'0','Flup Agency','Rəqəmsal marketinq və IT xidmətlərimizlə iş proseslərinizi rəqəmsallaşdıraraq daha səmərəli və müasir həllər təqdim edirik. Bizim məqsədimiz, müştərilərimizin rəqiblərindən fərqlənməsinə və bazarda güclü mövqe əldə etməsinə dəstək olmaqdır.','Flup Agency, non_profit, \"FLUP\"-Rəqəmsal trendləri o diqtə edir',2018,'Rəqəmsal marketinq və IT xidmətlərimizlə iş proseslərinizi rəqəmsallaşdıraraq daha səmərəli və müasir həllər təqdim edirik. Bizim məqsədimiz, müştərilərimizin rəqiblərindən fərqlənməsinə və bazarda güclü mövqe əldə etməsinə dəstək olmaqdır.','assets/front/custom/images/companies/flup-agency-logo-1757487006.jpg','assets/front/custom/images/companies/flup-agency-background-image-1757487006.jpg','2025-09-09 12:03:16','2025-09-10 06:50:06'),(24,104,'Sinam','sinam',NULL,NULL,'https://sinam.net/en/','sinam@jobnest.az',735,12,'27a Ələsgər Ələkbərov Küçəsi, Bakı, Azerbaijan',40.36966353,49.81880650,'27a Ələsgər Ələkbərov Küçəsi, Bakı, Azerbaijan','4','telecom_it','asc','1',5,0,'0','Sinam','Since 1994, SINAM Ltd has been driving transformation projects in the government and private sectors, with the use of cutting-edge information and communication technologies (ICT). For nearly two decades, the Company helped its clients to improve governance, increase operational efficiency, and boost financial results.\r\n\r\nToday, SINAM is Trans-Caspian\'s market leader in e-Transformation and e-Government services; in fact, it has been instrumental in the region\'s drive for informatization.','Sinam, telecom_it',1994,'Since 1994, SINAM Ltd has been driving transformation projects in the government and private sectors, with the use of cutting-edge information and communication technologies (ICT). For nearly two decades, the Company helped its clients to improve governance, increase operational efficiency, and boost financial results.\r\n\r\nToday, SINAM is Trans-Caspian\'s market leader in e-Transformation and e-Government services; in fact, it has been instrumental in the region\'s drive for informatization.','assets/front/custom/images/companies/sinam-logo-1757488072.jpg','assets/front/custom/images/companies/sinam-background-image-1757488072.jpg','2025-09-09 12:03:33','2025-09-10 07:07:52'),(25,122,'Kapital Bank','kapital-bank',NULL,NULL,'https://www.kapitalbank.az/','kapitalbank@jobnest.az',735,12,'100 Zərgər Palan, Bakı 1009, Azerbaijan',40.37829483,49.83013616,'100 Zərgər Palan, Bakı 1009, Azerbaijan','5','bank_finance','government_entity','1',5,0,'0','Kapital Bank','Bank haqqında\r\nKapital Bank Azərbaycan Əmanət Bankının varisi kimi 150 ildir ki, uğurla fəaliyyət göstərir. Hazırda Kapital Bank Azərbaycanda ən böyük xidmət şəbəkəsinə malik maliyyə qurumudur. Universal bank olan Kapital Bank 5 milyondan çox fiziki və 22 mindən artıq hüquqi şəxslərə xidmət göstərir. Eyni zamanda, Kapital Bank dövlətin həyata keçirdiyi bir sıra sosial proqramlarda yaxından iştirak edir və real sektorun inkişafı üzrə bir sıra proqramları həyata keçirir.\r\n\r\nStrateji baxışımız\r\nDaha dayanıqlı gələcəyi təmin edən və qabaqсıl dünya trendlərini özündə cəmləşdirən, hər kəsin bir nömrəli maliyyə tərəfdaşına çevrilməkdir.\r\n\r\nMissiyamız\r\nHəyatınızın hər bir dönəmində şəffaf maliyyə tərəfdaşlığımızla ölkəmizin sosial-iqtisadi rifah halını birlikdə yüksəltməkdir.','Kapital Bank, bank_finance',1994,'Bank haqqında\r\nKapital Bank Azərbaycan Əmanət Bankının varisi kimi 150 ildir ki, uğurla fəaliyyət göstərir. Hazırda Kapital Bank Azərbaycanda ən böyük xidmət şəbəkəsinə malik maliyyə qurumudur. Universal bank olan Kapital Bank 5 milyondan çox fiziki və 22 mindən artıq hüquqi şəxslərə xidmət göstərir. Eyni zamanda, Kapital Bank dövlətin həyata keçirdiyi bir sıra sosial proqramlarda yaxından iştirak edir və real sektorun inkişafı üzrə bir sıra proqramları həyata keçirir.\r\n\r\nStrateji baxışımız\r\nDaha dayanıqlı gələcəyi təmin edən və qabaqсıl dünya trendlərini özündə cəmləşdirən, hər kəsin bir nömrəli maliyyə tərəfdaşına çevrilməkdir.\r\n\r\nMissiyamız\r\nHəyatınızın hər bir dönəmində şəffaf maliyyə tərəfdaşlığımızla ölkəmizin sosial-iqtisadi rifah halını birlikdə yüksəltməkdir.','assets/front/custom/images/companies/kapital-bank-logo-1757487284.jpg','assets/front/custom/images/companies/kapital-bank-background-image-1757487284.jpg','2025-09-09 12:03:48','2025-09-10 06:54:44');
+INSERT INTO `companies` VALUES (3,71,'JobNest MMC','jobnest-mmc','JobNest Sizin İş yuvanız','+994-(55)-878-37-00','http://jobnest.az/','cv@jobnest.az',735,12,'Baku Rashid Behbudov',40.40284312,49.87063408,'Nariman Narimanov, Bakı, Azerbaijan','0','software_development','ie','1',5,0,'0','JobNest','JobNest - Karyera bizimlə başlayır!','JobNest, telecom_it, JobNest Sizin İş yuvanız',2025,'JobNest - Karyera bizimlə başlayır!','assets/front/custom/images/companies/jobnest-logo-1756982528.png','assets/front/custom/images/companies/jobnest-background-image-1756971351.jpg','2025-05-02 07:15:38','2025-09-04 10:48:35'),(4,74,'Risk Company','risk-company',NULL,NULL,'https://risk.az/','riskcompany@jobnest.az',735,12,'111 Azadlıq Prospekti, Bakı 1007, Azerbaijan',40.38731728,49.84318242,'111 Azadlıq Prospekti, Bakı 1007, Azerbaijan','4','software_development','consortium','1',5,0,'0','Risk Company','Established in 1993, R.I.S.K. Company is one of the leading IT companies in the Central Asia and Caucasus markets providing solutions in IT consultancy, System Integration, IT-outsourcing, Application Development and Geographical Information Systems. R.I.S.K. offers a broad range of innovative solutions for telecom, oil & gas, government & defense, banking & finance and transport sectors.\r\nR.I.S.K. focuses on implementation of large-scale projects of public importance in building ICT Infrastructure, Information Security Systems and Application Platforms. IBM, Dell, Cisco, EMC, Avaya, Oracle, Microsoft, Emerson and other ICT industry leaders are the Company’s official partners.\r\nR.I.S.K. Company’s quality management system is certified according to the international quality standard ISO 9001:2015. R.I.S.K. Company has an active sales operation in more than 20 countries all over the world with registered offices in Azerbaijan, Tajikistan, Georgia.','Risk Company, bank_finance',1999,'Established in 1993, R.I.S.K. Company is one of the leading IT companies in the Central Asia and Caucasus markets providing solutions in IT consultancy, System Integration, IT-outsourcing, Application Development and Geographical Information Systems. R.I.S.K. offers a broad range of innovative solutions for telecom, oil & gas, government & defense, banking & finance and transport sectors.\r\nR.I.S.K. focuses on implementation of large-scale projects of public importance in building ICT Infrastructure, Information Security Systems and Application Platforms. IBM, Dell, Cisco, EMC, Avaya, Oracle, Microsoft, Emerson and other ICT industry leaders are the Company’s official partners.\r\nR.I.S.K. Company’s quality management system is certified according to the international quality standard ISO 9001:2015. R.I.S.K. Company has an active sales operation in more than 20 countries all over the world with registered offices in Azerbaijan, Tajikistan, Georgia.','assets/front/custom/images/companies/risk-company-logo-1757487600.jpg','assets/front/custom/images/companies/risk-company-background-image-1757487600.png','2025-05-02 08:24:05','2025-09-10 07:00:00'),(12,102,'Simbrella','simbrella','First Company in the world to launch Mobile Fintech Services','+994-(12)-404-31-32','https://www.simbrella.com/','baku@simbrella.com',735,12,'Jalil Mammadguluzadeh st. 102 A, City Point Business Centre, AZ1022, Baku, Azerbaijan',40.38261007,49.87013326,'44 Xocalı prospekti, Bakı, Azerbaijan','5','software_development','consortium','1',5,0,'0','Simbrella',NULL,'Simbrella, telecom_it, First Company in the world to launch Mobile Fintech Services',1998,NULL,'assets/front/custom/images/companies/simbrella-logo-1757487890.jpg','assets/front/custom/images/companies/simbrella-background-image-1757487890.png','2025-05-08 07:04:28','2025-09-10 07:04:50'),(14,132,'BestComp Group','bestcomp-group','Trusted by the world’s leading tech companies','+994-(12)-541-47-47','https://bestcomp.net/','bestcomp@jobnest.az',735,12,'31 Hüseyn Cavid Prospekti, Bakı, Azerbaijan',40.37518991,49.81492996,'31 Hüseyn Cavid Prospekti, Bakı, Azerbaijan','5','software_development','cjsc','1',5,0,'0','BestComp Group','Our Integrated Management Systems (IMS) at Bestcomp Group CJSC is more than just combining different management systems; it’s a strategic approach that integrates quality, health and safety, information security, and anti-bribery into one unified system.','BestComp Group, telecom_it, Trusted by the world’s leading tech companies',2025,'Our Integrated Management Systems (IMS) at Bestcomp Group CJSC is more than just combining different management systems; it’s a strategic approach that integrates quality, health and safety, information security, and anti-bribery into one unified system.','assets/front/custom/images/companies/bestcomp-group-logo-1757486655.png','assets/front/custom/images/companies/bestcomp-group-background-image-1757486655.jpg','2025-05-30 07:10:48','2025-09-10 06:44:15'),(22,131,'Azerimed LLC','azerimed-llc','Düzgün seçim, sizin sağlamlığınızdır!',NULL,'https://azerimed.com/','azerimedllc@jobnest.az',735,12,'42a Əhməd Rəcəbli, Bakı 1075, Azerbaijan',40.41117964,49.86369500,'42a Əhməd Rəcəbli, Bakı 1075, Azerbaijan','4','software_development','cjsc','1',5,0,'0','Azerimed LLC','Azəri Med QSC Azərbaycanın ən sürətlə inkişaf edən aparıcı tibbi tədarükçülərindən biridir. Biz xəstəxanalar, apteklər və distribyutorları yüksək keyfiyyətli əczaçılıq məhsulları, qida əlavələri, tibbi cihazlar, sərf materialları və s.ilə təmin edirik. Fəaliyyətimizin mərkəzində insan sağlamlığı dayandığı üçün, böyük məsuliyyət tələb edir və biz peşəkar kadrlarımızın köməyi ilə nəinki Bakıda, həm də Azərbaycanın müxtəlif regionlarında bunun öhdəsindən məharətlə gəlirik. Azəri Med QSC-nin sadə və aydın məqsədi var: insanlara daha yaxşı sağlamlıq yolunda kömək etmək.\r\n\r\n       Qlobal tərəfdaşlarımız və təcrübəli logistik komandamızın köməyi ilə müştərilərimizin ən yüksək keyfiyyət və sərfəli qiymətlərdən faydalanmasını təmin edirik. Həmçinin, tibbi tələblərin yerli, milli və beynəlxalq səviyyələrdə hər zaman vaxtında qarşılanmasına təminat veririk. Azəri Med QSC Roche Diagnostics, Pfizer Export B.V, Novartis Pharma Services AG, Medtronic Trading NL B.V, Sanofi-Aventis SPA, Nature’s Bounty və başqa  dünyada tanınan istehsalçılar ilə əməkdaşlıq edir.\r\n\r\n       Milli apteklər zənciri ilə qabaqcıl müştəri-yönümlü sağlamlıq şirkəti olmaq kimi ortaq bir hədəf ətrafında birləşmişik. Dəyişən istehlakçı ehtiyaclarına əsaslanaraq inkişaf edir və 170-ə yaxın apteklərimiz sayəsində vətəndaşlarımıza olduqları hər yerdə xidmət göstəririk .\r\n\r\n       İnnovasiya və inkişaf, etibarlılıq, humanizm Azəri Med QSC-nin əsas dəyərləridir və məqsədimiz hər kəsin rahat şəkildə əldə edə biləcəyi yüksək keyfiyyətli yeni və çoxşaxəli tibbi məhsullar təklif etməkdir.','Azerimed LLC, telecom_it, Düzgün seçim, sizin sağlamlığınızdır!',2000,'Azəri Med QSC Azərbaycanın ən sürətlə inkişaf edən aparıcı tibbi tədarükçülərindən biridir. Biz xəstəxanalar, apteklər və distribyutorları yüksək keyfiyyətli əczaçılıq məhsulları, qida əlavələri, tibbi cihazlar, sərf materialları və s.ilə təmin edirik. Fəaliyyətimizin mərkəzində insan sağlamlığı dayandığı üçün, böyük məsuliyyət tələb edir və biz peşəkar kadrlarımızın köməyi ilə nəinki Bakıda, həm də Azərbaycanın müxtəlif regionlarında bunun öhdəsindən məharətlə gəlirik. Azəri Med QSC-nin sadə və aydın məqsədi var: insanlara daha yaxşı sağlamlıq yolunda kömək etmək.\r\n\r\n       Qlobal tərəfdaşlarımız və təcrübəli logistik komandamızın köməyi ilə müştərilərimizin ən yüksək keyfiyyət və sərfəli qiymətlərdən faydalanmasını təmin edirik. Həmçinin, tibbi tələblərin yerli, milli və beynəlxalq səviyyələrdə hər zaman vaxtında qarşılanmasına təminat veririk. Azəri Med QSC Roche Diagnostics, Pfizer Export B.V, Novartis Pharma Services AG, Medtronic Trading NL B.V, Sanofi-Aventis SPA, Nature’s Bounty və başqa  dünyada tanınan istehsalçılar ilə əməkdaşlıq edir.\r\n\r\n       Milli apteklər zənciri ilə qabaqcıl müştəri-yönümlü sağlamlıq şirkəti olmaq kimi ortaq bir hədəf ətrafında birləşmişik. Dəyişən istehlakçı ehtiyaclarına əsaslanaraq inkişaf edir və 170-ə yaxın apteklərimiz sayəsində vətəndaşlarımıza olduqları hər yerdə xidmət göstəririk .\r\n\r\n       İnnovasiya və inkişaf, etibarlılıq, humanizm Azəri Med QSC-nin əsas dəyərləridir və məqsədimiz hər kəsin rahat şəkildə əldə edə biləcəyi yüksək keyfiyyətli yeni və çoxşaxəli tibbi məhsullar təklif etməkdir.','assets/front/custom/images/companies/azerimed-llc-logo-1757486137.webp','assets/front/custom/images/companies/azerimed-llc-background-image-1757486137.jpg','2025-09-09 12:02:50','2025-09-10 06:35:37'),(23,129,'Flup Agency','flup-agency','\"FLUP\"-Rəqəmsal trendləri o diqtə edir','+994-(99)-450-70-36','https://flup.agency/','info@flup.az',735,12,'89a Fətəli Xan Xoyski, Bakı, Azerbaijan',40.40261345,49.85468373,'89a Fətəli Xan Xoyski, Bakı, Azerbaijan','1','software_development','cjsc','1',5,0,'0','Flup Agency','Rəqəmsal marketinq və IT xidmətlərimizlə iş proseslərinizi rəqəmsallaşdıraraq daha səmərəli və müasir həllər təqdim edirik. Bizim məqsədimiz, müştərilərimizin rəqiblərindən fərqlənməsinə və bazarda güclü mövqe əldə etməsinə dəstək olmaqdır.','Flup Agency, non_profit, \"FLUP\"-Rəqəmsal trendləri o diqtə edir',2018,'Rəqəmsal marketinq və IT xidmətlərimizlə iş proseslərinizi rəqəmsallaşdıraraq daha səmərəli və müasir həllər təqdim edirik. Bizim məqsədimiz, müştərilərimizin rəqiblərindən fərqlənməsinə və bazarda güclü mövqe əldə etməsinə dəstək olmaqdır.','assets/front/custom/images/companies/flup-agency-logo-1757487006.jpg','assets/front/custom/images/companies/flup-agency-background-image-1757487006.jpg','2025-09-09 12:03:16','2025-09-10 06:50:06'),(24,104,'Sinam','sinam',NULL,NULL,'https://sinam.net/en/','sinam@jobnest.az',735,12,'27a Ələsgər Ələkbərov Küçəsi, Bakı, Azerbaijan',40.36966353,49.81880650,'27a Ələsgər Ələkbərov Küçəsi, Bakı, Azerbaijan','4','telecom_it','cjsc','1',5,0,'0','Sinam','Since 1994, SINAM Ltd has been driving transformation projects in the government and private sectors, with the use of cutting-edge information and communication technologies (ICT). For nearly two decades, the Company helped its clients to improve governance, increase operational efficiency, and boost financial results.\r\n\r\nToday, SINAM is Trans-Caspian\'s market leader in e-Transformation and e-Government services; in fact, it has been instrumental in the region\'s drive for informatization.','Sinam, telecom_it',1994,'Since 1994, SINAM Ltd has been driving transformation projects in the government and private sectors, with the use of cutting-edge information and communication technologies (ICT). For nearly two decades, the Company helped its clients to improve governance, increase operational efficiency, and boost financial results.\r\n\r\nToday, SINAM is Trans-Caspian\'s market leader in e-Transformation and e-Government services; in fact, it has been instrumental in the region\'s drive for informatization.','assets/front/custom/images/companies/sinam-logo-1757488072.jpg','assets/front/custom/images/companies/sinam-background-image-1757488072.jpg','2025-09-09 12:03:33','2025-09-10 07:07:52'),(25,122,'Kapital Bank','kapital-bank',NULL,NULL,'https://www.kapitalbank.az/','kapitalbank@jobnest.az',735,12,'100 Zərgər Palan, Bakı 1009, Azerbaijan',40.37829483,49.83013616,'100 Zərgər Palan, Bakı 1009, Azerbaijan','5','software_development','cjsc','1',5,0,'0','Kapital Bank','Bank haqqında\r\nKapital Bank Azərbaycan Əmanət Bankının varisi kimi 150 ildir ki, uğurla fəaliyyət göstərir. Hazırda Kapital Bank Azərbaycanda ən böyük xidmət şəbəkəsinə malik maliyyə qurumudur. Universal bank olan Kapital Bank 5 milyondan çox fiziki və 22 mindən artıq hüquqi şəxslərə xidmət göstərir. Eyni zamanda, Kapital Bank dövlətin həyata keçirdiyi bir sıra sosial proqramlarda yaxından iştirak edir və real sektorun inkişafı üzrə bir sıra proqramları həyata keçirir.\r\n\r\nStrateji baxışımız\r\nDaha dayanıqlı gələcəyi təmin edən və qabaqсıl dünya trendlərini özündə cəmləşdirən, hər kəsin bir nömrəli maliyyə tərəfdaşına çevrilməkdir.\r\n\r\nMissiyamız\r\nHəyatınızın hər bir dönəmində şəffaf maliyyə tərəfdaşlığımızla ölkəmizin sosial-iqtisadi rifah halını birlikdə yüksəltməkdir.','Kapital Bank, bank_finance',1994,'Bank haqqında\r\nKapital Bank Azərbaycan Əmanət Bankının varisi kimi 150 ildir ki, uğurla fəaliyyət göstərir. Hazırda Kapital Bank Azərbaycanda ən böyük xidmət şəbəkəsinə malik maliyyə qurumudur. Universal bank olan Kapital Bank 5 milyondan çox fiziki və 22 mindən artıq hüquqi şəxslərə xidmət göstərir. Eyni zamanda, Kapital Bank dövlətin həyata keçirdiyi bir sıra sosial proqramlarda yaxından iştirak edir və real sektorun inkişafı üzrə bir sıra proqramları həyata keçirir.\r\n\r\nStrateji baxışımız\r\nDaha dayanıqlı gələcəyi təmin edən və qabaqсıl dünya trendlərini özündə cəmləşdirən, hər kəsin bir nömrəli maliyyə tərəfdaşına çevrilməkdir.\r\n\r\nMissiyamız\r\nHəyatınızın hər bir dönəmində şəffaf maliyyə tərəfdaşlığımızla ölkəmizin sosial-iqtisadi rifah halını birlikdə yüksəltməkdir.','assets/front/custom/images/companies/kapital-bank-logo-1757487284.jpg','assets/front/custom/images/companies/kapital-bank-background-image-1757487284.jpg','2025-09-09 12:03:48','2025-09-10 06:54:44');
 /*!40000 ALTER TABLE `companies` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `company_form_layouts`
+--
+
+DROP TABLE IF EXISTS `company_form_layouts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `company_form_layouts` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `company_form_id` bigint unsigned NOT NULL,
+  `form_step_template_id` bigint unsigned NOT NULL,
+  `form_field_template_id` bigint unsigned NOT NULL,
+  `step_order` int NOT NULL,
+  `field_order` int NOT NULL,
+  `is_required_override` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `company_form_layouts_company_form_id_foreign` (`company_form_id`),
+  KEY `company_form_layouts_form_step_template_id_foreign` (`form_step_template_id`),
+  KEY `company_form_layouts_form_field_template_id_foreign` (`form_field_template_id`),
+  CONSTRAINT `company_form_layouts_company_form_id_foreign` FOREIGN KEY (`company_form_id`) REFERENCES `company_forms` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `company_form_layouts_form_field_template_id_foreign` FOREIGN KEY (`form_field_template_id`) REFERENCES `form_field_templates` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `company_form_layouts_form_step_template_id_foreign` FOREIGN KEY (`form_step_template_id`) REFERENCES `form_step_templates` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `company_form_layouts`
+--
+
+LOCK TABLES `company_form_layouts` WRITE;
+/*!40000 ALTER TABLE `company_form_layouts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `company_form_layouts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `company_forms`
+--
+
+DROP TABLE IF EXISTS `company_forms`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `company_forms` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `company_id` bigint unsigned DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_default` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `company_forms_company_id_foreign` (`company_id`),
+  CONSTRAINT `company_forms_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `company_forms`
+--
+
+LOCK TABLES `company_forms` WRITE;
+/*!40000 ALTER TABLE `company_forms` DISABLE KEYS */;
+/*!40000 ALTER TABLE `company_forms` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -342,6 +504,69 @@ CREATE TABLE `failed_jobs` (
 LOCK TABLES `failed_jobs` WRITE;
 /*!40000 ALTER TABLE `failed_jobs` DISABLE KEYS */;
 /*!40000 ALTER TABLE `failed_jobs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `form_field_templates`
+--
+
+DROP TABLE IF EXISTS `form_field_templates`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `form_field_templates` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `form_step_template_id` bigint unsigned NOT NULL,
+  `label` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` enum('text','email','textarea','file','select','radio','checkbox','date','datetime-local','number') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `options` text COLLATE utf8mb4_unicode_ci,
+  `validation_rules` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `parent_field_id` bigint unsigned DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `form_field_templates_name_unique` (`name`),
+  KEY `form_field_templates_form_step_template_id_foreign` (`form_step_template_id`),
+  KEY `form_field_templates_parent_field_id_foreign` (`parent_field_id`),
+  CONSTRAINT `form_field_templates_form_step_template_id_foreign` FOREIGN KEY (`form_step_template_id`) REFERENCES `form_step_templates` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `form_field_templates_parent_field_id_foreign` FOREIGN KEY (`parent_field_id`) REFERENCES `form_field_templates` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `form_field_templates`
+--
+
+LOCK TABLES `form_field_templates` WRITE;
+/*!40000 ALTER TABLE `form_field_templates` DISABLE KEYS */;
+/*!40000 ALTER TABLE `form_field_templates` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `form_step_templates`
+--
+
+DROP TABLE IF EXISTS `form_step_templates`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `form_step_templates` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `form_step_templates_title_unique` (`title`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `form_step_templates`
+--
+
+LOCK TABLES `form_step_templates` WRITE;
+/*!40000 ALTER TABLE `form_step_templates` DISABLE KEYS */;
+/*!40000 ALTER TABLE `form_step_templates` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -523,7 +748,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -532,7 +757,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'0001_01_01_000000_create_users_table',1),(2,'0001_01_01_000001_create_cache_table',1),(3,'0001_01_01_000002_create_jobs_table',1),(4,'2025_04_29_070644_create_roles_table',2),(5,'2025_04_29_080804_create_role_user_table',2),(6,'2025_04_29_081804_create_permissions_table',2),(7,'2025_04_29_081932_create_permission_role_table',2),(8,'2025_04_29_123247_create_cities_table',3),(9,'2025_04_29_124959_create_job_categories_table',3),(10,'2025_04_29_125019_create_candidates_table',3),(11,'2025_04_29_132219_add_surname_column_to_users',4),(12,'2025_04_30_044603_create_companies_table',5),(13,'2025_04_30_050153_create_social_links_table',5),(14,'2025_05_01_072823_add_column_status_to_companies',6),(15,'2025_05_01_073116_add_column_slug_to_companies',6),(16,'2025_05_01_073337_add_column_status_to_candidates',6),(17,'2025_05_01_081356_create_user_verifies_table',7),(18,'2025_05_02_100635_add_column_status_to_users',8),(19,'2025_05_07_161834_add_column_avatar_to_users',9),(20,'2025_05_15_120541_add_column_to_job_categories',10),(21,'2025_07_04_134840_add_column_is_active_to_roles_table',11),(22,'2025_07_07_114419_add_column_is_active_to_permissions_table',12),(23,'2025_07_11_100238_create_languages_table',13),(24,'2025_07_11_101816_create_content_translations_table',14),(25,'2025_07_21_093235_create_content_translations_table',15),(26,'2025_07_24_141709_create_countries_table',16),(27,'2025_07_24_142739_add_new_coumn_to_cities_table',16),(28,'2025_08_11_111502_create_currencies_table',17),(29,'2025_08_15_150446_add_new_columns_to_candidates_table',18),(30,'2025_08_25_150527_add_new_columns_to_companies_table',19),(31,'2025_08_25_163023_add_new_columns_to_job_categories_table',20),(32,'2025_08_27_113429_create_job_category_translations_table',21);
+INSERT INTO `migrations` VALUES (1,'0001_01_01_000000_create_users_table',1),(2,'0001_01_01_000001_create_cache_table',1),(3,'0001_01_01_000002_create_jobs_table',1),(4,'2025_04_29_070644_create_roles_table',2),(5,'2025_04_29_080804_create_role_user_table',2),(6,'2025_04_29_081804_create_permissions_table',2),(7,'2025_04_29_081932_create_permission_role_table',2),(8,'2025_04_29_123247_create_cities_table',3),(9,'2025_04_29_124959_create_job_categories_table',3),(10,'2025_04_29_125019_create_candidates_table',3),(11,'2025_04_29_132219_add_surname_column_to_users',4),(12,'2025_04_30_044603_create_companies_table',5),(13,'2025_04_30_050153_create_social_links_table',5),(14,'2025_05_01_072823_add_column_status_to_companies',6),(15,'2025_05_01_073116_add_column_slug_to_companies',6),(16,'2025_05_01_073337_add_column_status_to_candidates',6),(17,'2025_05_01_081356_create_user_verifies_table',7),(18,'2025_05_02_100635_add_column_status_to_users',8),(19,'2025_05_07_161834_add_column_avatar_to_users',9),(20,'2025_05_15_120541_add_column_to_job_categories',10),(21,'2025_07_04_134840_add_column_is_active_to_roles_table',11),(22,'2025_07_07_114419_add_column_is_active_to_permissions_table',12),(23,'2025_07_11_100238_create_languages_table',13),(24,'2025_07_11_101816_create_content_translations_table',14),(25,'2025_07_21_093235_create_content_translations_table',15),(26,'2025_07_24_141709_create_countries_table',16),(27,'2025_07_24_142739_add_new_coumn_to_cities_table',16),(28,'2025_08_11_111502_create_currencies_table',17),(29,'2025_08_15_150446_add_new_columns_to_candidates_table',18),(30,'2025_08_25_150527_add_new_columns_to_companies_table',19),(31,'2025_08_25_163023_add_new_columns_to_job_categories_table',20),(32,'2025_08_27_113429_create_job_category_translations_table',21),(35,'2025_09_22_144746_create_vacancies_table',22),(36,'2025_09_22_144746_create_vacancy_skills_table',22),(37,'2025_09_22_144747_create_resumes_table',22),(38,'2025_09_22_144748_create_applications_table',22),(39,'2025_09_25_092156_create_form_step_templates_table',22),(40,'2025_09_25_092201_create_form_field_templates_table',22),(41,'2025_09_25_092206_create_company_forms_table',22),(42,'2025_09_25_092216_create_company_form_layouts_table',22),(43,'2025_09_25_092222_create_application_answers_table',22),(44,'2025_09_25_100038_add_column_company_form_id_to_vacancies_and_applications_table',22);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -618,6 +843,44 @@ LOCK TABLES `permissions` WRITE;
 /*!40000 ALTER TABLE `permissions` DISABLE KEYS */;
 INSERT INTO `permissions` VALUES (1,'create_vacancy','Create Vacancy','1','2025-04-29 04:51:58','2025-07-07 08:42:39'),(2,'edit_vacancy','Edit Vacancy','1','2025-04-29 04:51:58','2025-04-29 04:51:58'),(3,'delete_vacancy','Delete Vacancy','1','2025-04-29 04:51:58','2025-04-29 04:51:58'),(4,'edit_user','Edit User','1','2025-04-29 04:51:58','2025-04-29 04:51:58'),(5,'permission_create','Permission Create','1','2025-07-07 11:07:21','2025-07-07 11:07:21');
 /*!40000 ALTER TABLE `permissions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `resumes`
+--
+
+DROP TABLE IF EXISTS `resumes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `resumes` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `candidate_id` bigint unsigned NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `file_path` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `original_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `file_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `file_size` int NOT NULL,
+  `is_primary` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `is_public` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1',
+  `is_active` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `download_count` int NOT NULL DEFAULT '0',
+  `view_count` int NOT NULL DEFAULT '0',
+  `last_downloaded_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `resumes_candidate_id_foreign` (`candidate_id`),
+  CONSTRAINT `resumes_candidate_id_foreign` FOREIGN KEY (`candidate_id`) REFERENCES `candidates` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `resumes`
+--
+
+LOCK TABLES `resumes` WRITE;
+/*!40000 ALTER TABLE `resumes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `resumes` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -798,8 +1061,118 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (70,'Candidate','1','1','candidate@jobnest.az',NULL,'2025-05-02 07:06:39','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','GN5NfJlsnuj9SjBqcSk2zLB4cAPcKQjIv7YUlhKROhfPWhzJbOfxbhOBUoeX','2025-05-02 07:05:19','2025-05-02 07:06:39'),(71,'JobNest','MMC','1','company@jobnest.az',NULL,'2025-05-02 07:16:07','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','oBETOuf12Eu5mUqqk3e0fjsmwhscNZ8X2nVxTLKU3hxRfnH2zVKDfZuETESs','2025-05-02 07:15:38','2025-09-03 13:04:03'),(72,'Orxan','İsmayılov','1','admin@jobnest.az',NULL,'2025-05-02 08:19:24','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','DYkjq8lDiNEMYLmawfJoNn3cOPvjFLJ1AjS5RAvsh3J7X8FXV1T2o18TSWyV','2025-05-02 07:30:30','2025-05-13 05:24:21'),(73,'Editor',NULL,'1','editor@jobnest.az',NULL,'2025-05-02 08:22:05','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','bIbAsYNNCQEGGfSE5boDLDRonw8xcjrSGKi8eQvECy7QsQjTVF3s9O1bIw7H','2025-05-02 08:21:28','2025-05-02 08:22:05'),(74,'Risk Company',NULL,'1','riskcompany@jobnest.az',NULL,'2025-05-02 08:24:25','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','eGjUtZSAeqt5XZ4XrKf5TS3e7E3F2aFFQDrKfE50gDiqicnhsGHOmiHBek0b','2025-05-02 08:24:05','2025-05-02 08:24:25'),(75,'Test','4','1','test4@jobnest.az',NULL,'2025-05-02 08:40:40','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-02 08:39:04','2025-05-02 08:40:40'),(97,'Harding Cochran','Morrow','1','neguwavy@mailinator.com',NULL,'2025-05-07 10:29:52','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-06 11:38:11','2025-05-07 10:29:52'),(98,'Jolene Steele','Schmidt','1','wifo@mailinator.com',NULL,'2025-05-07 11:03:22','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-07 10:44:38','2025-05-07 11:03:22'),(99,'Daria Lowe','Mayer','1','kalybuse@mailinator.com',NULL,'2025-05-07 11:02:43','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-07 10:57:15','2025-05-07 11:02:43'),(100,'Orxan','Ismayilov','1','ismayilovorxan729@gmail.com',NULL,'2025-05-07 12:48:56','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-07 12:48:01','2025-05-07 12:48:01'),(101,'Alfonso Bowers','Frost','1','neqikake@mailinator.com',NULL,'2025-05-08 05:34:15','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 05:34:05','2025-05-08 05:34:15'),(102,'Simbrella',NULL,'1','simbrella@jobnest.az',NULL,'2025-05-08 07:04:39','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','fxzgknocTHWMNFO4kN3FhvQVlLTYvp1ykZ4kI74uSWXyLzRkuRdQF6uF3Uoe','2025-05-08 07:04:28','2025-05-08 07:04:39'),(104,'Sinam',NULL,'1','sinam@jobnest.az',NULL,'2025-05-08 07:07:24','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','iB4tsmwkVGVcA3WQibAM0YC9VxQ37uxpYdPY24eQs3jv5TudaJhYLHojVcvQ','2025-05-08 07:07:17','2025-05-08 07:07:24'),(105,'Ryder Pope','Cummings','1','fohigeb@mailinator.com',NULL,'2025-05-08 07:09:58','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 07:09:49','2025-05-08 07:09:58'),(106,'Maryam Allison','Best','1','ganexepatu@mailinator.com',NULL,'2025-05-08 07:11:50','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 07:11:43','2025-05-08 07:11:50'),(107,'Fredericka Tillman','Osborne','1','tazaka@mailinator.com',NULL,'2025-05-08 07:25:27','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 07:25:20','2025-05-08 07:25:27'),(108,'Basil Donovan','Calderon','1','gyvyj@mailinator.com',NULL,'2025-05-08 07:26:02','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','42aG82eRK8Xq8iCtv55p0IO6Sy0BM7ePCJrVfQeg4ikwITyzfH101QUaL9FA','2025-05-08 07:25:53','2025-05-08 07:26:02'),(109,'Geoffrey Hendrix','Frederick','1','kisu@mailinator.com',NULL,'2025-05-08 07:29:41','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 07:29:33','2025-05-08 07:29:41'),(110,'TESST','Wade','1','buxubyl@mailinator.com',NULL,'2025-05-08 07:39:10','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 07:38:23','2025-05-08 07:39:10'),(111,'Reece Zamora','Merrill','1','lydu@mailinator.com',NULL,'2025-05-08 07:42:10','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 07:41:59','2025-05-08 07:42:10'),(112,'Olga Bishop','Suarez','1','totu@mailinator.com',NULL,'2025-05-08 07:46:31','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 07:46:24','2025-05-08 07:46:31'),(113,'Sybill Compton','Sears','1','qylyhyf@mailinator.com',NULL,'2025-05-08 07:54:46','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 07:54:36','2025-05-08 07:54:46'),(114,'Hanna Foreman','Chavez','1','solos@mailinator.com',NULL,'2025-05-08 07:59:48','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','oAwoG3Gc55zVnIb2vhgq1nBCYKT87MlkQzKy59dslAnOw0xuWkwdDeekKrqY','2025-05-08 07:59:35','2025-05-12 10:41:15'),(115,'Jameson Shepherd','Schneider','2','gazaji@mailinator.com',NULL,NULL,'$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 08:01:29','2025-05-12 10:39:45'),(116,'Alexa Whitney','Schroeder','1','bugac@mailinator.com',NULL,'2025-05-08 08:26:28','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 08:26:16','2025-05-08 08:26:28'),(117,'Avye Carpenter','Hendrix','1','xuqeza@mailinator.com',NULL,'2025-05-08 08:29:50','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 08:29:39','2025-05-08 08:29:50'),(118,'Harriet Haney','Duke','1','nibiqe@mailinator.com',NULL,'2025-05-08 08:36:04','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 08:35:12','2025-05-08 08:36:04'),(119,'Isaiah Finch','Erickson','1','muhukisof@mailinator.com',NULL,'2025-05-08 08:40:27','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 08:40:15','2025-05-08 08:40:27'),(120,'Yael Santos','Pierce','1','hapu@mailinator.com',NULL,'2025-05-08 10:06:15','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','0zZbpwN9kxpjgKuZOSEDHsHXpZIMKM5ZHfNvSadPH1AwHzmoIuzPt5BvmCgy','2025-05-08 10:06:00','2025-05-08 10:06:15'),(121,'Kermit Mitchell','Lopez','1','wejyx@mailinator.com',NULL,'2025-05-08 10:07:13','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','XTgorTxqrdDpSW3ixUuUVCfigvoCyugnvtddDvLAtrN4SlxDsY7znyWWWaFv','2025-05-08 10:07:05','2025-05-08 10:07:13'),(122,'Kapital Bank',NULL,'1','kapitalbank@jobnest.az',NULL,'2025-05-08 10:08:06','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','nsJreUR8GYqJFh0YWZ3EnlGdhW1iwpOtN2lfmsoh4vz5xO9lEhrFKqqbXUdu','2025-05-08 10:07:59','2025-05-08 10:08:06'),(123,'Brock May','Rosales','1','hihaba@mailinator.com','','2025-05-08 10:09:41','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 10:09:34','2025-05-08 10:09:41'),(124,'Orlando Weiss','Acosta','1','nyfivymuk@mailinator.com',NULL,'2025-05-08 10:10:30','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 10:10:24','2025-05-08 10:10:30'),(125,'Aspen Hanson','Davis','1','fagizan@mailinator.com',NULL,'2025-05-08 10:12:04','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 10:11:57','2025-05-08 10:12:04'),(126,'Nina Carson','Patrick','2','bybogylo@mailinator.com',NULL,NULL,'$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-12 07:02:58','2025-05-12 07:02:58'),(127,'Bree Michael','English','2','nufizexetu@mailinator.com',NULL,NULL,'$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-12 07:03:29','2025-05-12 07:03:29'),(129,'Flup Agency',NULL,'1','flupagency@jobnest.az',NULL,'2025-05-12 11:09:43','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','oR5GaqWmFIuMp2BVE2OCvhmjbLQGwt2ZUM4yqa5p3Rc0AW1zJlUCmm4OC9vN','2025-05-12 11:09:06','2025-09-09 12:03:08'),(130,'Sonia Hopkins','Clark','1','qygyl@mailinator.com',NULL,NULL,'$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-30 07:05:51','2025-05-30 07:05:51'),(131,'Azerimed LLC',NULL,'1','azerimedllc@jobnest.az',NULL,'2025-05-08 08:40:27','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','PSTe9UejgbYMJwNKrxFVL1qJ4AZ53A6F9LFqVbhTmwN6tAnEfkqsTGMeCKCk','2025-05-30 07:08:53','2025-09-09 12:02:50'),(132,'BestComp Group',NULL,'1','bestcomp@jobnest.az',NULL,'2025-05-30 07:16:58','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','k7EVXY9TaVpAUxV4eBULxQPLZo3DURj3mZuqDGIPqTIVXzVHGa1LHOPxlkeY','2025-05-30 07:10:48','2025-09-10 06:44:15'),(133,'Cally Hamilton test','Whitfield','1','rmetunovo1@mailinator.com',NULL,'2025-05-30 07:16:58','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-30 07:16:58','2025-07-04 08:12:34'),(134,'Developer2',NULL,'1','developer2@jobnest.az','assets/admin/custom/images/users/developer2-1751546208.jpg','2025-05-30 07:22:38','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-30 07:22:38','2025-07-04 08:30:40');
+INSERT INTO `users` VALUES (70,'Candidate','1','1','candidate@jobnest.az',NULL,'2025-05-02 07:06:39','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','GN5NfJlsnuj9SjBqcSk2zLB4cAPcKQjIv7YUlhKROhfPWhzJbOfxbhOBUoeX','2025-05-02 07:05:19','2025-05-02 07:06:39'),(71,'JobNest','MMC','1','company@jobnest.az',NULL,'2025-05-02 07:16:07','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','oBETOuf12Eu5mUqqk3e0fjsmwhscNZ8X2nVxTLKU3hxRfnH2zVKDfZuETESs','2025-05-02 07:15:38','2025-09-03 13:04:03'),(72,'Orxan','İsmayılov','1','admin@jobnest.az',NULL,'2025-05-02 08:19:24','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','DYkjq8lDiNEMYLmawfJoNn3cOPvjFLJ1AjS5RAvsh3J7X8FXV1T2o18TSWyV','2025-05-02 07:30:30','2025-05-13 05:24:21'),(73,'Editor',NULL,'1','editor@jobnest.az',NULL,'2025-05-02 08:22:05','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','bIbAsYNNCQEGGfSE5boDLDRonw8xcjrSGKi8eQvECy7QsQjTVF3s9O1bIw7H','2025-05-02 08:21:28','2025-05-02 08:22:05'),(74,'Risk Company',NULL,'1','riskcompany@jobnest.az',NULL,'2025-05-02 08:24:25','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','eGjUtZSAeqt5XZ4XrKf5TS3e7E3F2aFFQDrKfE50gDiqicnhsGHOmiHBek0b','2025-05-02 08:24:05','2025-05-02 08:24:25'),(75,'Test','4','1','test4@jobnest.az',NULL,'2025-05-02 08:40:40','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-02 08:39:04','2025-05-02 08:40:40'),(97,'Harding Cochran','Morrow','1','neguwavy@mailinator.com',NULL,'2025-05-07 10:29:52','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-06 11:38:11','2025-05-07 10:29:52'),(98,'Jolene Steele','Schmidt','1','wifo@mailinator.com',NULL,'2025-05-07 11:03:22','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-07 10:44:38','2025-05-07 11:03:22'),(99,'Daria Lowe','Mayer','1','kalybuse@mailinator.com',NULL,'2025-05-07 11:02:43','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-07 10:57:15','2025-05-07 11:02:43'),(100,'Orxan','Ismayilov','1','ismayilovorxan729@gmail.com',NULL,'2025-05-07 12:48:56','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-07 12:48:01','2025-05-07 12:48:01'),(101,'Alfonso Bowers','Frost','1','neqikake@mailinator.com',NULL,'2025-05-08 05:34:15','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 05:34:05','2025-05-08 05:34:15'),(102,'Simbrella',NULL,'1','simbrella@jobnest.az',NULL,'2025-05-08 07:04:39','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','fxzgknocTHWMNFO4kN3FhvQVlLTYvp1ykZ4kI74uSWXyLzRkuRdQF6uF3Uoe','2025-05-08 07:04:28','2025-05-08 07:04:39'),(104,'Sinam',NULL,'1','sinam@jobnest.az',NULL,'2025-05-08 07:07:24','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','KyRd69GXMM0aqdABe5dLW4lNK5e7Pyik0sGLRcZHt8z9wkiInWfjQ7tXH6Sw','2025-05-08 07:07:17','2025-05-08 07:07:24'),(105,'Ryder Pope','Cummings','1','fohigeb@mailinator.com',NULL,'2025-05-08 07:09:58','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 07:09:49','2025-05-08 07:09:58'),(106,'Maryam Allison','Best','1','ganexepatu@mailinator.com',NULL,'2025-05-08 07:11:50','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 07:11:43','2025-05-08 07:11:50'),(107,'Fredericka Tillman','Osborne','1','tazaka@mailinator.com',NULL,'2025-05-08 07:25:27','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 07:25:20','2025-05-08 07:25:27'),(108,'Basil Donovan','Calderon','1','gyvyj@mailinator.com',NULL,'2025-05-08 07:26:02','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','42aG82eRK8Xq8iCtv55p0IO6Sy0BM7ePCJrVfQeg4ikwITyzfH101QUaL9FA','2025-05-08 07:25:53','2025-05-08 07:26:02'),(109,'Geoffrey Hendrix','Frederick','1','kisu@mailinator.com',NULL,'2025-05-08 07:29:41','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 07:29:33','2025-05-08 07:29:41'),(110,'TESST','Wade','1','buxubyl@mailinator.com',NULL,'2025-05-08 07:39:10','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 07:38:23','2025-05-08 07:39:10'),(111,'Reece Zamora','Merrill','1','lydu@mailinator.com',NULL,'2025-05-08 07:42:10','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 07:41:59','2025-05-08 07:42:10'),(112,'Olga Bishop','Suarez','1','totu@mailinator.com',NULL,'2025-05-08 07:46:31','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 07:46:24','2025-05-08 07:46:31'),(113,'Sybill Compton','Sears','1','qylyhyf@mailinator.com',NULL,'2025-05-08 07:54:46','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 07:54:36','2025-05-08 07:54:46'),(114,'Hanna Foreman','Chavez','1','solos@mailinator.com',NULL,'2025-05-08 07:59:48','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','oAwoG3Gc55zVnIb2vhgq1nBCYKT87MlkQzKy59dslAnOw0xuWkwdDeekKrqY','2025-05-08 07:59:35','2025-05-12 10:41:15'),(115,'Jameson Shepherd','Schneider','2','gazaji@mailinator.com',NULL,NULL,'$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 08:01:29','2025-05-12 10:39:45'),(116,'Alexa Whitney','Schroeder','1','bugac@mailinator.com',NULL,'2025-05-08 08:26:28','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 08:26:16','2025-05-08 08:26:28'),(117,'Avye Carpenter','Hendrix','1','xuqeza@mailinator.com',NULL,'2025-05-08 08:29:50','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 08:29:39','2025-05-08 08:29:50'),(118,'Harriet Haney','Duke','1','nibiqe@mailinator.com',NULL,'2025-05-08 08:36:04','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 08:35:12','2025-05-08 08:36:04'),(119,'Isaiah Finch','Erickson','1','muhukisof@mailinator.com',NULL,'2025-05-08 08:40:27','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 08:40:15','2025-05-08 08:40:27'),(120,'Yael Santos','Pierce','1','hapu@mailinator.com',NULL,'2025-05-08 10:06:15','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','0zZbpwN9kxpjgKuZOSEDHsHXpZIMKM5ZHfNvSadPH1AwHzmoIuzPt5BvmCgy','2025-05-08 10:06:00','2025-05-08 10:06:15'),(121,'Kermit Mitchell','Lopez','1','wejyx@mailinator.com',NULL,'2025-05-08 10:07:13','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','XTgorTxqrdDpSW3ixUuUVCfigvoCyugnvtddDvLAtrN4SlxDsY7znyWWWaFv','2025-05-08 10:07:05','2025-05-08 10:07:13'),(122,'Kapital Bank',NULL,'1','kapitalbank@jobnest.az',NULL,'2025-05-08 10:08:06','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','nsJreUR8GYqJFh0YWZ3EnlGdhW1iwpOtN2lfmsoh4vz5xO9lEhrFKqqbXUdu','2025-05-08 10:07:59','2025-05-08 10:08:06'),(123,'Brock May','Rosales','1','hihaba@mailinator.com','','2025-05-08 10:09:41','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 10:09:34','2025-05-08 10:09:41'),(124,'Orlando Weiss','Acosta','1','nyfivymuk@mailinator.com',NULL,'2025-05-08 10:10:30','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 10:10:24','2025-05-08 10:10:30'),(125,'Aspen Hanson','Davis','1','fagizan@mailinator.com',NULL,'2025-05-08 10:12:04','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-08 10:11:57','2025-05-08 10:12:04'),(126,'Nina Carson','Patrick','2','bybogylo@mailinator.com',NULL,NULL,'$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-12 07:02:58','2025-05-12 07:02:58'),(127,'Bree Michael','English','2','nufizexetu@mailinator.com',NULL,NULL,'$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-12 07:03:29','2025-05-12 07:03:29'),(129,'Flup Agency',NULL,'1','flupagency@jobnest.az',NULL,'2025-05-12 11:09:43','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','oR5GaqWmFIuMp2BVE2OCvhmjbLQGwt2ZUM4yqa5p3Rc0AW1zJlUCmm4OC9vN','2025-05-12 11:09:06','2025-09-09 12:03:08'),(130,'Sonia Hopkins','Clark','1','qygyl@mailinator.com',NULL,NULL,'$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-30 07:05:51','2025-05-30 07:05:51'),(131,'Azerimed LLC',NULL,'1','azerimedllc@jobnest.az',NULL,'2025-05-08 08:40:27','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','PSTe9UejgbYMJwNKrxFVL1qJ4AZ53A6F9LFqVbhTmwN6tAnEfkqsTGMeCKCk','2025-05-30 07:08:53','2025-09-09 12:02:50'),(132,'BestComp Group',NULL,'1','bestcomp@jobnest.az',NULL,'2025-05-30 07:16:58','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe','k7EVXY9TaVpAUxV4eBULxQPLZo3DURj3mZuqDGIPqTIVXzVHGa1LHOPxlkeY','2025-05-30 07:10:48','2025-09-10 06:44:15'),(133,'Cally Hamilton test','Whitfield','1','rmetunovo1@mailinator.com',NULL,'2025-05-30 07:16:58','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-30 07:16:58','2025-07-04 08:12:34'),(134,'Developer2',NULL,'1','developer2@jobnest.az','assets/admin/custom/images/users/developer2-1751546208.jpg','2025-05-30 07:22:38','$2y$12$h9Aj3nHT/A3BnzJpVAyJMejmSVroSHj/umyz6Wl4gjk13YHnPzYVe',NULL,'2025-05-30 07:22:38','2025-07-04 08:30:40');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `vacancies`
+--
+
+DROP TABLE IF EXISTS `vacancies`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `vacancies` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `requirements` text COLLATE utf8mb4_unicode_ci,
+  `benefits` text COLLATE utf8mb4_unicode_ci,
+  `responsibilities` text COLLATE utf8mb4_unicode_ci,
+  `company_id` bigint unsigned NOT NULL,
+  `company_form_id` bigint unsigned DEFAULT NULL,
+  `country_id` bigint unsigned NOT NULL,
+  `city_id` bigint unsigned NOT NULL,
+  `job_category_id` bigint unsigned NOT NULL,
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `vacancy_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `experience_level` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `workplace_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `education_level` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `min_salary` decimal(8,2) DEFAULT NULL,
+  `max_salary` decimal(8,2) DEFAULT NULL,
+  `salary_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'monthly',
+  `currency_id` bigint unsigned NOT NULL,
+  `show_salary` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1',
+  `salary_negotiable` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `application_deadline` date DEFAULT NULL,
+  `max_applications` int DEFAULT NULL,
+  `total_applications` int NOT NULL DEFAULT '0',
+  `total_views` int NOT NULL DEFAULT '0',
+  `application_method` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `external_url` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `contact_email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `custom_questions` json DEFAULT NULL,
+  `seo_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `seo_description` text COLLATE utf8mb4_unicode_ci,
+  `seo_keywords` json DEFAULT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'draft',
+  `is_featured` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `is_urgent` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `is_premium` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
+  `views_count` int NOT NULL DEFAULT '0',
+  `last_viewed_at` timestamp NULL DEFAULT NULL,
+  `view_analytics` json DEFAULT NULL,
+  `published_at` timestamp NULL DEFAULT NULL,
+  `expires_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `vacancies_slug_unique` (`slug`),
+  KEY `vacancies_company_id_foreign` (`company_id`),
+  KEY `vacancies_country_id_foreign` (`country_id`),
+  KEY `vacancies_city_id_foreign` (`city_id`),
+  KEY `vacancies_job_category_id_foreign` (`job_category_id`),
+  KEY `vacancies_currency_id_foreign` (`currency_id`),
+  KEY `vacancies_company_form_id_foreign` (`company_form_id`),
+  CONSTRAINT `vacancies_city_id_foreign` FOREIGN KEY (`city_id`) REFERENCES `cities` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `vacancies_company_form_id_foreign` FOREIGN KEY (`company_form_id`) REFERENCES `company_forms` (`id`) ON DELETE SET NULL,
+  CONSTRAINT `vacancies_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `vacancies_country_id_foreign` FOREIGN KEY (`country_id`) REFERENCES `countries` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `vacancies_currency_id_foreign` FOREIGN KEY (`currency_id`) REFERENCES `currencies` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `vacancies_job_category_id_foreign` FOREIGN KEY (`job_category_id`) REFERENCES `job_categories` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `vacancies`
+--
+
+LOCK TABLES `vacancies` WRITE;
+/*!40000 ALTER TABLE `vacancies` DISABLE KEYS */;
+/*!40000 ALTER TABLE `vacancies` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `vacancy_skills`
+--
+
+DROP TABLE IF EXISTS `vacancy_skills`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `vacancy_skills` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `vacancy_id` bigint unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `requirement_level` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'required',
+  `proficiency_level` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `vacancy_skills_vacancy_id_foreign` (`vacancy_id`),
+  CONSTRAINT `vacancy_skills_vacancy_id_foreign` FOREIGN KEY (`vacancy_id`) REFERENCES `vacancies` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `vacancy_skills`
+--
+
+LOCK TABLES `vacancy_skills` WRITE;
+/*!40000 ALTER TABLE `vacancy_skills` DISABLE KEYS */;
+/*!40000 ALTER TABLE `vacancy_skills` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -811,4 +1184,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-09-10 11:55:08
+-- Dump completed on 2025-09-25 11:13:50

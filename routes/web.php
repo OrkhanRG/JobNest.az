@@ -87,9 +87,9 @@ Route::name("front.")->group(function(){
             Route::get("/manage-jobs", [CompanyController::class, "manageJobs"])->name("manage-jobs");
 
             //--post-job
-            Route::prefix("profile")->group(function(){
-                Route::get("/", [CompanyController::class, "postJob"])->name("post-job");
-                Route::put("/update", [CompanyController::class, "profileUpdate"])->name("profile.update");
+            Route::prefix("post-job")->name("post-job.")->group(function(){
+                Route::get("/", [VacancyController::class, "create"])->name("create");
+                Route::post("/create", [VacancyController::class, "store"])->name("store");
             });
 
             Route::get("/transaction", [CompanyController::class, "transaction"])->name("transaction");
