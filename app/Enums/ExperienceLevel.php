@@ -15,12 +15,12 @@ enum ExperienceLevel: string
     public static function getLabel(string $value): ?string
     {
         return match($value) {
-            self::ENTRY->value => 'təcrübəsiz',
-            self::JUNIOR->value => 'az təcrübəli',
-            self::MID->value => 'orta təcrübəli',
-            self::SENIOR->value => 'yüksək təcrübəli',
-            self::LEAD->value => 'rəhbər',
-            self::EXPERT->value => 'ekspert',
+            self::ENTRY->value => 'Təcrübəsiz',
+            self::JUNIOR->value => 'Yeni Başlayan (Junior)',
+            self::MID->value => 'Orta Səviyyə (Mid-level)',
+            self::SENIOR->value => 'Yüksək Səviyyə (Senior)',
+            self::LEAD->value => 'Rəhbər (Lead)',
+            self::EXPERT->value => 'Ekspert',
             default => null
         };
     }

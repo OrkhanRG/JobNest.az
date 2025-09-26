@@ -47,7 +47,7 @@ class JobCategory extends Model
                 if ($relation === 'children') {
                     $withRelations['children'] = function ($query) use ($params) {
                         if (isset($params['is_active']) && in_array($params['is_active'], ['0', '1'])) {
-                            $query->where('is_active', $params['is_active']);
+                            $query->where('is_active', $params['is_active'])->orderBy("name", "asc");
                         }
 
                         if (@$params["keyword"]) {
@@ -88,6 +88,11 @@ class JobCategory extends Model
             $query->offset($params["offset"]);
         }
 
-        return $query->orderBy("id", "desc")->get();
+        match (@$params["order_by"]) {
+            "name_asc" => $query->orderBy("name", "asc"),
+            default => $query->orderBy("id", "desc")
+        };
+
+        return $query->get();
     }
 }

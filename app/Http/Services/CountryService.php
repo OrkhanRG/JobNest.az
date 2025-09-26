@@ -24,7 +24,7 @@ class CountryService extends BaseService
                 "filter" =>  $params,
                 "with" => "language"
             ],
-            "short_name"
+            "name"
         );
     }
 

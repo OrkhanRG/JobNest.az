@@ -11,9 +11,9 @@ enum ApplicationMethod: string
     public static function getLabel(string $value): ?string
     {
         return match ($value) {
-            self::INTERNAL->value => 'sistem vasitəsilə',
-            self::EXTERNAL->value => 'xarici link',
-            self::EMAIL->value => 'elektron poçt',
+            self::INTERNAL->value => 'Sayt üzərindən',
+            self::EXTERNAL->value => 'Xarici link ilə',
+            self::EMAIL->value => 'E-mail ilə',
             default => null
         };
     }

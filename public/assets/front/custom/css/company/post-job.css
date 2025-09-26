@@ -1,0 +1,144 @@
+/* Wizard Styles */
+.wizard-steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    padding: 0;
+    list-style: none;
+    position: relative;
+}
+.wizard-step {
+    text-align: center;
+    flex-grow: 1;
+    position: relative;
+    z-index: 1;
+}
+.wizard-step .step-number {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    background-color: #f2f2f2;
+    color: #888;
+    display: inline-block;
+    font-weight: bold;
+    border: 2px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+.wizard-step .step-title {
+    margin-top: 10px;
+    color: #888;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+.wizard-step.active .step-number {
+    background-color: #0d6efd;
+    color: #fff;
+    border-color: #0d6efd;
+}
+.wizard-step.active .step-title {
+    color: #0d6efd;
+    font-weight: 600;
+}
+.wizard-step.completed .step-number {
+    background-color: #198754;
+    color: #fff;
+    border-color: #198754;
+}
+.wizard-step.completed .step-title {
+    color: #198754;
+}
+
+/* Connector line */
+.wizard-steps::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: #e0e0e0;
+    z-index: 0;
+}
+
+.wizard-progress-bar {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    height: 2px;
+    background-color: #198754;
+    z-index: 0;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+
+.wizard-content .wizard-pane {
+    display: none;
+}
+.wizard-content .wizard-pane.active {
+    display: block;
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.wizard-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Skills Input */
+.skill-input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 10px;
+}
+.skill-input-group > * {
+    flex-grow: 1;
+}
+.skill-input-group .remove-skill-btn {
+    flex-grow: 0;
+    min-width: 40px;
+    height: 40px;
+    background: #ff5b5b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* "Bacarıq Əlavə Et" düyməsi üçün təkmilləşdirilmiş stil */
+.site-button-link {
+    background: none !important;
+    border: 1px solid transparent !important;
+    padding: 5px 10px !important;
+    color: #0d6efd; /* Primary color */
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 15px;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+}
+.site-button-link:hover {
+    background-color: rgba(13, 110, 253, 0.1) !important; /* Hover-da yüngül arxa fon */
+    color: #0a58ca; /* Darker primary color */
+    text-decoration: none !important; /* Alt xətti ləğv et */
+}
+
+/* Validation Style Update - SADƏLƏŞDİRİLMİŞ VERSİYA */
+.form-group.is-invalid > label {
+    color: #ff5b5b !important;
+}
+.validation-error-message {
+    color: #ff5b5b;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 15px;
+    display: none;
+}

@@ -6,21 +6,23 @@ enum EducationLevel: string
 {
 
     case HIGH_SCHOOL = "high-school";
+    case HIGH_SCHOOL_TECHNICAL = "high-school-technical";
+    case VOCATIONAL = "vocational";
     case BACHELORS = "bachelors";
     case MASTERS = "masters";
     case PHD = "phd";
-    case VOCATIONAL = "vocational";
     case NO_DEGREE = "no-degree";
 
     public static function getLabel(string $value): ?string
     {
         return match ($value) {
-            self::HIGH_SCHOOL->value => 'orta təhsil',
-            self::BACHELORS->value => 'bakalavr',
-            self::MASTERS->value => 'magistr',
-            self::PHD->value => 'doktorantura',
-            self::VOCATIONAL->value => 'peşə təhsili',
-            self::NO_DEGREE->value => 'təhsil tələb olunmur',
+            self::HIGH_SCHOOL->value => 'Orta',
+            self::HIGH_SCHOOL_TECHNICAL->value => 'Orta Texniki',
+            self::VOCATIONAL->value => 'Peşə',
+            self::BACHELORS->value => 'Ali',
+            self::MASTERS->value => 'Magistr',
+            self::PHD->value => 'Doktorantura',
+            self::NO_DEGREE->value => 'Təhsil tələb olunmur',
             default => null
         };
     }
