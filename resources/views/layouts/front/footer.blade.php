@@ -1,4 +1,4 @@
-        <footer class="footer-dark" style="background-image: url({{ asset("assets/front/images/f-bg.jpg") }});" id="page-footer">
+        <footer class="footer-light" id="page-footer">
             <div class="container">
                 <input type="hidden" data-role="show-reset-password-modal" value="{{ $show_forgot_password ?? 0 }}">
                 <!-- NEWS LETTER SECTION START -->
@@ -29,7 +29,7 @@
 
                             <div class="widget widget_about">
                                 <div class="logo-footer clearfix">
-                                    <a href="{{ route("front.index") }}"><img src="{{ asset("assets/front/images/logo-light.png") }}" alt=""></a>
+                                    <a href="{{ route("front.index") }}"><img src="{{ asset("assets/front/images/logo-dark.svg") }}" alt=""></a>
                                 </div>
                                 <p>JobNest — Peşəkarlar burada birləşir!</p>
                                 <ul class="ftr-list">

@@ -1,0 +1,111 @@
+.twm-top-wide-banner {
+    margin-top: 80px;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 220px;
+    border-radius: 0 0 20px 20px;
+    overflow: hidden;
+}
+.twm-top-wide-banner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 38, 77, 0.55);
+    z-index: 1;
+}
+.twm-top-wide-banner .ani-circle-1,
+.twm-top-wide-banner .ani-circle-2 {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.2;
+    z-index: 2;
+}
+.twm-top-wide-banner .ani-circle-1 {
+    width: 150px;
+    height: 150px;
+    background: #fff;
+    top: 20px;
+    left: 20px;
+}
+.twm-top-wide-banner .ani-circle-2 {
+    width: 200px;
+    height: 200px;
+    background: #2563eb;
+    bottom: -50px;
+    right: -50px;
+}
+
+/* Kart banner altına taşan */
+.twm-employer-card {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px 25px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    max-width: 850px;
+    margin: -60px auto 40px auto; /* taşırma */
+    position: relative;
+    z-index: 5;
+}
+
+.twm-employer-card img {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    border-radius: 12px;
+    background: #f8fafc;
+    padding: 8px;
+    border: 2px solid #e2e8f0;
+}
+
+.twm-employer-card h3 {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #1e293b;
+}
+
+.twm-employer-card p,
+.twm-employer-card a {
+    margin: 4px 0 0;
+    font-size: 1rem;
+    color: #475569;
+}
+
+.twm-employer-card a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #2563eb;
+    font-weight: 500;
+    text-decoration: none;
+}
+.twm-employer-card a:hover {
+    text-decoration: underline;
+}
+
+/* Sosyal ikonlar */
+.twm-social-btns {
+    margin-top: 12px;
+}
+.twm-social-btns a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #f1f5f9;
+    color: #334155;
+    margin-right: 8px;
+    transition: all 0.2s ease;
+}
+.twm-social-btns a:hover {
+    /*background: #2563eb;*/
+    color: #fff;
+}
